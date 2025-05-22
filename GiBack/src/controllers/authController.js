@@ -5,15 +5,44 @@ const User = require('../models/User');
 // Registro de usuario
 exports.register = async (req, res) => {
   try {
-    const { email, password, nombre, apellido1, apellido2, role } = req.body;
-    const user = new User({ email, password, nombre, apellido1, apellido2, role });
+    // Sólo tomamos estos campos del body
+    const {
+      email, password, nombre, apellido1, apellido2,
+      dni, telefono, foto
+    } = req.body;
+
+    // Creamos el usuario con defaults seguros
+    const user = new User({
+      email,
+      password,
+      nombre,
+      apellido1,
+      apellido2,
+      dni,
+      telefono,
+      foto,
+      // Campos que NO puede definir el atleta al registrarse
+      role:          'atleta',
+      cinturon:      undefined,
+      grado:         undefined,
+      fechaInicio:   undefined,
+      fechaDesde:    undefined
+    });
+
     await user.save();
+
+    // Genera el token
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: '30d' }
     );
-    res.status(201).json({ token, user: { ...user.toObject(), password: undefined } });
+
+    // Excluye la contraseña
+    const userData = user.toObject();
+    delete userData.password;
+
+    res.status(201).json({ token, user: userData });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

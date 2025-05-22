@@ -11,3 +11,5 @@ const ReservaSchema = new mongoose.Schema({
   },
   fechaReserva: { type: Date, default: Date.now }
 }, { timestamps: true });
+
+module.exports = mongoose.model('Reserva', ReservaSchema);

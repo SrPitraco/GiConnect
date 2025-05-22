@@ -16,3 +16,5 @@ const ClaseSchema = new mongoose.Schema({
   maxPlazas:    { type: Number, default: 20 },
   instructor:   { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
 }, { timestamps: true });
+
+module.exports = mongoose.model('Clase', ClaseSchema);

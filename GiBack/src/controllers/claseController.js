@@ -1,4 +1,5 @@
 const Clase = require('../models/Clase');
+console.log('Modelo Clase cargado:', Clase);
 const moment = require('moment'); // para manipular fechas
 
 // Listar todas las clases
