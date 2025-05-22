@@ -1,29 +1,36 @@
 import { Routes } from '@angular/router';
+import { LoginPage } from './auth/login/login.page';
+import { RegisterPage } from './auth/register/register.page';
+import { ListPage } from './clases/list/list.page';
+import { DashboardPage } from './maestro/dashboard/dashboard.page';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },
-  {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
+    redirectTo: 'login',
+    pathMatch: 'full'
   },
+
   {
     path: 'login',
-    loadComponent: () => import('./auth/login/login.page').then( m => m.LoginPage)
+    component: LoginPage
   },
+
   {
     path: 'register',
-    loadComponent: () => import('./auth/register/register.page').then( m => m.RegisterPage)
+    component: RegisterPage
   },
+
   {
-    path: 'list',
-    loadComponent: () => import('./clases/list/list.page').then( m => m.ListPage)
+    path: 'clases',
+    component: ListPage,
+    canActivate: [authGuard]
   },
+  
   {
-    path: 'dashboard',
-    loadComponent: () => import('./maestro/dashboard/dashboard.page').then( m => m.DashboardPage)
-  },
+    path: 'maestro',
+    component: DashboardPage,
+    canActivate: [authGuard]
+  }
 ];
