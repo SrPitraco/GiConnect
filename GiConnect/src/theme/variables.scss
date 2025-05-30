@@ -1,4 +1,56 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
 
+/* src/theme/variables.scss */
+
+/* Paleta Principal */
+:root {
+  --ion-color-primary:         #153ae0;
+  --ion-color-primary-contrast: #ffffff;
+  
+
+  /* Secundarios */
+  --ion-color-secondary:       #FAFAFA; /* blanco/gris claro */
+  
+  --ion-color-secondary-contrast:      #000000;
+  
+
+  /* Call-to-action */
+  --ion-color-tertiary:        #FFB300; /* amarillo brillante */
+  
+  --ion-color-tertiary-contrast:       #000000;
+  
+
+  /* Acentos */
+  --ion-color-danger:          #D32F2F; /* rojo alerta */
+  --ion-color-dark:            #212121; /* texto legal / negro */
+
+  /* Tipografía */
+  --ion-font-family:           "Montserrat", sans-serif;
+}
+
+/* Ajustes globales */
+html, body {
+  background: var(--ion-color-secondary);
+  color: var(--ion-color-dark);
+}
+
+/* Cabeceras y toolbars - solo para toolbars que no sean el principal */
+ion-header:not(:first-child) ion-toolbar {
+  --background: var(--ion-color-primary);
+  --color: var(--ion-color-primary-contrast);
+}
+
+/* Botones CTA */
+ion-button[color="tertiary"] {
+  --background: var(--ion-color-tertiary);
+  --color: var(--ion-color-tertiary-contrast);
+}
+
+/* Tarjetas y fondos */
+ion-card {
+  --background: var(--ion-color-secondary);
+  --box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
 
