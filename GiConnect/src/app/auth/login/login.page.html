@@ -1,27 +1,66 @@
-<ion-content class="login-content">
+<!-- src/app/auth/login/login.page.html -->
+<div class="login-background">
+  <!-- Logo cuadrado translúcido de fondo -->
   <div class="backdrop-logo"></div>
 
+  <!-- Card de login centrado -->
   <ion-card class="login-card">
     <h2 class="card-title">Login</h2>
 
-    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <ion-item>
         <ion-label position="stacked">Email</ion-label>
-        <ion-input type="email" formControlName="email"></ion-input>
+        <ion-input
+          type="text"
+          formControlName="email"
+          placeholder="Email"
+          autocomplete="email"
+        ></ion-input>
       </ion-item>
+      <ion-note color="danger" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        El email es obligatorio
+      </ion-note>
 
       <ion-item>
         <ion-label position="stacked">Password</ion-label>
-        <ion-input type="password" formControlName="password"></ion-input>
+        <ion-input
+          type="password"
+          formControlName="password"
+          placeholder="Contraseña"
+          autocomplete="current-password"
+        ></ion-input>
       </ion-item>
+      <ion-note color="danger" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        La contraseña es obligatoria
+      </ion-note>
 
-      <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">
-        Entrar
+      <ion-button
+        expand="block"
+        type="submit"
+        [disabled]="!loginForm.valid"
+        class="login-button"
+      >
+        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+        <span *ngIf="!isLoading">Entrar</span>
       </ion-button>
     </form>
 
-    <ion-button fill="clear" routerLink="/register" class="register-link">
-      ¿No tienes cuenta? Regístrate
-    </ion-button>
+    <div class="links-container">
+      <ion-button
+        fill="clear"
+        routerLink="/forgot-password"
+        class="forgot-password-link"
+      >
+        ¿Olvidaste tu contraseña?
+      </ion-button>
+
+      <ion-button
+        fill="clear"
+        routerLink="/register"
+        class="register-link"
+      >
+        ¿No tienes cuenta? Regístrate
+      </ion-button>
+    </div>
   </ion-card>
-</ion-content>
+</div>

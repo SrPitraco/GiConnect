@@ -1,45 +1,169 @@
 /* src/app/auth/login/login.page.scss */
-.login-content {
+
+/* Contenedor ocupa todo el espacio disponible */
+.login-background {
   position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+}
+
+/* Logo cuadrado translúcido centrado */
+.backdrop-logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/logoCuadradoPNG.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Card de login centrado */
+.login-card {
+  position: relative;
+  width: 90%;
+  max-width: 380px;
+  padding: 32px;
+  z-index: 2;
+  border-radius: 12px;
   --background: transparent;
+  background: transparent;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 
-  .backdrop-logo {
-    background: url('/assets/logoCuadrado.png') center/contain no-repeat;
-    opacity: 0.1;
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: 1;
+/* Título dentro del card */
+.card-title {
+  text-align: center;
+  margin-bottom: 32px;
+  color: var(--ion-color-primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Contenedor del formulario */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Estilos de los ion-item para diferenciar del fondo */
+ion-item {
+  --background: transparent;
+  background: transparent;
+  --border-color: var(--ion-color-light);
+  --border-radius: 8px;
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  margin: 0 !important;
+
+  &.ion-invalid {
+    --border-color: var(--ion-color-danger);
   }
+}
 
-  .login-card {
-    position: relative;
-    z-index: 2;
-    margin: 0 auto;
-    top: 20%;
+/* Mensajes de error */
+ion-note {
+  font-size: 0.8rem;
+  color: var(--ion-color-danger);
+  margin-top: 4px;
+}
+
+/* Botón Entrar */
+ion-button {
+  margin-top: 24px;
+
+  &[disabled] {
+    opacity: 0.6;
+  }
+}
+
+/* Contenedor de enlaces */
+.links-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
+
+/* Enlaces de registro y olvidé contraseña */
+.register-link,
+.forgot-password-link {
+  --color: var(--ion-color-medium);
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+/* Estilos para el alert de error */
+::ng-deep .error-alert {
+  --min-width: 300px;
+  --max-width: 90%;
+  --backdrop-opacity: 0.8;
+  
+  .alert-wrapper {
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 90%;
     max-width: 400px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+  }
+
+  .alert-head {
+    background: var(--ion-color-danger);
+    color: white;
     padding: 20px;
-  }
-
-  .card-title {
+    border-radius: 16px 16px 0 0;
     text-align: center;
-    margin-bottom: 24px;
-    color: var(--ion-color-primary);
+    font-weight: 600;
+    font-size: 1.2rem;
   }
 
-  ion-item {
-    --background: var(--ion-color-secondary);
-    margin-bottom: 16px;
+  .alert-message {
+    padding: 20px;
+    color: var(--ion-color-dark);
+    text-align: center;
+    font-size: 1rem;
+    line-height: 1.5;
   }
 
-  ion-button {
-    margin-top: 16px;
+  .alert-button-group {
+    padding: 0 20px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
-  .register-link {
-    display: block;
-    text-align: right;
-    margin-top: 8px;
-    --color: var(--ion-color-medium);
+  .alert-button {
+    color: black;
+    font-weight: 500;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 120px;
+    margin: 0;
+    --background: var(--ion-color-primary);
+    --background-hover: var(--ion-color-primary-shade);
+    --color: black;
+    --border-radius: 8px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
   }
 }

@@ -3,6 +3,11 @@ const { body }  = require('express-validator');
 const validate  = require('../middleware/validate');
 const { register, login } = require('../controllers/authController');
 
+// GET /api/auth/test
+router.get('/test', (req, res) => {
+  res.json({ message: 'API de autenticación funcionando correctamente' });
+});
+
 // POST /api/auth/register
 router.post(
   '/register',

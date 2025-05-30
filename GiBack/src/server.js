@@ -70,8 +70,22 @@ const app = express();
 // Conexión a MongoDB Atlas
 connectDB();
 
+// Configuración de CORS
+app.use(cors({
+  origin: [
+    'http://localhost',
+    'http://localhost:8100',
+    'http://localhost:4200',
+    'capacitor://localhost',
+    'http://192.168.1.252:8100',
+    'http://192.168.1.252:4200'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 // Middlewares
-app.use(cors());
 app.use(express.json());
 
 // Montaje de rutas
@@ -86,6 +100,9 @@ app.use('/api/users',           userRoutes);
 
 // Arranque del servidor
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Servidor escuchando en puerto ${PORT}`);
+  console.log(`🌐 Accesible en:`);
+  console.log(`   - http://localhost:${PORT}`);
+  console.log(`   - http://192.168.1.252:${PORT}`);
 });
