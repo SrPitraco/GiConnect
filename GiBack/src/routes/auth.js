@@ -1,7 +1,7 @@
 const router    = require('express').Router();
 const { body }  = require('express-validator');
 const validate  = require('../middleware/validate');
-const { register, login } = require('../controllers/authController');
+const { register, login, requestPasswordReset, resetPassword } = require('../controllers/authController');
 
 // GET /api/auth/test
 router.get('/test', (req, res) => {
@@ -20,16 +20,27 @@ router.post(
     body('nombre').notEmpty().withMessage('Nombre es obligatorio'),
     body('apellido1').notEmpty().withMessage('Apellido1 es obligatorio'),
     body('dni')
-      .optional()
-      .isLength({ min: 8, max: 9 })
-      .withMessage('DNI debe tener 8-9 caracteres'),
+      .notEmpty()
+      .withMessage('DNI es obligatorio')
+      .custom((value) => {
+        // Si es el DNI especial para invitados extranjeros
+        if (value === '00000000A') return true;
+        
+        // Validar formato: 8 números + 1 letra, sin espacios
+        const dniRegex = /^[0-9]{8}[A-Za-z]$/;
+        return dniRegex.test(value);
+      })
+      .withMessage('El DNI debe tener 8 números seguidos de una letra, sin espacios'),
     body('telefono')
       .matches(/^\+?\d{7,15}$/)
       .withMessage('Teléfono inválido'),
     body('foto')
       .optional()
-      .isURL()
-      .withMessage('Foto debe ser una URL válida')
+      .custom((value) => {
+        if (!value) return true; // Permite valores nulos
+        return value.startsWith('data:image/'); // Debe ser una imagen base64
+      })
+      .withMessage('La foto debe ser una imagen en formato base64')
   ],
   validate,     // si hay errores devuelve 400 con detalles
   register
@@ -44,6 +55,30 @@ router.post(
   ],
   validate,
   login
+);
+
+// POST /api/auth/request-password-reset
+router.post(
+  '/request-password-reset',
+  [
+    body('email').isEmail().withMessage('Email inválido')
+  ],
+  validate,
+  requestPasswordReset
+);
+
+// POST /api/auth/reset-password
+router.post(
+  '/reset-password',
+  [
+    body('email').isEmail().withMessage('Email inválido'),
+    body('code').notEmpty().withMessage('Código de verificación es requerido'),
+    body('newPassword')
+      .isLength({ min: 8 })
+      .withMessage('La contraseña debe tener al menos 8 caracteres')
+  ],
+  validate,
+  resetPassword
 );
 
 module.exports = router;

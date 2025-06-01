@@ -1,0 +1,155 @@
+.login-background {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.backdrop-logo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/logoCuadradoPNG.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+.login-card {
+  width: 90%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  z-index: 1;
+}
+
+.card-title {
+  text-align: center;
+  color: var(--ion-color-primary);
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+ion-item {
+  --background: transparent;
+  --border-color: rgba(255, 255, 255, 0.3);
+  --color: white;
+  margin-bottom: 10px;
+}
+
+ion-label {
+  color: white !important;
+}
+
+ion-input {
+  --color: white;
+  --placeholder-color: rgba(255, 255, 255, 0.6);
+}
+
+ion-note {
+  margin-left: 16px;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.photo-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+
+  ion-button {
+    --color: white;
+    margin-bottom: 10px;
+  }
+
+  .profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+  }
+}
+
+.login-button {
+  margin-top: 20px;
+  --background: white;
+  --color: var(--ion-color-primary);
+  --border-radius: 25px;
+  height: 48px;
+  font-weight: 500;
+}
+
+.links-container {
+  margin-top: 20px;
+  text-align: center;
+
+  .register-link {
+    --color: white;
+    font-size: 14px;
+    text-decoration: underline;
+  }
+}
+
+// Estilos para el alert de selección de imagen
+::ng-deep .image-source-alert {
+  .alert-wrapper {
+    min-width: 300px;
+  }
+
+  .alert-button-group {
+    flex-direction: column;
+    padding: 0 16px;
+  }
+
+  .alert-button {
+    min-height: 48px;
+    font-size: 16px;
+    margin: 8px 0;
+    --background: var(--ion-color-primary);
+    --color: white;
+    --border-radius: 8px;
+    width: 100%;
+  }
+
+  .alert-button-cancel {
+    min-height: 48px;
+    font-size: 16px;
+    margin: 8px 0;
+    --background: var(--ion-color-danger);
+    --color: white;
+    --border-radius: 8px;
+    width: 100%;
+  }
+
+  .alert-message {
+    font-size: 16px;
+    padding: 16px;
+  }
+
+  .alert-head {
+    padding: 16px;
+  }
+
+  .alert-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}

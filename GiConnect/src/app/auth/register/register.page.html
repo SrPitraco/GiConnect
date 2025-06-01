@@ -1,13 +1,107 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
+<div class="login-background">
+  <div class="backdrop-logo"></div>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+  <ion-card class="login-card">
+    <h2 class="card-title">Registro</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input type="text" formControlName="nombre" placeholder="Nombre"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched">
+        El nombre es obligatorio
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="stacked">Primer Apellido</ion-label>
+        <ion-input type="text" formControlName="apellido1" placeholder="Primer Apellido"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="registerForm.get('apellido1')?.invalid && registerForm.get('apellido1')?.touched">
+        El primer apellido es obligatorio
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="stacked">Segundo Apellido</ion-label>
+        <ion-input type="text" formControlName="apellido2" placeholder="Segundo Apellido (opcional)"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="registerForm.get('apellido2')?.invalid && registerForm.get('apellido2')?.touched">
+        El segundo apellido es opcional
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="stacked">DNI</ion-label>
+        <ion-input type="text" formControlName="dni" placeholder="DNI"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="registerForm.get('dni')?.invalid && registerForm.get('dni')?.touched">
+        <ng-container *ngIf="registerForm.get('dni')?.errors?.['required']">
+          El DNI es obligatorio
+        </ng-container>
+        <ng-container *ngIf="registerForm.get('dni')?.errors?.['minlength'] || registerForm.get('dni')?.errors?.['maxlength']">
+          El DNI debe tener entre 8 y 9 caracteres
+        </ng-container>
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="stacked">Teléfono</ion-label>
+        <ion-input type="tel" formControlName="telefono" placeholder="Teléfono"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="registerForm.get('telefono')?.invalid && registerForm.get('telefono')?.touched">
+        <ng-container *ngIf="registerForm.get('telefono')?.errors?.['required']">
+          El teléfono es obligatorio
+        </ng-container>
+        <ng-container *ngIf="registerForm.get('telefono')?.errors?.['pattern']">
+          El teléfono debe tener entre 7 y 15 dígitos
+        </ng-container>
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input type="email" formControlName="email" placeholder="Email" autocomplete="email"></ion-input>
+      </ion-item>
+      <ion-note color="danger" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        <ng-container *ngIf="registerForm.get('email')?.errors?.['required']">
+          El email es obligatorio
+        </ng-container>
+        <ng-container *ngIf="registerForm.get('email')?.errors?.['email']">
+          El email no es válido
+        </ng-container>
+      </ion-note>
+
+      <ion-item>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Contraseña" autocomplete="new-password"></ion-input>
+        <ion-button fill="clear" slot="end" (click)="togglePasswordVisibility()">
+          <ion-icon slot="icon-only" [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+        </ion-button>
+      </ion-item>
+      <ion-note color="danger" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <ng-container *ngIf="registerForm.get('password')?.errors?.['required']">
+          La contraseña es obligatoria
+        </ng-container>
+        <ng-container *ngIf="registerForm.get('password')?.errors?.['minlength']">
+          La contraseña debe tener al menos 8 caracteres
+        </ng-container>
+      </ion-note>
+
+      <div class="photo-upload">
+        <ion-button fill="clear" (click)="selectImageSource()">
+          <ion-icon name="camera-outline" slot="start"></ion-icon>
+          Subir Foto
+        </ion-button>
+        <img *ngIf="photoUrl" [src]="photoUrl" alt="Foto de perfil" class="profile-photo">
+      </div>
+
+      <ion-button expand="block" type="submit" [disabled]="!registerForm.valid" class="login-button">
+        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+        <span *ngIf="!isLoading">Registrarse</span>
+      </ion-button>
+    </form>
+
+    <div class="links-container">
+      <ion-button fill="clear" routerLink="/auth/login" class="register-link">
+        ¿Ya tienes cuenta? Iniciar sesión
+      </ion-button>
+    </div>
+  </ion-card>
+</div>

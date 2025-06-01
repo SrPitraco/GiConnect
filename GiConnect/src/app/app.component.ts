@@ -1,24 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  IonApp,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonRouterOutlet } from '@ionic/angular/standalone';
+import { RouterOutlet } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { AuthService } from './services/auth.service';
 import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { 
+  eyeOutline, 
+  eyeOffOutline, 
+  cameraOutline,
+  personOutline,
+  lockClosedOutline
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    IonTitle, 
-    IonApp,
-    IonHeader,
-    IonToolbar,
-    IonContent,
-    IonRouterOutlet
+    IonicModule,
+    RouterOutlet
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -31,13 +30,21 @@ export class AppComponent implements OnInit {
   ){}
 
   ngOnInit() {
-      if(this.auth.isLoggedIn()) {
-        this.router.navigateByUrl('/home', { replaceUrl: true });
-      }
-      else {
-        this.router.navigateByUrl('/login', { replaceUrl: true });
-      }
+    if(this.auth.isLoggedIn()) {
+      this.router.navigateByUrl('/home', { replaceUrl: true });
+    }
+    else {
+      this.router.navigateByUrl('/auth/login', { replaceUrl: true });
+    }
   }
 
-
+  ngAfterViewInit() {
+    addIcons({
+      eyeOutline,
+      eyeOffOutline,
+      cameraOutline,
+      personOutline,
+      lockClosedOutline
+    });
+  }
 }
