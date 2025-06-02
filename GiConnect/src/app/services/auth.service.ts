@@ -149,6 +149,11 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    // Limpiar el formulario de login
+    const loginForm = document.querySelector('app-login form');
+    if (loginForm) {
+      (loginForm as HTMLFormElement).reset();
+    }
   }
 
   isLoggedIn(): boolean {

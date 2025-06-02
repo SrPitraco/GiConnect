@@ -6,6 +6,7 @@ import { ResetPasswordPage } from './auth/reset-password/reset-password.page';
 import { ListPage } from './clases/list/list.page';
 import { DashboardPage } from './maestro/dashboard/dashboard.page';
 import { HomePage } from './home/home.page';
+import { PruebaPage } from './pages/prueba/prueba.page';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -40,6 +41,12 @@ export const routes: Routes = [
   {
     path: 'maestro',
     component: DashboardPage,
+    canActivate: [authGuard]
+  },
+
+  {
+    path: 'prueba',
+    component: PruebaPage,
     canActivate: [authGuard]
   }
 ];

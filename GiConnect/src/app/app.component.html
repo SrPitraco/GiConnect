@@ -7,6 +7,100 @@
     </ion-toolbar>
   </ion-header>
 
+  <div class="menu-bar">
+    <button class="menu-button" (click)="toggleMenu()">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </div>
+
+  <div class="menu-content" [class.show]="isMenuOpen">
+    <div class="menu-header">
+      <div class="user-avatar">
+        <img *ngIf="userPhoto" [src]="userPhoto" alt="Foto de usuario">
+        <div *ngIf="!userPhoto" class="default-avatar">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+      </div>
+      <div class="user-info">
+        <span class="user-name">{{ userName || 'Invitado' }}</span>
+        <div *ngIf="userBeltColor" class="belt-stripe" [style.background-color]="userBeltColor"></div>
+      </div>
+    </div>
+    <ion-list>
+      <ng-container *ngIf="!userName">
+        <ion-item button (click)="navigateToLogin()" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="log-in-outline"></ion-icon>
+            <span>Iniciar Sesión</span>
+          </div>
+        </ion-item>
+        <ion-item *ngIf="isAndroid" button (click)="exitApp()" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="power-outline"></ion-icon>
+            <span>Salir</span>
+          </div>
+        </ion-item>
+      </ng-container>
+
+      <ng-container *ngIf="userName">
+        <ion-item *ngIf="isAdminOrMaestro" button (click)="navigateTo('/prueba')" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="medal-outline"></ion-icon>
+            <span>Portal del Maestro</span>
+          </div>
+        </ion-item>
+        <ion-item button (click)="navigateTo('/prueba')" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="person-outline"></ion-icon>
+            <span>Perfil</span>
+          </div>
+        </ion-item>
+        <ion-item button (click)="navigateTo('/home')" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="home-outline"></ion-icon>
+            <span>Home</span>
+          </div>
+        </ion-item>
+        <ion-item button (click)="navigateTo('/prueba')" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="time-outline"></ion-icon>
+            <span>Reservar Clases</span>
+          </div>
+        </ion-item>
+        <ion-item button (click)="navigateTo('/prueba')" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="newspaper-outline"></ion-icon>
+            <span>Noticias</span>
+          </div>
+        </ion-item>
+        <ion-item button (click)="navigateTo('/prueba')" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="chatbubble-outline"></ion-icon>
+            <span>Chat</span>
+          </div>
+        </ion-item>
+        <ion-item button (click)="navigateTo('/prueba')" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="cart-outline"></ion-icon>
+            <span>Tienda</span>
+          </div>
+        </ion-item>
+        <ion-item button (click)="logout()" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="log-out-outline"></ion-icon>
+            <span>Cerrar Sesión</span>
+          </div>
+        </ion-item>
+        <ion-item *ngIf="isAndroid" button (click)="exitApp()" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="power-outline"></ion-icon>
+            <span>Salir</span>
+          </div>
+        </ion-item>
+      </ng-container>
+    </ion-list>
+  </div>
+
   <ion-content>
     <ion-router-outlet></ion-router-outlet>
   </ion-content>
