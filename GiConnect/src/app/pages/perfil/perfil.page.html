@@ -1,0 +1,139 @@
+<ion-content>
+  <div class="login-background">
+    <div class="backdrop-logo"></div>
+
+    <div class="ion-padding">
+      <div class="profile-container">
+        <div class="profile-header">
+          <div class="profile-photo-container">
+            <div class="profile-photo">
+              <img [src]="userPhoto || 'assets/default-avatar.png'" alt="Foto de perfil">
+            </div>
+            <ion-button fill="clear" size="small" (click)="changePhoto()">
+              <ion-icon name="camera-outline"></ion-icon>
+            </ion-button>
+          </div>
+          <h2>{{userName}}</h2>
+          <p class="user-role">{{userRole}}</p>
+        </div>
+
+        <div class="profile-details">
+          <ion-list>
+            <!-- Campos editables -->
+            <ion-item>
+              <ion-label>
+                <h3>Nombre</h3>
+                <ion-input [(ngModel)]="userData.nombre" (ionChange)="updateField('nombre')"></ion-input>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>Primer Apellido</h3>
+                <ion-input [(ngModel)]="userData.apellido1" (ionChange)="updateField('apellido1')"></ion-input>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>Segundo Apellido</h3>
+                <ion-input [(ngModel)]="userData.apellido2" (ionChange)="updateField('apellido2')"></ion-input>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>DNI</h3>
+                <ion-input [(ngModel)]="userData.dni" (ionChange)="updateField('dni')"></ion-input>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>Teléfono</h3>
+                <ion-input [(ngModel)]="userData.telefono" (ionChange)="updateField('telefono')"></ion-input>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>Número Federación (IBJJF)</h3>
+                <ion-input [(ngModel)]="userData.numIBJJF" (ionChange)="updateField('numIBJJF')"></ion-input>
+              </ion-label>
+            </ion-item>
+
+            <!-- Campos de solo lectura -->
+            <ion-item>
+              <ion-label>
+                <h3>Email</h3>
+                <p>{{userData.email}}</p>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>Fecha de Inicio</h3>
+                <p>{{userData.fechaInicio ? (userData.fechaInicio | date:'dd/MM/yyyy') : 'No disponible'}}</p>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>Cinturón</h3>
+                <p>{{userData.cinturon}}</p>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>Grado</h3>
+                <p>{{userData.grado}}</p>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>Fecha desde grado/cinturón</h3>
+                <p>{{userData.fechaDesde ? (userData.fechaDesde | date:'dd/MM/yyyy') : 'No disponible'}}</p>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>Clases Asistidas</h3>
+                <p>{{userData.clasesAsistidas}}</p>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>Clases Impartidas</h3>
+                <p>{{userData.clasesImpartidas}}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+
+          <!-- Sección de Suscripciones -->
+          <div class="section-title">Suscripciones</div>
+          <div class="subscription-info" *ngIf="activeSubscription && !isSubscriptionExpired()">
+            <p>Suscripción activa tipo {{activeSubscription.tipo}} hasta {{activeSubscription.fechaFin | date:'dd/MM/yyyy'}}</p>
+          </div>
+          <div class="subscription-info" *ngIf="!activeSubscription || isSubscriptionExpired()">
+            <p>Sin suscripciones activas</p>
+          </div>
+
+          <!-- Sección de Compras -->
+          <div class="section-title">Compras</div>
+          <!-- Aquí se añadirá el contenido de compras más adelante -->
+        </div>
+
+        <div class="profile-actions">
+          <ion-button expand="block" (click)="saveChanges()" type="button">
+            <ion-icon name="save-outline" slot="start"></ion-icon>
+            Guardar Cambios
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content> 

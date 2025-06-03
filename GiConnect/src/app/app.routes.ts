@@ -3,10 +3,11 @@ import { LoginPage } from './auth/login/login.page';
 import { RegisterPage } from './auth/register/register.page';
 import { ForgotPasswordPage } from './auth/forgot-password/forgot-password.page';
 import { ResetPasswordPage } from './auth/reset-password/reset-password.page';
-import { ListPage } from './clases/list/list.page';
-import { DashboardPage } from './maestro/dashboard/dashboard.page';
-import { HomePage } from './home/home.page';
+import { ListPage } from './pages/clases/list/list.page';
+import { DashboardPage } from './pages/maestro/dashboard/dashboard.page';
+import { HomePage } from './pages/home/home.page';
 import { PruebaPage } from './pages/prueba/prueba.page';
+import { PerfilPage } from './pages/perfil/perfil.page';
 import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
@@ -47,6 +48,12 @@ export const routes: Routes = [
   {
     path: 'prueba',
     component: PruebaPage,
+    canActivate: [authGuard]
+  },
+
+  {
+    path: 'perfil',
+    component: PerfilPage,
     canActivate: [authGuard]
   }
 ];
