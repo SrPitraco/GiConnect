@@ -108,48 +108,87 @@ ion-note {
   }
 }
 
+.success-toast {
+  --min-width: 300px;
+  --max-width: 90%;
+  --height: auto;
+  --border-radius: 16px;
+  --background: var(--ion-color-success);
+  --color: white;
+  --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  text-align: center;
+  padding: 16px;
+  font-weight: 500;
+}
+
 // Estilos para el alert de selección de imagen
 ::ng-deep .image-source-alert {
+  --min-width: 300px;
+  --max-width: 90%;
+  --height: auto;
+  --border-radius: 16px;
+  --backdrop-opacity: 0.7;
+
   .alert-wrapper {
-    min-width: 300px;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90% !important;
+    max-width: 300px !important;
+    background: var(--ion-color-light);
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    margin-top: -50px !important;
   }
 
-  .alert-button-group {
-    flex-direction: column;
-    padding: 0 16px;
-  }
-
-  .alert-button {
-    min-height: 48px;
-    font-size: 16px;
-    margin: 8px 0;
-    --background: var(--ion-color-primary);
-    --color: white;
-    --border-radius: 8px;
-    width: 100%;
-  }
-
-  .alert-button-cancel {
-    min-height: 48px;
-    font-size: 16px;
-    margin: 8px 0;
-    --background: var(--ion-color-danger);
-    --color: white;
-    --border-radius: 8px;
-    width: 100%;
-  }
-
-  .alert-message {
-    font-size: 16px;
+  .alert-header {
     padding: 16px;
-  }
-
-  .alert-head {
-    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid var(--ion-color-light-shade);
+    font-weight: 600;
+    color: var(--ion-color-dark);
+    margin: 0 auto;
+    width: 100%;
   }
 
   .alert-title {
-    font-size: 20px;
+    text-align: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .alert-button-group {
+    padding: 8px 0;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .alert-button {
+    margin: 8px 16px;
+    height: 48px;
+    border-radius: 8px;
     font-weight: 500;
+    text-transform: none;
+    color: var(--ion-color-primary);
+    background: var(--ion-color-light);
+    border: 1px solid var(--ion-color-light-shade);
+    width: calc(100% - 32px) !important;
+    margin-left: 16px !important;
+    margin-right: 16px !important;
+
+    &:last-child {
+      margin-bottom: 16px;
+    }
+
+    &.alert-button-cancel {
+      color: var(--ion-color-danger);
+      border: none;
+      margin-top: 16px;
+    }
   }
 }

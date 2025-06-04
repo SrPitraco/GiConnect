@@ -49,6 +49,32 @@ exports.update = async (req, res) => {
   }
 };
 
+// Actualizar foto de usuario
+exports.updatePhoto = async (req, res) => {
+  try {
+    const { foto } = req.body;
+    
+    // Validar que la foto sea base64
+    if (!foto || !foto.startsWith('data:image/')) {
+      return res.status(400).json({ error: 'La foto debe ser una imagen en formato base64' });
+    }
+
+    const updated = await User.findByIdAndUpdate(
+      req.userId,
+      { foto },
+      { new: true }
+    ).select('-password');
+
+    if (!updated) {
+      return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 // Desactivar usuario (cortar acceso)
 exports.deactivate = async (req, res) => {
   try {

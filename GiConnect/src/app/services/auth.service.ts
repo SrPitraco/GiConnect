@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
+import { Platform } from '@ionic/angular';
 
 interface AuthResponse {
   token: string;
@@ -21,9 +22,25 @@ interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl: string;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private platform: Platform
+  ) {
+    // Determinar la URL base según la plataforma
+    if (this.platform.is('android') && this.platform.is('hybrid')) {
+      // Si es Android nativo (no web)
+      this.apiUrl = 'http://10.0.2.2:4000/api';
+    } else if (this.platform.is('ios') && this.platform.is('hybrid')) {
+      // Si es iOS nativo (no web)
+      this.apiUrl = 'http://localhost:4000/api';
+    } else {
+      // Si es web o desarrollo
+      this.apiUrl = environment.apiUrl;
+    }
+    console.log('🌐 URL base configurada:', this.apiUrl);
+  }
 
   async login(credentials: { email: string; password: string }) {
     try {
@@ -183,6 +200,77 @@ export class AuthService {
       code,
       newPassword
     });
+  }
+
+  async compressImage(base64String: string, maxWidth: number = 600): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = base64String;
+      
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+        
+        // Calcular nuevas dimensiones manteniendo la proporción
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width);
+          width = maxWidth;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        
+        const ctx = canvas.getContext('2d');
+        if (!ctx) {
+          reject(new Error('No se pudo crear el contexto del canvas'));
+          return;
+        }
+        
+        // Dibujar la imagen redimensionada
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Función para comprimir con diferentes calidades hasta alcanzar el tamaño deseado
+        const compressWithQuality = (quality: number): string => {
+          return canvas.toDataURL('image/jpeg', quality);
+        };
+
+        // Intentar diferentes niveles de calidad hasta que la imagen sea lo suficientemente pequeña
+        const maxSize = 500 * 1024; // 500KB máximo
+        let quality = 0.7;
+        let compressedBase64 = compressWithQuality(quality);
+        
+        // Si la imagen es demasiado grande, reducir la calidad progresivamente
+        while (this.getBase64Size(compressedBase64) > maxSize && quality > 0.1) {
+          quality -= 0.1;
+          compressedBase64 = compressWithQuality(quality);
+        }
+
+        // Si aún es demasiado grande, reducir el tamaño
+        if (this.getBase64Size(compressedBase64) > maxSize) {
+          width = Math.round(width * 0.8);
+          height = Math.round(height * 0.8);
+          canvas.width = width;
+          canvas.height = height;
+          ctx.drawImage(img, 0, 0, width, height);
+          compressedBase64 = compressWithQuality(0.5);
+        }
+
+        console.log('Tamaño final de la imagen:', this.getBase64Size(compressedBase64) / 1024, 'KB');
+        resolve(compressedBase64);
+      };
+      
+      img.onerror = () => {
+        reject(new Error('Error al cargar la imagen'));
+      };
+    });
+  }
+
+  private getBase64Size(base64String: string): number {
+    // Eliminar el prefijo de la cadena base64
+    const base64 = base64String.split(',')[1];
+    // Calcular el tamaño aproximado en bytes
+    return Math.ceil((base64.length * 3) / 4);
   }
 }
 

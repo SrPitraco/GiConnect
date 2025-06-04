@@ -55,7 +55,11 @@ const UserSchema = new mongoose.Schema({
   telefono:      { type: String, required: true, trim: true, unique: true },
   email:         { type: String, required: true, unique: true, trim: true, lowercase: true },
   password:      { type: String, required: true },
-  role:          { type: String, enum: ['atleta','instructor', 'maestro', 'admin'], default: 'atleta' },
+  role:          { 
+    type: String, 
+    enum: ['atleta', 'instructor', 'maestro', 'admin'], 
+    default: 'atleta' 
+  },
   numIBJJF:      { type: String, required: false},
   fechaInicio:   { type: Date },                         // cuando empezó la práctica
   cinturon:      { type: String, enum: cinturonEnum, default: 'Blanco' },
