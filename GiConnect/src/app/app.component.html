@@ -61,10 +61,16 @@
             <span>Home</span>
           </div>
         </ion-item>
-        <ion-item button (click)="navigateTo('/prueba')" lines="none" class="menu-item">
+        <ion-item button (click)="navigateTo('/reservas')" lines="none" class="menu-item">
           <div class="menu-item-content">
-            <ion-icon name="time-outline"></ion-icon>
+            <ion-icon name="calendar-outline"></ion-icon>
             <span>Reservar Clases</span>
+          </div>
+        </ion-item>
+        <ion-item *ngIf="!isAdminOrMaestro" button (click)="navigateTo('/suscripciones')" lines="none" class="menu-item">
+          <div class="menu-item-content">
+            <ion-icon name="card-outline"></ion-icon>
+            <span>Suscripciones</span>
           </div>
         </ion-item>
         <ion-item button (click)="navigateTo('/prueba')" lines="none" class="menu-item">

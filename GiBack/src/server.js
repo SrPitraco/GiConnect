@@ -3,16 +3,19 @@ require('dotenv').config();
 const express   = require('express');
 const cors      = require('cors');
 const connectDB = require('./config/db');
+const mongoose  = require('mongoose');
 
 //Para los recordatorios de suscripciones
 const cron         = require('node-cron');
 const Suscripcion  = require('./models/Suscripcion');
 const Mensaje      = require('./models/Mensaje');
+const Clase        = require('./models/Clase');
 
 const SYSTEM_USER_ID = process.env.SYSTEM_USER_ID;
 if (!SYSTEM_USER_ID) {
   console.warn('⚠️  No se ha definido SYSTEM_USER_ID en .env, las notificaciones no funcionarán');
 }
+
 //Metodo que comprueba todas las suscripciones a las 9 de la mañana
 // y manda un mensaje a los usuarios que tengan una suscripción que expire en menos de 5 días
 cron.schedule(
@@ -56,6 +59,80 @@ cron.schedule(
   }
 );
 
+// Tarea programada para generar clases semanales (domingo a las 15:00)
+cron.schedule(
+  '0 15 * * 0',  // domingo a las 15:00
+  async () => {
+    try {
+      console.log('📅 Iniciando generación automática de clases semanales');
+
+      // Obtener la fecha del próximo lunes
+      const hoy = new Date();
+      const diasHastaLunes = hoy.getDay() === 0 ? 1 : 8 - hoy.getDay();
+      const fechaLunes = new Date(hoy);
+      fechaLunes.setDate(hoy.getDate() + diasHastaLunes);
+      fechaLunes.setHours(0, 0, 0, 0);
+
+      // Obtener todas las clases fijas
+      const clasesFijas = await Clase.find({
+        diaSemana: { $exists: true }
+      }).populate('instructor', 'nombre foto');
+
+      console.log(`📚 Encontradas ${clasesFijas.length} clases fijas`);
+
+      // Mapeo de días de la semana a números
+      const diasSemana = {
+        'Lunes': 1, 'Martes': 2, 'Miércoles': 3, 'Jueves': 4, 
+        'Viernes': 5, 'Sábado': 6, 'Domingo': 0
+      };
+
+      // Generar las clases para cada día de la semana
+      const clasesGeneradas = [];
+      for (let i = 0; i < 7; i++) {
+        const fechaClase = new Date(fechaLunes);
+        fechaClase.setDate(fechaLunes.getDate() + i);
+        
+        // Encontrar las clases fijas para este día
+        const clasesDelDia = clasesFijas.filter(clase => 
+          diasSemana[clase.diaSemana] === fechaClase.getDay()
+        );
+
+        // Crear nuevas clases para este día
+        for (const claseFija of clasesDelDia) {
+          const nuevaClase = new Clase({
+            titulo: claseFija.titulo,
+            descripcion: claseFija.descripcion,
+            fecha: fechaClase,
+            horaInicio: claseFija.horaInicio,
+            horaFin: claseFija.horaFin,
+            maxPlazas: claseFija.maxPlazas,
+            instructor: claseFija.instructor._id
+          });
+
+          await nuevaClase.save();
+          clasesGeneradas.push(nuevaClase);
+          
+          console.log(`✅ Clase generada: ${nuevaClase.titulo} para ${fechaClase.toLocaleDateString()}`);
+        }
+      }
+
+      // Limpiar clases antiguas (anteriores a la fecha de inicio)
+      const clasesEliminadas = await Clase.deleteMany({
+        fecha: { $lt: fechaLunes }
+      });
+
+      console.log(`🗑️  Clases antiguas eliminadas: ${clasesEliminadas.deletedCount}`);
+      console.log(`✨ Generación de clases completada: ${clasesGeneradas.length} clases creadas`);
+
+    } catch (error) {
+      console.error('❌ Error en la generación automática de clases:', error);
+    }
+  },
+  {
+    timezone: 'Europe/Madrid'
+  }
+);
+
 const authRoutes         = require('./routes/auth');
 const claseRoutes        = require('./routes/clases');
 const reservaRoutes      = require('./routes/reservas');
@@ -72,17 +149,33 @@ connectDB();
 
 // Configuración de CORS
 app.use(cors({
-  origin: [
-    'http://localhost',
-    'http://localhost:8100',
-    'http://localhost:4200',
-    'capacitor://localhost',
-    'http://192.168.1.252:8100',
-    'http://192.168.1.252:4200'
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: function(origin, callback) {
+    // En desarrollo, permitir todas las conexiones
+    if (process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
+    
+    // En producción, solo permitir orígenes específicos
+    const allowedOrigins = [
+      'http://localhost',
+      'http://localhost:8100',
+      'http://localhost:4200',
+      'capacitor://localhost',
+      'http://192.168.1.252:8100',
+      'http://192.168.1.252:4200',
+      'http://192.168.1.252:4000',
+      'http://10.0.2.2:4000',
+      'http://10.0.2.2:8100',
+      'http://10.0.2.2:4200'
+    ];
+    
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
 }));
 
 // Middlewares

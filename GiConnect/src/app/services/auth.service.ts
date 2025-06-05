@@ -28,24 +28,14 @@ export class AuthService {
     private http: HttpClient,
     private platform: Platform
   ) {
-    // Determinar la URL base según la plataforma
-    if (this.platform.is('android') && this.platform.is('hybrid')) {
-      // Si es Android nativo (no web)
-      this.apiUrl = 'http://10.0.2.2:4000/api';
-    } else if (this.platform.is('ios') && this.platform.is('hybrid')) {
-      // Si es iOS nativo (no web)
-      this.apiUrl = 'http://localhost:4000/api';
-    } else {
-      // Si es web o desarrollo
-      this.apiUrl = environment.apiUrl;
-    }
+    this.apiUrl = environment.apiUrl;
     console.log('🌐 URL base configurada:', this.apiUrl);
   }
 
   async login(credentials: { email: string; password: string }) {
     try {
       console.log('📝 Intentando login con:', credentials);
-      console.log('🌐 URL:', `${this.apiUrl}/auth/login`);
+      console.log('🌐 URL completa:', `${this.apiUrl}/auth/login`);
       
       if (!credentials.email || !credentials.password) {
         throw new Error('Por favor, completa todos los campos');

@@ -1,36 +1,34 @@
-const router       = require('express').Router();
-const authJwt      = require('../middleware/authJwt');
-const verifyRole   = require('../middleware/verifyRole');
-const { body } = require('express-validator');
-const validate = require('../middleware/validate');
-const ctrl         = require('../controllers/reservaController');
+const express = require('express');
+const router = express.Router();
+const reservaController = require('../controllers/reservaController');
+const authJwt = require('../middleware/authJwt');
+const verifyRole = require('../middleware/verifyRole');
 
-// Listar reservas del propio usuario
-router.get('/',              authJwt, ctrl.listUser);
+// Crear una nueva reserva (cualquier usuario autenticado)
+router.post('/', authJwt, reservaController.create);
 
-// Crear reserva
-router.post(
-  '/',
+// Cancelar una reserva (el propietario o admin/maestro)
+router.delete('/:id', authJwt, reservaController.cancel);
+
+// Confirmar asistencia (solo maestros y admin)
+router.post('/:id/asistencia', 
   authJwt,
-  [
-    body('clase')
-      .isMongoId()
-      .withMessage('clase debe ser un ID de Mongo válido')
-  ],
-  validate,
-  ctrl.create
+  verifyRole(['maestro', 'admin']), 
+  reservaController.confirmarAsistencia
 );
 
-// Cancelar reserva (sólo atleta, si falta >2h)
-router.put('/:id/cancel',    authJwt, ctrl.cancel);
+// Obtener reservas de una clase (solo maestros y admin)
+router.get('/clase/:claseId', 
+  authJwt, 
+  verifyRole(['maestro', 'admin']), 
+  reservaController.getByClase
+);
 
-// **Confirmar asistencia (pasar lista)**  
-// Sólo maestro e instructor
-router.put(
-  '/:id/confirm',
+// Limpiar reservas antiguas (solo maestros y admin)
+router.post('/limpiar', 
   authJwt,
-  verifyRole(['maestro','instructor']),
-  ctrl.confirmAttendance
+  verifyRole(['maestro', 'admin']), 
+  reservaController.limpiarReservasAntiguas
 );
 
 module.exports = router;

@@ -1,0 +1,42 @@
+// Variables
+$primary-color: #153ae0;
+$border-color: rgba(0, 0, 0, 0.1);
+$text-color: #333;
+
+// Estilos del action-sheet
+.custom-action-sheet {
+  .action-sheet-wrapper {
+    margin: 0;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .action-sheet-group {
+    .action-sheet-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: $primary-color;
+      padding: 16px;
+    }
+
+    .action-sheet-button {
+      font-size: 1.1rem;
+      color: $text-color;
+      padding: 16px;
+      border-bottom: 1px solid $border-color;
+      min-height: 56px;
+      display: flex;
+      align-items: center;
+    }
+
+    .action-sheet-cancel {
+      font-weight: 500;
+      color: $primary-color;
+      border-top: 1px solid $border-color;
+    }
+  }
+}
+
+.action-sheet-backdrop {
+  cursor: pointer;
+  --backdrop-opacity: 0.4;
+} 

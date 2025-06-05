@@ -12,11 +12,18 @@
         <span>Portal del Maestro</span>
       </div>
 
-      <div class="grid-item" (click)="navigateTo('/prueba')">
+      <div class="grid-item" (click)="navigateTo('/reservas')">
         <div class="icon-placeholder">
           <ion-icon name="calendar"></ion-icon>
         </div>
         <span>Reservar Clases</span>
+      </div>
+
+      <div class="grid-item" *ngIf="!isAdminOrMaestro" (click)="navigateTo('/suscripciones')">
+        <div class="icon-placeholder">
+          <ion-icon name="card-outline"></ion-icon>
+        </div>
+        <span>Suscripciones</span>
       </div>
 
       <div class="grid-item" (click)="navigateTo('/prueba')">
@@ -40,5 +47,7 @@
         <span>Tienda</span>
       </div>
     </div>
+
+    
   </div>
 </div>

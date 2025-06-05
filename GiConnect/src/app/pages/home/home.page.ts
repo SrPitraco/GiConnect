@@ -7,8 +7,11 @@ import {
   calendar,
   globe,
   chatbubbleOutline,
-  cartOutline
+  cartOutline,
+  cardOutline,
+  personOutline
 } from 'ionicons/icons';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -22,28 +25,26 @@ import {
 })
 export class HomePage implements OnInit {
   userName: string = '';
-  isAdminOrMaestro: boolean = false;
+  isAdminOrMaestro = false;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService) {
     addIcons({ 
       calendar,
       globe,
       chatbubbleOutline,
-      cartOutline
+      cartOutline,
+      cardOutline,
+      personOutline
     });
   }
 
   ngOnInit() {
-    const userInfo = localStorage.getItem('user');
-    if (userInfo) {
-      try {
-        const user = JSON.parse(userInfo);
-        this.userName = user.nombre;
-        this.isAdminOrMaestro = user.role === 'admin' || user.role === 'maestro';
-      } catch (error) {
-        console.error('Error parsing user info:', error);
-      }
-    }
+    this.checkUserRole();
+  }
+
+  private checkUserRole() {
+    const user = this.authService.getUser();
+    this.isAdminOrMaestro = user?.role === 'admin' || user?.role === 'maestro';
   }
 
   navigateTo(path: string) {

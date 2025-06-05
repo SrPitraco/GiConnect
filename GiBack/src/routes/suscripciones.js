@@ -11,8 +11,8 @@ router.post(
   authJwt,
   [
     body('tipo')
-      .isIn(['mensual','trimestral','anual'])
-      .withMessage('Tipo debe ser mensual, trimestral o anual')
+      .isIn(['mensual','trimestral', 'semestral', 'anual'])
+      .withMessage('Tipo debe ser mensual, trimestral, semestral o anual')
   ],
   validate,
   ctrl.create
@@ -52,5 +52,8 @@ router.delete(
   validate,
   ctrl.remove
 );
+
+// Listar suscripciones activas (atleta)
+router.get('/activas', authJwt, ctrl.listActivas);
 
 module.exports = router;

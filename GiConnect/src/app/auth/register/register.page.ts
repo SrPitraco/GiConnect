@@ -81,33 +81,33 @@ export class RegisterPage implements OnInit {
 
   async selectImageSource() {
     if (this.platform.is('hybrid')) {
-      const alert = await this.alertController.create({
-        header: 'Seleccionar fuente',
-        cssClass: 'image-source-alert',
-        buttons: [
-          {
-            text: 'Cámara',
-            cssClass: 'alert-button',
-            handler: () => {
-              this.takePicture();
-            }
-          },
-          {
-            text: 'Galería',
-            cssClass: 'alert-button',
-            handler: () => {
-              this.pickFromGallery();
-            }
-          },
-          {
-            text: 'Cancelar',
-            cssClass: 'alert-button-cancel',
-            role: 'cancel'
+    const alert = await this.alertController.create({
+      header: 'Seleccionar fuente',
+      cssClass: 'image-source-alert',
+      buttons: [
+        {
+          text: 'Cámara',
+          cssClass: 'alert-button',
+          handler: () => {
+            this.takePicture();
           }
-        ]
-      });
+        },
+        {
+          text: 'Galería',
+          cssClass: 'alert-button',
+          handler: () => {
+            this.pickFromGallery();
+          }
+        },
+        {
+          text: 'Cancelar',
+          cssClass: 'alert-button-cancel',
+          role: 'cancel'
+        }
+      ]
+    });
 
-      await alert.present();
+    await alert.present();
     } else {
       // En web, usamos el input file
       const input = document.createElement('input');

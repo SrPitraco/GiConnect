@@ -3,12 +3,13 @@ import { LoginPage } from './auth/login/login.page';
 import { RegisterPage } from './auth/register/register.page';
 import { ForgotPasswordPage } from './auth/forgot-password/forgot-password.page';
 import { ResetPasswordPage } from './auth/reset-password/reset-password.page';
-import { ListPage } from './pages/clases/list/list.page';
 import { DashboardPage } from './pages/maestro/dashboard/dashboard.page';
 import { HomePage } from './pages/home/home.page';
 import { PruebaPage } from './pages/prueba/prueba.page';
 import { PerfilPage } from './pages/perfil/perfil.page';
 import { authGuard } from './guards/auth.guard';
+import { ReservasPage } from './pages/reservas/reservas.page';
+import { SuscripcionesPage } from './pages/suscripciones/suscripciones.page';
 
 export const routes: Routes = [
   {
@@ -34,12 +35,6 @@ export const routes: Routes = [
   },
 
   {
-    path: 'clases',
-    component: ListPage,
-    canActivate: [authGuard]
-  },
-  
-  {
     path: 'maestro',
     component: DashboardPage,
     canActivate: [authGuard]
@@ -50,10 +45,20 @@ export const routes: Routes = [
     component: PruebaPage,
     canActivate: [authGuard]
   },
-
+  
   {
     path: 'perfil',
-    component: PerfilPage,
+    loadComponent: () => import('./pages/perfil/perfil.page').then(m => m.PerfilPage)
+  },
+
+  {
+    path: 'reservas',
+    component: ReservasPage,
     canActivate: [authGuard]
+  },
+
+  {
+    path: 'suscripciones',
+    component: SuscripcionesPage
   }
 ];

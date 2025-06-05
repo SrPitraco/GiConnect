@@ -1,0 +1,121 @@
+<div class="login-background">
+  <div class="backdrop-logo"></div>
+
+  <div class="ion-padding">
+    <div class="profile-container">
+      <h2 class="welcome-title">Suscripciones</h2>
+      
+      <!-- Sección de suscripciones activas -->
+      <div class="section-title" *ngIf="!isAdminOrMaestro">
+        <ion-icon name="time-outline"></ion-icon>
+        Mis Suscripciones
+      </div>
+
+      <div class="subscription-info" *ngIf="!isAdminOrMaestro && suscripcionesActivas.length > 0">
+        <ion-list>
+          <ion-item *ngFor="let suscripcion of suscripcionesActivas" class="subscription-item">
+            <ion-label>
+              <h3 class="subscription-type">{{ suscripcion.tipo | titlecase }}</h3>
+              <div class="subscription-dates">
+                <p><ion-icon name="calendar-outline"></ion-icon> Inicio: {{ suscripcion.fechaInicio | date:'dd/MM/yyyy':'es-ES' }}</p>
+                <p><ion-icon name="calendar-outline"></ion-icon> Fin: {{ suscripcion.fechaFin | date:'dd/MM/yyyy':'es-ES' }}</p>
+              </div>
+              <div class="subscription-status" [class.paid]="suscripcion.pagado">
+                <ion-icon [name]="suscripcion.pagado ? 'checkmark-circle' : 'time'"></ion-icon>
+                {{ suscripcion.pagado ? 'Pagado' : 'Pendiente de pago' }}
+              </div>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div class="subscription-info" *ngIf="!isAdminOrMaestro && suscripcionesActivas.length === 0">
+        <p>Sin suscripciones activas</p>
+      </div>
+
+      <!-- Formulario de nueva suscripción -->
+      <div class="section-title" *ngIf="!isAdminOrMaestro">
+        <ion-icon name="add-circle-outline" class="section-icon"></ion-icon>
+        Nueva Suscripción
+      </div>
+
+      <div class="subscription-form" *ngIf="!isAdminOrMaestro">
+        <form [formGroup]="suscripcionForm" (ngSubmit)="onSubmit()">
+          <ion-list>
+            <ion-item>
+              <ion-label>
+                <h3>Tipo de Suscripción</h3>
+                <ion-button 
+                  expand="block" 
+                  fill="outline" 
+                  class="custom-select"
+                  (click)="openSubscriptionOptions()">
+                  {{ getSelectedTipoText() || 'Selecciona un tipo' }}
+                </ion-button>
+              </ion-label>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>
+                <h3>Precio</h3>
+                <ion-input formControlName="precio" type="number" readonly>
+                  <span slot="end">€</span>
+                </ion-input>
+              </ion-label>
+            </ion-item>
+
+            <div class="form-group">
+              <ion-label position="stacked">Fecha de Inicio</ion-label>
+              <ion-item class="custom-input">
+                <mat-form-field appearance="fill" class="custom-mat-field">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <input matInput
+                    [matDatepicker]="picker"
+                    formControlName="fechaInicio"
+                    [min]="minDate"
+                    [max]="maxDate"
+                    (dateChange)="onFechaInicioSelected($event.value)"
+                    [value]="suscripcionForm.get('fechaInicio')?.value | date:'dd/MM/yyyy':'es-ES'"
+                    placeholder="Selecciona una fecha">
+                </mat-form-field>
+              </ion-item>
+            </div>
+
+            <div class="form-group">
+              <ion-label position="stacked">Fecha de Fin</ion-label>
+              <ion-item class="custom-input">
+                <mat-form-field appearance="fill" class="custom-mat-field">
+                  <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>
+                  <mat-datepicker #pickerFin></mat-datepicker>
+                  <input matInput
+                    [matDatepicker]="pickerFin"
+                    formControlName="fechaFin"
+                    [min]="minDate"
+                    [max]="maxDate"
+                    readonly
+                    [value]="suscripcionForm.get('fechaFin')?.value | date:'dd/MM/yyyy':'es-ES'"
+                    placeholder="Se calculará automáticamente">
+                </mat-form-field>
+              </ion-item>
+            </div>
+          </ion-list>
+
+          <div class="profile-actions">
+            <ion-button 
+              expand="block" 
+              type="submit" 
+              [disabled]="!suscripcionForm.valid || isLoading" 
+              style="display: flex; align-items: center; justify-content: center;">
+              <ion-icon name="card-outline" slot="start"></ion-icon>
+              <span style="display: flex; align-items: center;">
+                <ion-spinner *ngIf="isLoading" name="crescent" style="margin-right: 8px;"></ion-spinner>
+                Pagar Suscripción
+              </span>
+            </ion-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> 

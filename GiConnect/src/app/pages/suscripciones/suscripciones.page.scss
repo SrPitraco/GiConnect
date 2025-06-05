@@ -1,0 +1,344 @@
+
+
+.login-background {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  padding: 10px 0;
+}
+
+.backdrop-logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/logoCuadradoPNG.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.welcome-title {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: #153ae0;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-container {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  width: 90%;
+  backdrop-filter: blur(8px);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.section-title {
+  color: #153ae0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 20px 0 10px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #153ae0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  ion-icon {
+    font-size: 1.4rem;
+    color: #153ae0;
+    min-width: 24px;
+  }
+}
+
+.subscription-info {
+  background: rgba(21, 58, 224, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+
+  ion-list {
+    background: transparent;
+    padding: 0;
+  }
+
+  ion-item {
+    --background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 10px;
+
+    h3 {
+      color: #153ae0;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    p {
+      color: #333;
+      margin: 5px 0 0;
+      font-size: 1rem;
+    }
+  }
+
+  .subscription-type {
+    color: #153ae0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .subscription-dates {
+    p {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #666;
+      margin: 0.3rem 0;
+
+      ion-icon {
+        color: #153ae0;
+      }
+    }
+  }
+
+  .subscription-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--ion-color-warning);
+
+    &.paid {
+      color: var(--ion-color-success);
+    }
+
+    ion-icon {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.subscription-form {
+  ion-list {
+    background: transparent;
+    padding: 0;
+  }
+
+  ion-item {
+    --background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 10px;
+
+    h3 {
+      color: #153ae0;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    ion-input, ion-select, ion-datetime {
+      --padding-start: 0;
+      --padding-end: 0;
+      --color: #333;
+      font-size: 1rem;
+    }
+
+    ion-select {
+      --padding-end: 40px;
+      --padding-start: 16px;
+      --icon-margin-end: 0;
+      --icon-margin-start: 0;
+      --icon-color: #153ae0;
+      --icon-opacity: 1;
+      position: relative;
+      width: 100%;
+
+      &::part(icon) {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+      }
+    }
+  }
+
+  
+}
+
+/* Estilos específicos para iOS */
+:host-context(.ios) {
+  .custom-select {
+    --padding-end: 40px;
+    --icon-margin-end: 0;
+    --icon-margin-start: 8px;
+    --icon-color: #153ae0;
+    --icon-opacity: 1;
+    position: relative;
+    
+    &::part(icon) {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+
+
+
+.custom-mat-field {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  ::ng-deep {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding: 0;
+      min-height: unset;
+    }
+
+    .mat-mdc-form-field-flex {
+      padding: 0;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      background: transparent;
+      padding: 0;
+    }
+
+    .mat-mdc-form-field-icon-suffix {
+      color: var(--ion-color-primary);
+    }
+
+    .mat-mdc-form-field-icon-prefix {
+      color: var(--ion-color-primary);
+    }
+
+    .mat-mdc-input-element {
+      color: var(--ion-color-dark);
+      font-size: 1rem;
+      padding: 8px 0;
+    }
+
+    .mat-mdc-form-field-underline {
+      display: none;
+    }
+  }
+}
+
+// Estilos específicos para iOS
+.ios {
+  ion-select {
+    --padding-end: 40px;
+    --icon-margin-end: 0;
+    --icon-margin-start: 0;
+    
+    &::part(icon) {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+    }
+  }
+}
+
+// Variables
+$primary-color: #153ae0;
+$border-color: rgba(0, 0, 0, 0.1);
+$text-color: #333;
+
+// Estilos comunes
+.custom-select {
+  --border-color: #153ae0;
+  --color: #153ae0;
+  --background: transparent;
+  margin: 0;
+  height: 48px;
+  font-size: 1rem;
+  text-align: left;
+  position: relative;
+  width: 100%;
+  padding-right: 40px;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+    border-top-color: #153ae0;
+  }
+}
+
+// Estilos del action-sheet
+::ng-deep {
+  .custom-action-sheet {
+    .action-sheet-wrapper {
+      margin: 0;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .action-sheet-group {
+      .action-sheet-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: $primary-color;
+        padding: 16px;
+      }
+
+      .action-sheet-button {
+        font-size: 1.1rem;
+        color: $text-color;
+        padding: 16px;
+        border-bottom: 1px solid $border-color;
+        min-height: 56px;
+        display: flex;
+        align-items: center;
+      }
+
+      .action-sheet-cancel {
+        font-weight: 500;
+        color: $primary-color;
+        border-top: 1px solid $border-color;
+      }
+    }
+  }
+
+  .action-sheet-backdrop {
+    cursor: pointer;
+    --backdrop-opacity: 0.4;
+  }
+} 

@@ -4,7 +4,7 @@ import { Platform, IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { 
   menu, 
-  personOutline, 
+  personOutline,
   logInOutline, 
   powerOutline,
   homeOutline,
@@ -13,7 +13,9 @@ import {
   chatbubbleOutline,
   cartOutline,
   logOutOutline,
-  medalOutline
+  medalOutline,
+  calendarOutline,
+  cardOutline
 } from 'ionicons/icons';
 import { App } from '@capacitor/app';
 import { CommonModule } from '@angular/common';
@@ -38,7 +40,8 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   isAndroid = false;
   isAdminOrMaestro = false;
   private storageListener: any;
-
+  private overlay: HTMLElement | null = null;
+  
   constructor(
     private router: Router,
     private platform: Platform,
@@ -48,6 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.createOverlay();
     this.checkUserStatus();
     // Escuchar cambios en el localStorage
     this.storageListener = window.addEventListener('storage', (event) => {
@@ -61,12 +65,13 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.storageListener) {
       window.removeEventListener('storage', this.storageListener);
     }
+    this.removeOverlay();
   }
 
   ngAfterViewInit() {
-    addIcons({ 
+    addIcons({
       menu, 
-      personOutline, 
+      personOutline,
       logInOutline, 
       powerOutline,
       homeOutline,
@@ -75,18 +80,28 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       chatbubbleOutline,
       cartOutline,
       logOutOutline,
-      medalOutline
+      medalOutline,
+      calendarOutline,
+      cardOutline
     });
   }
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const menuButton = document.querySelector('.menu-button');
-    const menuContent = document.querySelector('.menu-content');
-    
-    if (menuButton && !menuButton.contains(event.target as Node) &&
-        menuContent && !menuContent.contains(event.target as Node)) {
-      this.isMenuOpen = false;
+  private createOverlay() {
+    this.overlay = document.createElement('div');
+    this.overlay.style.position = 'fixed';
+    this.overlay.style.top = '0';
+    this.overlay.style.left = '0';
+    this.overlay.style.width = '100%';
+    this.overlay.style.height = '100%';
+    this.overlay.style.zIndex = '999';
+    this.overlay.style.display = 'none';
+    document.body.appendChild(this.overlay);
+  }
+
+  private removeOverlay() {
+    if (this.overlay) {
+      document.body.removeChild(this.overlay);
+      this.overlay = null;
     }
   }
 
@@ -94,6 +109,25 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isMenuOpen = !this.isMenuOpen;
     if (this.isMenuOpen) {
       this.checkUserStatus();
+      if (this.overlay) {
+        this.overlay.style.display = 'block';
+        this.overlay.addEventListener('click', this.handleOverlayClick.bind(this));
+      }
+    } else {
+      if (this.overlay) {
+        this.overlay.style.display = 'none';
+        this.overlay.removeEventListener('click', this.handleOverlayClick.bind(this));
+      }
+    }
+  }
+
+  private handleOverlayClick(event: MouseEvent) {
+    const menuContent = document.querySelector('.menu-content');
+    if (menuContent && !menuContent.contains(event.target as Node)) {
+      this.isMenuOpen = false;
+      if (this.overlay) {
+        this.overlay.style.display = 'none';
+      }
     }
   }
 

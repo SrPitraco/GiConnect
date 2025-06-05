@@ -9,6 +9,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { AuthService } from '../../services/auth.service';
+import { SuscripcionService } from '../../services/suscripcion.service';
+import { Suscripcion } from '../../interfaces/suscripcion.interface';
 
 interface UserData {
   nombre: string;
@@ -66,7 +68,7 @@ export class PerfilPage implements OnInit {
   userName: string = '';
   userRole: string = '';
   userPhoto: string | null = null;
-  activeSubscription: Subscription | null = null;
+  activeSubscription: Suscripcion | null = null;
 
   constructor(
     private router: Router,
@@ -74,7 +76,8 @@ export class PerfilPage implements OnInit {
     private alertController: AlertController,
     private toastController: ToastController,
     private platform: Platform,
-    private authService: AuthService
+    private authService: AuthService,
+    private suscripcionService: SuscripcionService
   ) {
     addIcons({ createOutline, cameraOutline, saveOutline });
   }
@@ -106,12 +109,25 @@ export class PerfilPage implements OnInit {
   }
 
   loadSubscription() {
-    // TODO: Implementar la carga de suscripciones desde el backend
-    // Por ahora, simulamos una suscripción activa
-    this.activeSubscription = {
-      tipo: 'Mensual',
-      fechaFin: '2024-12-31'
-    };
+    console.log('Cargando suscripciones activas...');
+    this.suscripcionService.getSuscripcionesActivas().subscribe({
+      next: (suscripciones: Suscripcion[]) => {
+        console.log('Suscripciones recibidas:', suscripciones);
+        if (suscripciones && suscripciones.length > 0) {
+          // Ordenar por fecha de fin y tomar la más reciente
+          suscripciones.sort((a, b) => new Date(b.fechaFin).getTime() - new Date(a.fechaFin).getTime());
+          this.activeSubscription = suscripciones[0];
+          console.log('Suscripción activa:', this.activeSubscription);
+        } else {
+          this.activeSubscription = null;
+          console.log('No hay suscripciones activas');
+        }
+      },
+      error: (error) => {
+        console.error('Error al cargar suscripciones:', error);
+        this.activeSubscription = null;
+      }
+    });
   }
 
   isSubscriptionExpired(): boolean {
@@ -119,6 +135,16 @@ export class PerfilPage implements OnInit {
     const fechaFin = new Date(this.activeSubscription.fechaFin);
     const hoy = new Date();
     return fechaFin < hoy;
+  }
+
+  getSubscriptionStatus(): string {
+    if (!this.activeSubscription) {
+      return 'Sin suscripción activa';
+    }
+    if (this.isSubscriptionExpired()) {
+      return 'Suscripción expirada';
+    }
+    return `Suscripción ${this.activeSubscription.tipo} activa hasta ${new Date(this.activeSubscription.fechaFin).toLocaleDateString('es-ES')}`;
   }
 
   getRoleName(role: string): string {
