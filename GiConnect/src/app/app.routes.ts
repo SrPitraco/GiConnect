@@ -14,7 +14,7 @@ import { SuscripcionesPage } from './pages/suscripciones/suscripciones.page';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth/login',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -48,7 +48,8 @@ export const routes: Routes = [
   
   {
     path: 'perfil',
-    loadComponent: () => import('./pages/perfil/perfil.page').then(m => m.PerfilPage)
+    loadComponent: () => import('./pages/perfil/perfil.page').then(m => m.PerfilPage),
+    canActivate: [authGuard]
   },
 
   {
@@ -59,6 +60,7 @@ export const routes: Routes = [
 
   {
     path: 'suscripciones',
-    component: SuscripcionesPage
+    component: SuscripcionesPage,
+    canActivate: [authGuard]
   }
 ];

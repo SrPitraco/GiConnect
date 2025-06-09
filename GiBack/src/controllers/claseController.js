@@ -66,7 +66,32 @@ exports.listSemana = async (req, res) => {
 
     console.log('=== BACKEND DEBUG === Clases fijas encontradas:', clasesFijas.length);
 
-    // 3. Generar nuevas clases a partir de las fijas si no existen
+    // 3. Buscar clases especiales futuras
+    const clasesEspeciales = await Clase.find({
+      diaSemana: { $exists: false },
+      fecha: { $gte: fechaFin }
+    })
+    .populate('instructor', 'nombre foto')
+    .populate({
+      path: 'reservas',
+      match: { status: { $in: ['pendiente', 'confirmada'] } },
+      populate: {
+        path: 'atleta',
+        select: 'nombre foto'
+      }
+    });
+
+    console.log('=== BACKEND DEBUG === Clases especiales futuras encontradas:', clasesEspeciales.length);
+    clasesEspeciales.forEach(clase => {
+      console.log('=== BACKEND DEBUG === Clase especial:', {
+        id: clase._id,
+        titulo: clase.titulo,
+        fecha: clase.fecha,
+        instructor: clase.instructor?.nombre
+      });
+    });
+
+    // 4. Generar nuevas clases a partir de las fijas si no existen
     const clasesGeneradas = [];
     const diasSemana = {
       'Lunes': 1, 'Martes': 2, 'Miércoles': 3, 'Jueves': 4, 
@@ -121,10 +146,17 @@ exports.listSemana = async (req, res) => {
 
     // 4. Obtener todas las clases actualizadas
     const clasesFinales = await Clase.find({
-      fecha: { 
-        $gte: fechaInicio,
-        $lt: fechaFin
-      }
+      $or: [
+        {
+          fecha: { 
+            $gte: fechaInicio,
+            $lt: fechaFin
+          }
+        },
+        {
+          _id: { $in: clasesEspeciales.map(c => c._id) }
+        }
+      ]
     })
     .populate('instructor', 'nombre foto')
     .populate({
@@ -136,19 +168,10 @@ exports.listSemana = async (req, res) => {
       }
     });
 
-    // Ajustar las fechas a la zona horaria local
-    const clasesAjustadas = clasesFinales.map(clase => {
-      const claseObj = clase.toObject();
-      if (claseObj.fecha) {
-        const fechaLocal = new Date(claseObj.fecha);
-        claseObj.fecha = fechaLocal.toISOString();
-      }
-      return claseObj;
-    });
-
-    console.log('=== BACKEND DEBUG === Total de clases finales:', clasesAjustadas.length);
-    clasesAjustadas.forEach(clase => {
-      console.log(`Clase "${clase.titulo}":`, {
+    console.log('=== BACKEND DEBUG === IDs de clases especiales:', clasesEspeciales.map(c => c._id));
+    console.log('=== BACKEND DEBUG === Total de clases finales:', clasesFinales.length);
+    clasesFinales.forEach(clase => {
+      console.log(`=== BACKEND DEBUG === Clase final "${clase.titulo}":`, {
         id: clase._id,
         fecha: clase.fecha,
         esEspecial: !clase.diaSemana,
@@ -157,7 +180,7 @@ exports.listSemana = async (req, res) => {
     });
 
     res.json({ 
-      clases: clasesAjustadas,
+      clases: clasesFinales,
       clasesGeneradas: clasesGeneradas.length
     });
   } catch (error) {

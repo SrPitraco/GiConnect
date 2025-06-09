@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -9,6 +9,7 @@ import { environment } from '../../../environments/environment';
 import { AuthService } from '../../services/auth.service';
 import moment from 'moment';
 import { ToastController } from '@ionic/angular';
+import { interval, Subscription } from 'rxjs';
 
 interface DiaSemana {
   diaSemana: string;
@@ -50,13 +51,16 @@ interface Reserva {
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-export class ReservasPage implements OnInit {
+export class ReservasPage implements OnInit, OnDestroy {
   apiUrl = environment.apiUrl;
   diasSemana: { nombre: string; clases: any[] }[] = [];
+  clasesEspeciales: { nombre: string; clases: any[] }[] = [];
   numeroSemana: number = 0;
   fechaInicio: Date = new Date();
   userId: string = '';
   clasesPorDia: { [key: string]: any[] } = {};
+  private checkInterval: Subscription = new Subscription();
+  private reloadListener: any;
 
   constructor(
     private http: HttpClient,
@@ -70,47 +74,42 @@ export class ReservasPage implements OnInit {
     const user = this.authService.getUser();
     this.userId = user?._id || '';
     this.cargarClasesSemana();
+    this.iniciarVerificacionSemanal();
+    this.setupReloadListener();
+  }
+
+  ngOnDestroy() {
+    if (this.checkInterval) {
+      this.checkInterval.unsubscribe();
+    }
+    if (this.reloadListener) {
+      window.removeEventListener('reloadReservas', this.reloadListener);
+    }
+  }
+
+  private iniciarVerificacionSemanal() {
+    // Verificar cada minuto si es domingo a las 22:00
+    this.checkInterval = interval(60000).subscribe(() => {
+      const ahora = new Date();
+      if (ahora.getDay() === 0 && ahora.getHours() === 22 && ahora.getMinutes() === 0) {
+        this.cargarClasesSemana();
+      }
+    });
+  }
+
+  private setupReloadListener() {
+    this.reloadListener = (event: Event) => {
+      if (event instanceof CustomEvent && event.type === 'reloadReservas') {
+        this.cargarClasesSemana();
+      }
+    };
+    window.addEventListener('reloadReservas', this.reloadListener);
   }
 
   getNumeroSemana(fecha: Date): number {
     const inicio = new Date(fecha.getFullYear(), 0, 1);
     const diff = fecha.getTime() - inicio.getTime();
     return Math.ceil((diff / 86400000 + inicio.getDay() + 1) / 7);
-  }
-
-  semanaAnterior() {
-    this.fechaInicio.setDate(this.fechaInicio.getDate() - 7);
-    this.generarSemanaActual();
-    this.cargarClasesSemana();
-  }
-
-  siguienteSemana() {
-    this.fechaInicio.setDate(this.fechaInicio.getDate() + 7);
-    this.generarSemanaActual();
-    this.cargarClasesSemana();
-  }
-
-  generarSemanaActual() {
-    const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    
-    const diaSemana = this.fechaInicio.getDay();
-    const ajuste = diaSemana === 0 ? -6 : 1 - diaSemana;
-    const fechaLunes = new Date(this.fechaInicio);
-    fechaLunes.setDate(this.fechaInicio.getDate() + ajuste);
-    
-    this.numeroSemana = this.getNumeroSemana(fechaLunes);
-    
-    this.diasSemana = [];
-    for (let i = 0; i < 7; i++) {
-      const fecha = new Date(fechaLunes);
-      fecha.setDate(fechaLunes.getDate() + i);
-      
-      this.diasSemana.push({
-        nombre: `${dias[fecha.getDay()]} ${fecha.getDate()} ${meses[fecha.getMonth()]}`,
-        clases: []
-      });
-    }
   }
 
   obtenerFechaLunes(): string {
@@ -132,11 +131,13 @@ export class ReservasPage implements OnInit {
 
   async presentToast(message: string) {
     const toast = await this.toastController.create({
-      message,
-      duration: 2000,
-      position: 'bottom'
+      message: message,
+      duration: 3000,
+      position: 'middle',
+      cssClass: 'custom-toast',
+      translucent: true
     });
-    toast.present();
+    await toast.present();
   }
 
   async cargarClasesSemana() {
@@ -144,6 +145,9 @@ export class ReservasPage implements OnInit {
       // Obtener la fecha del lunes de la semana actual
       const fechaLunes = this.obtenerFechaLunes();
       console.log('=== FRONTEND DEBUG === Fecha lunes:', fechaLunes);
+
+      // Generar la semana actual
+      this.generarSemanaActual();
 
       // Primero intentamos generar las clases de la semana
       try {
@@ -181,6 +185,30 @@ export class ReservasPage implements OnInit {
     }
   }
 
+  generarSemanaActual() {
+    const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+    
+    const hoy = new Date();
+    const diaSemana = hoy.getDay();
+    const ajuste = diaSemana === 0 ? -6 : 1 - diaSemana;
+    const fechaLunes = new Date(hoy);
+    fechaLunes.setDate(hoy.getDate() + ajuste);
+    
+    this.numeroSemana = this.getNumeroSemana(fechaLunes);
+    
+    this.diasSemana = [];
+    for (let i = 0; i < 7; i++) {
+      const fecha = new Date(fechaLunes);
+      fecha.setDate(fechaLunes.getDate() + i);
+      
+      this.diasSemana.push({
+        nombre: `${dias[fecha.getDay()]} ${fecha.getDate()} ${meses[fecha.getMonth()]}`,
+        clases: []
+      });
+    }
+  }
+
   procesarClases(clases: any[]) {
     // Inicializar el objeto de clases por día
     this.clasesPorDia = {
@@ -188,70 +216,104 @@ export class ReservasPage implements OnInit {
       'Viernes': [], 'Sábado': [], 'Domingo': []
     };
 
+    // Inicializar array de clases especiales
+    this.clasesEspeciales = [];
+
     console.log('=== FRONTEND DEBUG === Procesando clases:', clases.length);
+
+    // Obtener el fin de la semana actual
+    const hoy = new Date();
+    const diaSemana = hoy.getDay();
+    const ajuste = diaSemana === 0 ? -6 : 1 - diaSemana;
+    const fechaLunes = new Date(hoy);
+    fechaLunes.setDate(hoy.getDate() + ajuste);
+    const fechaFinSemana = new Date(fechaLunes);
+    fechaFinSemana.setDate(fechaLunes.getDate() + 6);
+    fechaFinSemana.setHours(23, 59, 59, 999);
+
+    console.log('=== FRONTEND DEBUG === Fechas de referencia:', {
+      hoy: hoy.toISOString(),
+      fechaLunes: fechaLunes.toISOString(),
+      fechaFinSemana: fechaFinSemana.toISOString()
+    });
 
     // Procesar cada clase
     clases.forEach(clase => {
       const fecha = new Date(clase.fecha);
-      const diaSemana = this.obtenerDiaSemana(fecha);
       
-      console.log(`=== FRONTEND DEBUG === Procesando clase:`, {
+      console.log('=== FRONTEND DEBUG === Procesando clase:', {
         titulo: clase.titulo,
         fecha: fecha.toISOString(),
-        diaSemana: diaSemana,
         esEspecial: !clase.diaSemana,
-        reservas: clase.reservas?.length || 0
+        fechaFinSemana: fechaFinSemana.toISOString(),
+        esPosterior: fecha > fechaFinSemana
       });
 
-      // Agregar la clase al día correspondiente
-      if (this.clasesPorDia[diaSemana]) {
-        this.clasesPorDia[diaSemana].push(clase);
-      } else {
-        console.error(`=== FRONTEND DEBUG === Día no encontrado para la clase:`, {
+      // Si es una clase especial (sin diaSemana) y su fecha es posterior al fin de la semana actual
+      if (!clase.diaSemana && fecha > fechaFinSemana) {
+        const diaSemana = this.obtenerDiaSemana(fecha);
+        const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        const nombreDia = `${diaSemana} ${fecha.getDate()} ${meses[fecha.getMonth()]}`;
+        
+        console.log('=== FRONTEND DEBUG === Agregando clase especial:', {
+          nombreDia,
           titulo: clase.titulo,
-          fecha: fecha.toISOString(),
-          diaSemana: diaSemana
+          fecha: fecha.toISOString()
         });
+
+        // Buscar si ya existe un día con esta fecha
+        let diaExistente = this.clasesEspeciales.find(d => d.nombre === nombreDia);
+        if (!diaExistente) {
+          diaExistente = { nombre: nombreDia, clases: [] };
+          this.clasesEspeciales.push(diaExistente);
+        }
+        diaExistente.clases.push(clase);
+      } else {
+        const diaSemana = this.obtenerDiaSemana(fecha);
+        if (this.clasesPorDia[diaSemana]) {
+          this.clasesPorDia[diaSemana].push(clase);
+        }
       }
     });
 
-    // Ordenar las clases por hora de inicio
+    console.log('=== FRONTEND DEBUG === Clases especiales encontradas:', this.clasesEspeciales);
+
+    // Ordenar las clases por hora de inicio en cada día
     Object.keys(this.clasesPorDia).forEach(dia => {
       this.clasesPorDia[dia].sort((a, b) => {
         return a.horaInicio.localeCompare(b.horaInicio);
       });
     });
 
+    // Ordenar las clases especiales por fecha y hora
+    this.clasesEspeciales.sort((a, b) => {
+      const fechaA = new Date(a.nombre.split(' ')[1] + ' ' + a.nombre.split(' ')[2] + ' ' + new Date().getFullYear());
+      const fechaB = new Date(b.nombre.split(' ')[1] + ' ' + b.nombre.split(' ')[2] + ' ' + new Date().getFullYear());
+      return fechaA.getTime() - fechaB.getTime();
+    });
+
+    this.clasesEspeciales.forEach(dia => {
+      dia.clases.sort((a, b) => {
+        return a.horaInicio.localeCompare(b.horaInicio);
+      });
+    });
+
     // Actualizar el array de días de la semana con la fecha completa
     const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-    const fechaInicio = new Date(this.fechaInicio);
-    const diaSemana = fechaInicio.getDay();
-    const ajuste = diaSemana === 0 ? -6 : 1 - diaSemana;
-    const fechaLunes = new Date(fechaInicio);
-    fechaLunes.setDate(fechaInicio.getDate() + ajuste);
-
+    
     this.diasSemana = Object.keys(this.clasesPorDia).map((dia, index) => {
       const fecha = new Date(fechaLunes);
       fecha.setDate(fechaLunes.getDate() + index);
       const clasesDelDia = this.clasesPorDia[dia];
       
-      console.log(`=== FRONTEND DEBUG === Día ${dia}:`, {
-        fecha: fecha.toISOString(),
-        clases: clasesDelDia.length,
-        clasesDetalle: clasesDelDia.map(c => ({
-          titulo: c.titulo,
-          fecha: c.fecha,
-          esEspecial: !c.diaSemana
-        }))
-      });
-
       return {
         nombre: `${dia} ${fecha.getDate()} ${meses[fecha.getMonth()]}`,
         clases: clasesDelDia
       };
     });
 
-    console.log('=== FRONTEND DEBUG === Días procesados:', this.diasSemana);
+    console.log('=== FRONTEND DEBUG === Días de la semana:', this.diasSemana);
+    console.log('=== FRONTEND DEBUG === Clases especiales finales:', this.clasesEspeciales);
   }
 
   obtenerDiaSemana(fecha: Date): string {
@@ -283,13 +345,14 @@ export class ReservasPage implements OnInit {
 
   async cancelarReserva(reservaId: string) {
     try {
-      await this.http.delete(
+      const response = await this.http.delete(
         `${this.apiUrl}/reservas/${reservaId}`,
         { headers: this.getHeaders() }
       ).toPromise();
       
       this.presentToast('Reserva cancelada correctamente');
-      this.cargarClasesSemana();
+      // Recargar las clases para actualizar la interfaz
+      await this.cargarClasesSemana();
     } catch (error: any) {
       console.error('Error al cancelar:', error);
       this.presentToast(error.error?.message || 'Error al cancelar la reserva');

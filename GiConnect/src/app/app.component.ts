@@ -1,5 +1,5 @@
-import { Component, OnInit, HostListener, AfterViewInit, OnDestroy } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, OnInit, HostListener, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
+import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { Platform, IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { 
@@ -20,6 +20,7 @@ import {
 import { App } from '@capacitor/app';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -39,33 +40,62 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   userBeltColor: string | null = null;
   isAndroid = false;
   isAdminOrMaestro = false;
-  private storageListener: any;
-  private overlay: HTMLElement | null = null;
+  private userSubscription: any;
+  private routerSubscription: any;
   
   constructor(
     private router: Router,
     private platform: Platform,
-    private authService: AuthService
+    private authService: AuthService,
+    private el: ElementRef
   ) {
     this.isAndroid = this.platform.is('android');
   }
 
   ngOnInit() {
-    this.createOverlay();
-    this.checkUserStatus();
-    // Escuchar cambios en el localStorage
-    this.storageListener = window.addEventListener('storage', (event) => {
-      if (event.key === 'user') {
-        this.checkUserStatus();
+    this.checkUserRole();
+    this.setupRouterListener();
+  }
+
+  private setupRouterListener() {
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: any) => {
+      // Si estamos en la página de reservas, recargamos los datos
+      if (event.url === '/reservas') {
+        // Emitimos un evento personalizado que la página de reservas escuchará
+        window.dispatchEvent(new CustomEvent('reloadReservas'));
+      }
+    });
+  }
+
+  private checkUserRole() {
+    this.userSubscription = this.authService.user$.subscribe(user => {
+      console.log('Usuario actualizado:', user);
+      if (user) {
+        this.userName = user.nombre ? `${user.nombre} ${user.apellido1}` : null;
+        this.userPhoto = user.foto || null;
+        this.userBeltColor = user.cinturon || null;
+        this.isAdminOrMaestro = user.role === 'admin' || user.role === 'maestro';
+        console.log('Información del menú actualizada:', {
+          name: this.userName,
+          photo: this.userPhoto,
+          belt: this.userBeltColor,
+          isAdminOrMaestro: this.isAdminOrMaestro
+        });
+      } else {
+        this.resetUserInfo();
       }
     });
   }
 
   ngOnDestroy() {
-    if (this.storageListener) {
-      window.removeEventListener('storage', this.storageListener);
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
     }
-    this.removeOverlay();
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
   }
 
   ngAfterViewInit() {
@@ -86,82 +116,28 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  private createOverlay() {
-    this.overlay = document.createElement('div');
-    this.overlay.style.position = 'fixed';
-    this.overlay.style.top = '0';
-    this.overlay.style.left = '0';
-    this.overlay.style.width = '100%';
-    this.overlay.style.height = '100%';
-    this.overlay.style.zIndex = '999';
-    this.overlay.style.display = 'none';
-    document.body.appendChild(this.overlay);
-  }
-
-  private removeOverlay() {
-    if (this.overlay) {
-      document.body.removeChild(this.overlay);
-      this.overlay = null;
-    }
-  }
-
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-    if (this.isMenuOpen) {
-      this.checkUserStatus();
-      if (this.overlay) {
-        this.overlay.style.display = 'block';
-        this.overlay.addEventListener('click', this.handleOverlayClick.bind(this));
-      }
-    } else {
-      if (this.overlay) {
-        this.overlay.style.display = 'none';
-        this.overlay.removeEventListener('click', this.handleOverlayClick.bind(this));
-      }
-    }
-  }
-
-  private handleOverlayClick(event: MouseEvent) {
-    const menuContent = document.querySelector('.menu-content');
-    if (menuContent && !menuContent.contains(event.target as Node)) {
-      this.isMenuOpen = false;
-      if (this.overlay) {
-        this.overlay.style.display = 'none';
-      }
-    }
-  }
-
-  checkUserStatus() {
-    const userInfo = localStorage.getItem('user');
-    console.log('Checking user status:', userInfo); // Para debugging
-    if (userInfo) {
-      try {
-        const user = JSON.parse(userInfo);
-        console.log('Parsed user:', user); // Para debugging
-        this.userName = user.nombre ? `${user.nombre} ${user.apellido1}` : null;
-        this.userPhoto = user.foto || null;
-        this.userBeltColor = user.cinturon || null;
-        this.isAdminOrMaestro = user.role === 'admin' || user.role === 'maestro';
-        console.log('Updated user info:', { 
-          name: this.userName, 
-          photo: this.userPhoto, 
-          belt: this.userBeltColor,
-          isAdminOrMaestro: this.isAdminOrMaestro 
-        }); // Para debugging
-      } catch (error) {
-        console.error('Error parsing user info:', error);
-        this.resetUserInfo();
-      }
-    } else {
-      this.resetUserInfo();
-    }
-  }
-
   private resetUserInfo() {
     this.userName = null;
     this.userPhoto = null;
     this.userBeltColor = null;
     this.isAdminOrMaestro = false;
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  @HostListener('document:click', ['$event.target'])
+  onClickOutside(target: HTMLElement) {
+    const menuEl = this.el.nativeElement.querySelector('.menu-content');
+    const buttonEl = this.el.nativeElement.querySelector('.menu-button');
+    if (
+      this.isMenuOpen &&
+      menuEl && !menuEl.contains(target) &&
+      buttonEl && !buttonEl.contains(target)
+    ) {
+      this.isMenuOpen = false;
+    }
   }
 
   navigateToLogin() {
@@ -176,7 +152,6 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   logout() {
     this.authService.logout();
-    this.resetUserInfo();
     this.router.navigateByUrl('/auth/login');
     this.isMenuOpen = false;
   }

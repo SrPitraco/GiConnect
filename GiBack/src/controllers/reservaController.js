@@ -177,15 +177,15 @@ exports.cancel = async (req, res) => {
       });
     }
 
-    reserva.status = 'cancelada';
-    await reserva.save();
-
     // Eliminar la reserva del array de la clase
     await Clase.findByIdAndUpdate(reserva.clase, {
       $pull: { reservas: reserva._id }
     });
 
-    res.json(reserva);
+    // Eliminar completamente la reserva
+    await Reserva.findByIdAndDelete(id);
+
+    res.json({ message: 'Reserva eliminada correctamente' });
   } catch (error) {
     console.error('Error al cancelar la reserva:', error);
     res.status(500).json({ message: 'Error al cancelar la reserva' });

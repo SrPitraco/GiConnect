@@ -75,25 +75,33 @@ ion-header ion-toolbar.toolbar-flex {
 
 .menu-content {
   position: absolute;
-  top: 68px;
+  top: 68px;       /* justo debajo del toolbar */
   left: 0;
   right: 0;
   background-color: white;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   z-index: 1000;
+
+  /* OCULTO fuera de pantalla */
   transform: translateY(-100%);
   opacity: 0;
-  transition: all 0.3s ease;
   pointer-events: none;
+  
+  /* ANIMACIÓN suave */
+  transition: transform 0.3s ease, opacity 0.3s ease;
   max-height: calc(100vh - 68px);
   overflow-y: auto;
 
   &.show {
+    /* VISIBLE en su posición */
     transform: translateY(0);
     opacity: 1;
     pointer-events: all;
   }
 }
+
+
+
 
 .menu-header {
   padding: 16px;

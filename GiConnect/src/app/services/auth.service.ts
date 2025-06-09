@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Platform } from '@ionic/angular';
 
 interface AuthResponse {
@@ -23,6 +23,8 @@ interface AuthResponse {
 })
 export class AuthService {
   private apiUrl: string;
+  private userSubject = new BehaviorSubject<any>(null);
+  public user$ = this.userSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -30,6 +32,15 @@ export class AuthService {
   ) {
     this.apiUrl = environment.apiUrl;
     console.log('🌐 URL base configurada:', this.apiUrl);
+    // Inicializar el estado del usuario
+    this.checkStoredUser();
+  }
+
+  private checkStoredUser() {
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.userSubject.next(JSON.parse(user));
+    }
   }
 
   async login(credentials: { email: string; password: string }) {
@@ -60,6 +71,7 @@ export class AuthService {
       if (response && response.token) {
         localStorage.setItem('token', response.token);
         localStorage.setItem('user', JSON.stringify(response.user));
+        this.userSubject.next(response.user);
         return response;
       } else {
         throw new Error('Respuesta del servidor inválida');
@@ -156,6 +168,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    this.userSubject.next(null);
     // Limpiar el formulario de login
     const loginForm = document.querySelector('app-login form');
     if (loginForm) {

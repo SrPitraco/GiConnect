@@ -5,71 +5,122 @@
     <div class="header-section">
       <h1 class="welcome-title">Reserva de Clases</h1>
       <div class="semana-container">
-        <ion-button fill="clear" (click)="semanaAnterior()">
-          <ion-icon name="chevron-back-outline" slot="icon-only"></ion-icon>
-        </ion-button>
         <h2 class="welcome-subtitle">Semana {{ numeroSemana }}</h2>
-        <ion-button fill="clear" (click)="siguienteSemana()">
-          <ion-icon name="chevron-forward-outline" slot="icon-only"></ion-icon>
-        </ion-button>
       </div>
     </div>
 
-    <div class="dias-container">
-      <ion-card *ngFor="let dia of diasSemana" class="dia-card">
-        <ion-card-header>
-          <ion-card-title class="dia-titulo">
-            {{ dia.nombre }}
-          </ion-card-title>
-        </ion-card-header>
+    <div class="scroll-container">
+      <div class="dias-container">
+        <ion-card *ngFor="let dia of diasSemana" class="dia-card">
+          <ion-card-header>
+            <ion-card-title class="dia-titulo">
+              {{ dia.nombre }}
+            </ion-card-title>
+          </ion-card-header>
 
-        <ion-card-content>
-          <div class="no-clases" *ngIf="dia.clases.length === 0">
-            <ion-icon name="calendar-outline"></ion-icon>
-            <p>No hay clases disponibles</p>
-          </div>
-
-          <div class="clase-container" *ngFor="let clase of dia.clases">
-            <div class="clase-header">
-              <div class="clase-info">
-                <h3 class="clase-titulo">{{ clase.titulo }}</h3>
-                <p class="clase-horario">{{ clase.horaInicio }} - {{ clase.horaFin }}</p>
-              </div>
-              <div class="instructor-info">
-                <img [src]="clase.instructor?.foto || 'assets/default-avatar.png'" 
-                     [alt]="clase.instructor?.nombre || 'Instructor'"
-                     class="instructor-foto">
-                <p class="instructor-nombre">{{ clase.instructor?.nombre || 'Instructor' }}</p>
-              </div>
+          <ion-card-content>
+            <div class="no-clases" *ngIf="dia.clases.length === 0">
+              <ion-icon name="calendar-outline"></ion-icon>
+              <p>No hay clases disponibles</p>
             </div>
 
-            <div class="plazas-container">
-              <div class="plaza" *ngFor="let reserva of clase.reservas">
-                <img [src]="reserva.atleta?.foto || 'assets/default-avatar.png'" 
-                     [alt]="reserva.atleta?.nombre || 'Atleta'"
-                     class="atleta-foto"
-                     (error)="reserva.atleta.foto = 'assets/default-avatar.png'">
+            <div class="clase-container" *ngFor="let clase of dia.clases">
+              <div class="clase-header">
+                <div class="clase-info">
+                  <h3 class="clase-titulo">{{ clase.titulo }}</h3>
+                  <p class="clase-horario">{{ clase.horaInicio }} - {{ clase.horaFin }}</p>
+                </div>
+                <div class="instructor-info">
+                  <img [src]="clase.instructor?.foto || 'assets/default-avatar.png'" 
+                       [alt]="clase.instructor?.nombre || 'Instructor'"
+                       class="instructor-foto">
+                  <p class="instructor-nombre">{{ clase.instructor?.nombre || 'Instructor' }}</p>
+                </div>
               </div>
-              <div class="plaza" *ngFor="let i of [].constructor(clase.maxPlazas - (clase.reservas?.length || 0))">
-                <div class="plaza-vacia"></div>
-              </div>
-            </div>
 
-            <div class="acciones-container">
-              <ion-button *ngIf="!tieneReserva(clase)" 
-                         (click)="reservarClase(clase._id)"
-                         color="primary">
-                Reservar
-              </ion-button>
-              <ion-button *ngIf="tieneReserva(clase)" 
-                         (click)="cancelarReserva(getReservaUsuario(clase)?._id)"
-                         color="danger">
-                Cancelar
-              </ion-button>
+              <div class="plazas-container">
+                <div class="plaza" *ngFor="let reserva of clase.reservas">
+                  <img [src]="reserva.atleta?.foto || 'assets/default-avatar.png'" 
+                       [alt]="reserva.atleta?.nombre || 'Atleta'"
+                       class="atleta-foto"
+                       (error)="reserva.atleta.foto = 'assets/default-avatar.png'">
+                </div>
+                <div class="plaza" *ngFor="let i of [].constructor(clase.maxPlazas - (clase.reservas?.length || 0))">
+                  <div class="plaza-vacia"></div>
+                </div>
+              </div>
+
+              <div class="acciones-container">
+                <ion-button *ngIf="!tieneReserva(clase)" 
+                           (click)="reservarClase(clase._id)"
+                           color="primary">
+                  Reservar
+                </ion-button>
+                <ion-button *ngIf="tieneReserva(clase)" 
+                           (click)="cancelarReserva(getReservaUsuario(clase)?._id)"
+                           color="danger">
+                  Cancelar
+                </ion-button>
+              </div>
             </div>
-          </div>
-        </ion-card-content>
-      </ion-card>
+          </ion-card-content>
+        </ion-card>
+      </div>
+
+      <div *ngIf="clasesEspeciales && clasesEspeciales.length > 0" class="clases-especiales-section">
+        <h2 class="welcome-subtitle">Clases Especiales</h2>
+        <div class="dias-container">
+          <ion-card *ngFor="let dia of clasesEspeciales" class="dia-card">
+            <ion-card-header>
+              <ion-card-title class="dia-titulo">
+                {{ dia.nombre }}
+              </ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+              <div class="clase-container" *ngFor="let clase of dia.clases">
+                <div class="clase-header">
+                  <div class="clase-info">
+                    <h3 class="clase-titulo">{{ clase.titulo }}</h3>
+                    <p class="clase-horario">{{ clase.horaInicio }} - {{ clase.horaFin }}</p>
+                  </div>
+                  <div class="instructor-info">
+                    <img [src]="clase.instructor?.foto || 'assets/default-avatar.png'" 
+                         [alt]="clase.instructor?.nombre || 'Instructor'"
+                         class="instructor-foto">
+                    <p class="instructor-nombre">{{ clase.instructor?.nombre || 'Instructor' }}</p>
+                  </div>
+                </div>
+
+                <div class="plazas-container">
+                  <div class="plaza" *ngFor="let reserva of clase.reservas">
+                    <img [src]="reserva.atleta?.foto || 'assets/default-avatar.png'" 
+                         [alt]="reserva.atleta?.nombre || 'Atleta'"
+                         class="atleta-foto"
+                         (error)="reserva.atleta.foto = 'assets/default-avatar.png'">
+                  </div>
+                  <div class="plaza" *ngFor="let i of [].constructor(clase.maxPlazas - (clase.reservas?.length || 0))">
+                    <div class="plaza-vacia"></div>
+                  </div>
+                </div>
+
+                <div class="acciones-container">
+                  <ion-button *ngIf="!tieneReserva(clase)" 
+                             (click)="reservarClase(clase._id)"
+                             color="primary">
+                    Reservar
+                  </ion-button>
+                  <ion-button *ngIf="tieneReserva(clase)" 
+                             (click)="cancelarReserva(getReservaUsuario(clase)?._id)"
+                             color="danger">
+                    Cancelar
+                  </ion-button>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      </div>
     </div>
   </div>
 </div>
