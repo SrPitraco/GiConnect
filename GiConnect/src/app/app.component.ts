@@ -15,7 +15,11 @@ import {
   logOutOutline,
   medalOutline,
   calendarOutline,
-  cardOutline
+  cardOutline,
+  checkboxOutline,
+  calendarNumberOutline,
+  createOutline,
+  bagAddOutline
 } from 'ionicons/icons';
 import { App } from '@capacitor/app';
 import { CommonModule } from '@angular/common';
@@ -112,7 +116,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       logOutOutline,
       medalOutline,
       calendarOutline,
-      cardOutline
+      cardOutline,
+      checkboxOutline,
+      calendarNumberOutline,
+      createOutline,
+      bagAddOutline
     });
   }
 

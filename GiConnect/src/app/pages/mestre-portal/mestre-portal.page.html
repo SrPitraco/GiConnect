@@ -1,0 +1,51 @@
+<div class="login-background">
+  <div class="backdrop-logo"></div>
+
+  <div class="ion-padding">
+    <h2 class="welcome-title">Oss, {{userName}}</h2>
+    
+    <div class="grid-container">
+      <div class="grid-item" (click)="navigateTo('/teacher/attendance')">
+        <div class="icon-placeholder">
+          <ion-icon name="checkbox-outline"></ion-icon>
+        </div>
+        <span>Pasar Lista</span>
+      </div>
+
+      <div class="grid-item" (click)="navigateTo('/teacher/modify-user')">
+        <div class="icon-placeholder">
+          <ion-icon name="person-outline"></ion-icon>
+        </div>
+        <span>Modificar Usuario</span>
+      </div>
+
+      <div class="grid-item" (click)="navigateTo('/teacher/special-class')">
+        <div class="icon-placeholder">
+          <ion-icon name="calendar-number-outline"></ion-icon>
+        </div>
+        <span>Crear Clase Especial</span>
+      </div>
+
+      <div class="grid-item" (click)="navigateTo('/teacher/fixed-class')">
+        <div class="icon-placeholder">
+          <ion-icon name="calendar-outline"></ion-icon>
+        </div>
+        <span>Crear Clase Fija</span>
+      </div>
+
+      <div class="grid-item" (click)="navigateTo('/teacher/modify-class')">
+        <div class="icon-placeholder">
+          <ion-icon name="create-outline"></ion-icon>
+        </div>
+        <span>Modificar Clase</span>
+      </div>
+
+      <div class="grid-item" (click)="navigateTo('/teacher/create-item')">
+        <div class="icon-placeholder">
+          <ion-icon name="bag-add-outline"></ion-icon>
+        </div>
+        <span>Crear Artículo Tienda</span>
+      </div>
+    </div>
+  </div>
+</div> 
