@@ -61,6 +61,7 @@ export class ReservasPage implements OnInit, OnDestroy {
   clasesPorDia: { [key: string]: any[] } = {};
   private checkInterval: Subscription = new Subscription();
   private reloadListener: any;
+  isAdminOrMaestro: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -68,6 +69,8 @@ export class ReservasPage implements OnInit, OnDestroy {
     private toastController: ToastController
   ) {
     addIcons({ calendarOutline, chevronForwardOutline, chevronBackOutline });
+    const user = this.authService.getUser();
+    this.isAdminOrMaestro = user?.role === 'admin' || user?.role === 'maestro';
   }
 
   ngOnInit() {
@@ -328,17 +331,30 @@ export class ReservasPage implements OnInit, OnDestroy {
 
   async reservarClase(claseId: string) {
     try {
+      const endpoint = this.isAdminOrMaestro ? '/reservas/multiple' : '/reservas';
+      console.log('=== FRONTEND DEBUG === Iniciando reserva:', {
+        endpoint,
+        isAdminOrMaestro: this.isAdminOrMaestro,
+        claseId,
+        headers: this.getHeaders()
+      });
+
+      console.log('=== FRONTEND DEBUG === Enviando petición a:', `${this.apiUrl}${endpoint}`);
+      
       const response = await this.http.post(
-        `${this.apiUrl}/reservas`,
+        `${this.apiUrl}${endpoint}`,
         { claseId },
         { headers: this.getHeaders() }
       ).toPromise();
       
-      console.log('Reserva creada:', response);
+      console.log('=== FRONTEND DEBUG === Respuesta del servidor:', response);
       this.presentToast('Clase reservada correctamente');
       this.cargarClasesSemana();
     } catch (error: any) {
-      console.error('Error al reservar:', error);
+      console.error('=== FRONTEND DEBUG === Error completo:', error);
+      console.error('=== FRONTEND DEBUG === Error status:', error.status);
+      console.error('=== FRONTEND DEBUG === Error message:', error.error);
+      console.error('=== FRONTEND DEBUG === Error headers:', error.headers);
       this.presentToast(error.error?.message || 'Error al reservar la clase');
     }
   }
@@ -360,10 +376,20 @@ export class ReservasPage implements OnInit, OnDestroy {
   }
 
   tieneReserva(clase: any): boolean {
+    if (this.isAdminOrMaestro) {
+      return false; // Los maestros y admins siempre pueden reservar
+    }
     return clase.reservas?.some((r: any) => r.atleta._id === this.userId) || false;
   }
 
   getReservaUsuario(clase: any): any {
+    if (this.isAdminOrMaestro) {
+      // Para admin/maestro, obtener la última reserva que hizo en esta clase
+      return clase.reservas
+        ?.filter((r: any) => r.atleta._id === this.userId)
+        .sort((a: any, b: any) => new Date(b.fechaReserva).getTime() - new Date(a.fechaReserva).getTime())[0];
+    }
+    // Para usuarios normales, obtener su reserva
     return clase.reservas?.find((r: any) => r.atleta._id === this.userId);
   }
 }

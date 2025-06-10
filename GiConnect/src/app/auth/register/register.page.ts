@@ -269,12 +269,13 @@ export class RegisterPage implements OnInit {
         await loading.dismiss();
         this.isLoading = false;
         
-        const alert = await this.alertController.create({
-          header: 'Registro exitoso',
+        const toast = await this.toastController.create({
           message: 'Tu cuenta ha sido creada correctamente',
-          buttons: ['OK']
+          duration: 3000,
+          position: 'middle',
+          cssClass: 'success-toast'
         });
-        await alert.present();
+        await toast.present();
         
         this.router.navigate(['/auth/login']);
       } catch (error: any) {

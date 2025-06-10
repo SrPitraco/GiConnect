@@ -7,6 +7,20 @@ const verifyRole = require('../middleware/verifyRole');
 // Crear una nueva reserva (cualquier usuario autenticado)
 router.post('/', authJwt, reservaController.create);
 
+// Crear una nueva reserva (solo maestros y admin)
+router.post('/admin', 
+  authJwt,
+  verifyRole(['maestro', 'admin']), 
+  reservaController.createAdminReserva
+);
+
+// Crear una nueva reserva múltiple (solo maestros y admin)
+router.post('/multiple', 
+  authJwt,
+  verifyRole(['maestro', 'admin']), 
+  reservaController.createMultipleReserva
+);
+
 // Cancelar una reserva (el propietario o admin/maestro)
 router.delete('/:id', authJwt, reservaController.cancel);
 

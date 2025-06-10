@@ -51,16 +51,28 @@
               </div>
 
               <div class="acciones-container">
-                <ion-button *ngIf="!tieneReserva(clase)" 
+                <ion-button *ngIf="!tieneReserva(clase) && !isAdminOrMaestro" 
                            (click)="reservarClase(clase._id)"
                            color="primary">
                   Reservar
                 </ion-button>
-                <ion-button *ngIf="tieneReserva(clase)" 
+                <ion-button *ngIf="tieneReserva(clase) && !isAdminOrMaestro" 
                            (click)="cancelarReserva(getReservaUsuario(clase)?._id)"
                            color="danger">
                   Cancelar
                 </ion-button>
+                <div *ngIf="isAdminOrMaestro" class="admin-buttons">
+                  <ion-button (click)="reservarClase(clase._id)"
+                             [disabled]="clase.reservas?.length >= clase.maxPlazas"
+                             color="primary">
+                    Reservar
+                  </ion-button>
+                  <ion-button *ngIf="getReservaUsuario(clase)"
+                             (click)="cancelarReserva(getReservaUsuario(clase)?._id)"
+                             color="danger">
+                    Cancelar
+                  </ion-button>
+                </div>
               </div>
             </div>
           </ion-card-content>
@@ -105,16 +117,28 @@
                 </div>
 
                 <div class="acciones-container">
-                  <ion-button *ngIf="!tieneReserva(clase)" 
+                  <ion-button *ngIf="!tieneReserva(clase) && !isAdminOrMaestro" 
                              (click)="reservarClase(clase._id)"
                              color="primary">
                     Reservar
                   </ion-button>
-                  <ion-button *ngIf="tieneReserva(clase)" 
+                  <ion-button *ngIf="tieneReserva(clase) && !isAdminOrMaestro" 
                              (click)="cancelarReserva(getReservaUsuario(clase)?._id)"
                              color="danger">
                     Cancelar
                   </ion-button>
+                  <div *ngIf="isAdminOrMaestro" class="admin-buttons">
+                    <ion-button (click)="reservarClase(clase._id)"
+                               [disabled]="clase.reservas?.length >= clase.maxPlazas"
+                               color="primary">
+                      Reservar
+                    </ion-button>
+                    <ion-button *ngIf="getReservaUsuario(clase)"
+                               (click)="cancelarReserva(getReservaUsuario(clase)?._id)"
+                               color="danger">
+                      Cancelar
+                    </ion-button>
+                  </div>
                 </div>
               </div>
             </ion-card-content>

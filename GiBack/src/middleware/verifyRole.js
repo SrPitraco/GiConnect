@@ -6,12 +6,18 @@
  */
 module.exports = function verifyRole(rolesPermitidos = []) {
   return (req, res, next) => {
-    // `req.role` viene de authJwt
+    console.log('=== BACKEND DEBUG === Verificando rol:', {
+      role: req.role,
+      rolesPermitidos
+    });
+    
     if (!rolesPermitidos.includes(req.role)) {
+      console.log('=== BACKEND DEBUG === Acceso denegado');
       return res
         .status(403)
         .json({ error: 'Acceso denegado: permiso insuficiente' });
     }
+    console.log('=== BACKEND DEBUG === Acceso permitido');
     next();
   };
 };

@@ -33,22 +33,39 @@ exports.create = async (req, res) => {
       return res.status(404).json({ message: 'Clase no encontrada' });
     }
 
-    // Verificar si ya existe una reserva para esta clase
-    const reservaExistente = await Reserva.findOne({
-      atleta: userId,
-      clase: claseId,
-      status: { $in: ['pendiente', 'confirmada'] }
+    // Verificar que la clase no es de un día anterior
+    const ahora = moment();
+    const fechaClaseReserva = moment(clase.fecha || 
+      moment().day(clase.diaSemana).format('YYYY-MM-DD'));
+    const horaClaseReserva = moment(clase.horaInicio, 'HH:mm');
+    const fechaHoraClaseReserva = fechaClaseReserva.set({
+      hour: horaClaseReserva.hour(),
+      minute: horaClaseReserva.minute()
     });
 
-    if (reservaExistente) {
+    if (fechaHoraClaseReserva.isBefore(ahora)) {
       return res.status(400).json({ 
-        message: 'Ya tienes una reserva activa para esta clase' 
+        message: 'No se pueden reservar clases que ya han pasado' 
       });
+    }
+
+    // Verificar si ya existe una reserva para esta clase
+    if (req.role !== 'maestro' && req.role !== 'admin') {
+      const reservaExistente = await Reserva.findOne({
+        atleta: userId,
+        clase: claseId,
+        status: { $in: ['pendiente', 'confirmada'] }
+      });
+
+      if (reservaExistente) {
+        return res.status(400).json({ 
+          message: 'Ya tienes una reserva activa para esta clase' 
+        });
+      }
     }
 
     // Verificar si es una clase fija y si está dentro del período permitido
     if (clase.diaSemana) {
-      const ahora = moment();
       const inicioSemana = moment().startOf('week').add(1, 'days'); // Lunes
       const finSemana = moment().endOf('week').subtract(1, 'days'); // Sábado
       
@@ -66,7 +83,7 @@ exports.create = async (req, res) => {
     }
 
     // Verificar si el usuario ya tiene una reserva en la misma hora
-    const fechaClase = clase.fecha || moment().day(clase.diaSemana).format('YYYY-MM-DD');
+    const fechaClaseMismoHorario = clase.fecha || moment().day(clase.diaSemana).format('YYYY-MM-DD');
     const horaInicio = clase.horaInicio;
     const horaFin = clase.horaFin;
 
@@ -75,7 +92,7 @@ exports.create = async (req, res) => {
       status: { $in: ['pendiente', 'confirmada'] },
       $or: [
         {
-          'clase.fecha': fechaClase,
+          'clase.fecha': fechaClaseMismoHorario,
           'clase.horaInicio': { $lt: horaFin },
           'clase.horaFin': { $gt: horaInicio }
         }
@@ -299,6 +316,140 @@ exports.limpiarReservasAntiguas = async (req, res) => {
   } catch (error) {
     console.error('Error al limpiar reservas:', error);
     res.status(500).json({ message: 'Error al limpiar reservas' });
+  }
+};
+
+// Crear una nueva reserva (solo para maestros y admin)
+exports.createAdminReserva = async (req, res) => {
+  try {
+    const { claseId } = req.body;
+    const userId = req.userId;
+
+    // Verificar que la clase existe
+    const clase = await Clase.findById(claseId);
+    if (!clase) {
+      return res.status(404).json({ message: 'Clase no encontrada' });
+    }
+
+    // Verificar si hay plazas disponibles
+    const reservasActivas = await Reserva.countDocuments({
+      clase: claseId,
+      status: { $in: ['pendiente', 'confirmada'] }
+    });
+
+    if (reservasActivas >= clase.maxPlazas) {
+      return res.status(400).json({ 
+        message: 'No hay plazas disponibles para esta clase' 
+      });
+    }
+
+    try {
+      // Crear la reserva
+      const reserva = new Reserva({
+        atleta: userId,
+        clase: claseId,
+        status: 'pendiente',
+        fechaReserva: new Date()
+      });
+
+      await reserva.save();
+
+      // Actualizar el array de reservas en la clase
+      await Clase.findByIdAndUpdate(claseId, {
+        $push: { reservas: reserva._id }
+      });
+
+      res.status(201).json(reserva);
+    } catch (saveError) {
+      console.error('Error al guardar la reserva:', saveError);
+      if (saveError.code === 11000) {
+        // Si es un error de duplicado, intentamos crear la reserva con un timestamp ligeramente diferente
+        const reserva = new Reserva({
+          atleta: userId,
+          clase: claseId,
+          status: 'pendiente',
+          fechaReserva: new Date(Date.now() + 1) // Añadimos 1ms para evitar duplicados
+        });
+
+        await reserva.save();
+
+        // Actualizar el array de reservas en la clase
+        await Clase.findByIdAndUpdate(claseId, {
+          $push: { reservas: reserva._id }
+        });
+
+        res.status(201).json(reserva);
+      } else {
+        throw saveError;
+      }
+    }
+  } catch (error) {
+    console.error('Error al crear la reserva:', error);
+    res.status(500).json({ 
+      message: 'Error al crear la reserva', 
+      error: error.message,
+      code: error.code 
+    });
+  }
+};
+
+// Crear una nueva reserva múltiple (solo para maestros y admin)
+exports.createMultipleReserva = async (req, res) => {
+  try {
+    console.log('=== BACKEND DEBUG === Iniciando createMultipleReserva');
+    console.log('=== BACKEND DEBUG === Request body:', req.body);
+    console.log('=== BACKEND DEBUG === Request user:', req.userId);
+
+    const { claseId } = req.body;
+    const userId = req.userId;
+
+    console.log('=== BACKEND DEBUG === Buscando clase:', claseId);
+    const clase = await Clase.findById(claseId);
+    console.log('=== BACKEND DEBUG === Clase encontrada:', clase);
+
+    if (!clase) {
+      console.log('=== BACKEND DEBUG === Clase no encontrada');
+      return res.status(404).json({ message: 'Clase no encontrada' });
+    }
+
+    console.log('=== BACKEND DEBUG === Contando reservas activas');
+    const reservasActivas = await Reserva.countDocuments({
+      clase: claseId,
+      status: { $in: ['pendiente', 'confirmada'] }
+    });
+    console.log('=== BACKEND DEBUG === Reservas activas:', reservasActivas);
+
+    if (reservasActivas >= clase.maxPlazas) {
+      console.log('=== BACKEND DEBUG === Clase llena');
+      return res.status(400).json({ message: 'La clase está llena' });
+    }
+
+    console.log('=== BACKEND DEBUG === Creando nueva reserva');
+    const nuevaReserva = new Reserva({
+      atleta: userId,
+      clase: claseId,
+      status: 'pendiente',
+      fechaReserva: new Date()
+    });
+
+    console.log('=== BACKEND DEBUG === Guardando reserva');
+    await nuevaReserva.save();
+    console.log('=== BACKEND DEBUG === Reserva guardada:', nuevaReserva);
+
+    console.log('=== BACKEND DEBUG === Actualizando clase');
+    clase.reservas.push(nuevaReserva._id);
+    await clase.save();
+    console.log('=== BACKEND DEBUG === Clase actualizada');
+
+    res.status(201).json(nuevaReserva);
+  } catch (error) {
+    console.error('=== BACKEND DEBUG === Error en createMultipleReserva:', error);
+    console.error('=== BACKEND DEBUG === Stack trace:', error.stack);
+    res.status(500).json({ 
+      message: 'Error al crear la reserva',
+      error: error.message,
+      stack: error.stack
+    });
   }
 };
 
