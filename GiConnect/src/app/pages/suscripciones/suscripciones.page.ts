@@ -103,9 +103,26 @@ export class SuscripcionesPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.checkUserRole();
-    this.loadSuscripciones();
+    this.resetForm();
     this.setupFormListeners();
+    this.checkUserRole();
+  }
+
+  ionViewWillEnter() {
+    this.resetForm();
+    this.loadSuscripciones();
+  }
+
+  private resetForm() {
+    if (this.suscripcionForm) {
+      this.suscripcionForm.reset();
+      this.suscripcionForm.patchValue({
+        tipo: '',
+        fechaInicio: null,
+        precio: '',
+        fechaFin: ''
+      });
+    }
   }
 
   onFechaInicioSelected(event: any) {
@@ -157,7 +174,7 @@ export class SuscripcionesPage implements OnInit, OnDestroy {
     }
   }
 
-  onSubmit() {
+  async onSubmit() {
     console.log('Intentando enviar formulario...');
     console.log('Formulario válido:', this.suscripcionForm.valid);
     console.log('Valores del formulario:', this.suscripcionForm.getRawValue());
@@ -170,11 +187,18 @@ export class SuscripcionesPage implements OnInit, OnDestroy {
       
       if (!currentUser) {
         this.isLoading = false;
-        this.alertController.create({
+        const alert = await this.alertController.create({
           header: 'Error',
           message: 'Debes iniciar sesión para crear una suscripción',
-          buttons: ['OK']
-        }).then(alert => alert.present());
+          buttons: []
+        });
+        
+        await alert.present();
+        
+        // Cerrar automáticamente después de 3 segundos
+        setTimeout(() => {
+          alert.dismiss();
+        }, 3000);
         return;
       }
 
@@ -203,25 +227,28 @@ export class SuscripcionesPage implements OnInit, OnDestroy {
       console.log('Suscripción a crear:', suscripcionToCreate);
 
       this.suscripcionService.createSuscripcion(suscripcionToCreate).subscribe({
-        next: (response: Suscripcion) => {
+        next: async (response: Suscripcion) => {
           console.log('Suscripción creada con éxito:', response);
           this.loadSuscripciones();
           this.suscripcionForm.reset();
           this.isLoading = false;
           
           // Mostrar mensaje de éxito
-          this.alertController.create({
+          const alert = await this.alertController.create({
             header: 'Éxito',
             message: 'Suscripción creada correctamente',
-            buttons: [{
-              text: 'OK',
-              handler: () => {
-                this.router.navigate(['/home']);
-              }
-            }]
-          }).then(alert => alert.present());
+            buttons: []
+          });
+          
+          await alert.present();
+          
+          // Cerrar automáticamente después de 3 segundos y navegar
+          setTimeout(() => {
+            alert.dismiss();
+            this.router.navigate(['/home']);
+          }, 3000);
         },
-        error: (error: any) => {
+        error: async (error: any) => {
           console.error('Error al crear suscripción:', error);
           console.error('Detalles del error:', {
             status: error.status,
@@ -235,11 +262,23 @@ export class SuscripcionesPage implements OnInit, OnDestroy {
             errorMessage = error.error.message;
           }
           
-          this.alertController.create({
+          // Si el error es por suscripción activa, mostrar un mensaje más específico
+          if (error.status === 400 && error.error?.message?.includes('Ya tienes una suscripción activa')) {
+            errorMessage = 'Ya tienes una suscripción activa. No puedes crear otra hasta que expire la actual.';
+          }
+          
+          const alert = await this.alertController.create({
             header: 'Error',
             message: errorMessage,
-            buttons: ['OK']
-          }).then(alert => alert.present());
+            buttons: []
+          });
+          
+          await alert.present();
+          
+          // Cerrar automáticamente después de 3 segundos
+          setTimeout(() => {
+            alert.dismiss();
+          }, 3000);
         }
       });
     } else {
@@ -252,11 +291,18 @@ export class SuscripcionesPage implements OnInit, OnDestroy {
       });
       
       // Mostrar mensaje de error si el formulario no es válido
-      this.alertController.create({
+      const alert = await this.alertController.create({
         header: 'Error',
         message: 'Por favor, completa todos los campos requeridos correctamente',
-        buttons: ['OK']
-      }).then(alert => alert.present());
+        buttons: []
+      });
+      
+      await alert.present();
+      
+      // Cerrar automáticamente después de 3 segundos
+      setTimeout(() => {
+        alert.dismiss();
+      }, 3000);
     }
   }
 

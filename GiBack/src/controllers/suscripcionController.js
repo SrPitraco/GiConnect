@@ -18,6 +18,20 @@ exports.create = async (req, res) => {
       throw new Error('Tipo de suscripción inválido');
     }
 
+    // Verificar si ya existe una suscripción activa
+    const ahora = moment();
+    const suscripcionActiva = await Suscripcion.findOne({
+      atleta,
+      fechaFin: { $gt: ahora.toDate() },
+      pagado: true
+    });
+
+    if (suscripcionActiva) {
+      return res.status(400).json({ 
+        message: 'Ya tienes una suscripción activa. No puedes crear otra hasta que expire la actual.' 
+      });
+    }
+
     // Crear la suscripción
     const nueva = await Suscripcion.create({
       atleta,
