@@ -8,9 +8,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { AuthService } from '../../../services/auth.service';
-import { UserService } from '../../../services/user.service';
-import { User } from '../../../interfaces/user.interface';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/interfaces/user.interface';
 import { addIcons } from 'ionicons';
 import { personOutline, calendarOutline, createOutline, saveOutline } from 'ionicons/icons';
 import localeEs from '@angular/common/locales/es';
@@ -57,6 +57,14 @@ const GRADOS = [0, 1, 2, 3, 4];
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
     { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT },
+    AuthService,
+    UserService,
+    FormBuilder,
+    Router,
+    ActivatedRoute,
+    AlertController,
+    LoadingController,
+    NavController
   ]
 })
 export class EditarUsuarioPage implements OnInit {
@@ -117,7 +125,7 @@ export class EditarUsuarioPage implements OnInit {
   private loadUsuario(userId: string) {
     this.isLoading = true;
     this.userService.getUserById(userId).subscribe({
-      next: (usuario) => {
+      next: (usuario: User) => {
         this.usuario = usuario;
         this.usuarioForm.patchValue({
           ...usuario,
@@ -143,7 +151,7 @@ export class EditarUsuarioPage implements OnInit {
         }
         this.isLoading = false;
       },
-      error: async (error) => {
+      error: async (error: Error) => {
         console.error('Error al cargar usuario:', error);
         this.isLoading = false;
         const alert = await this.alertController.create({
@@ -196,7 +204,7 @@ export class EditarUsuarioPage implements OnInit {
               this.router.navigate(['/teacher/modificar-usuario']);
             }, 2000);
           },
-          error: async (error) => {
+          error: async (error: Error) => {
             console.error('Error al actualizar usuario:', error);
             const alert = await this.alertController.create({
               header: 'Error',
