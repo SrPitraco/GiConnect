@@ -1,0 +1,36 @@
+<div class="login-background">
+  <div class="backdrop-logo"></div>
+
+  <div class="ion-padding">
+    <div class="header-section">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/mestre-portal" text=""></ion-back-button>
+      </ion-buttons>
+      <h1 class="welcome-title">Modificar Usuario</h1>
+    </div>
+
+    <div *ngIf="loading" class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando usuarios...</p>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      <ion-text color="danger">{{ error }}</ion-text>
+    </div>
+
+    <div *ngIf="!loading && !error" class="users-grid">
+      <div *ngFor="let usuario of usuarios" class="user-card">
+        <div class="user-image">
+          <img [src]="usuario.foto || 'assets/default-avatar.png'" alt="Foto de perfil">
+        </div>
+        <div class="user-info">
+          <h3>{{ usuario.nombre }} {{ usuario.apellido1 }}</h3>
+          <p class="user-role">{{ getRoleName(usuario.role) }}</p>
+        </div>
+        <ion-button fill="clear" class="edit-button" [routerLink]="['/teacher/editar-usuario', usuario._id]">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</div> 

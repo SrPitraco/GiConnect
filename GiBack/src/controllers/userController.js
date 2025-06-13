@@ -34,8 +34,8 @@ exports.getById = async (req, res) => {
 // Actualizar datos de usuario (maestro o el propio atleta)
 exports.update = async (req, res) => {
   try {
-    // Solo puede modificar su propio perfil o el maestro
-    if (req.userId !== req.params.id && req.role !== 'maestro') {
+    // Solo puede modificar su propio perfil, o si es maestro o admin
+    if (req.userId !== req.params.id && req.role !== 'maestro' && req.role !== 'admin') {
       return res.status(403).json({ error: 'Acceso denegado' });
     }
     const updated = await User.findByIdAndUpdate(

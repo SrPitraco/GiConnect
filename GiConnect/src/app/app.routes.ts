@@ -70,6 +70,16 @@ export const routes: Routes = [
         path: 'attendance',
         loadComponent: () => import('./pages/pasar-lista/pasar-lista.page').then(m => m.PasarListaPage),
         canActivate: [authGuard]
+      },
+      {
+        path: 'modificar-usuario',
+        loadComponent: () => import('./pages/modificar-usuario/modificar-usuario.page').then(m => m.ModificarUsuarioPage),
+        canActivate: [authGuard]
+      },
+      {
+        path: 'editar-usuario/:id',
+        loadComponent: () => import('./pages/modificar-usuario/editar-usuario/editar-usuario.page').then(m => m.EditarUsuarioPage),
+        canActivate: [authGuard]
       }
     ]
   }

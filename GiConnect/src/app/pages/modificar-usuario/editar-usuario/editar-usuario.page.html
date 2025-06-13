@@ -1,0 +1,162 @@
+<div class="login-background">
+  <div class="backdrop-logo"></div>
+
+  <div class="ion-padding">
+    <div class="header-section">
+      <ion-buttons>
+        <ion-back-button defaultHref="/modificar-usuario"></ion-back-button>
+      </ion-buttons>
+      <h2 class="welcome-title">Editar Usuario</h2>
+    </div>
+
+    <div *ngIf="isLoading" class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando usuario...</p>
+    </div>
+
+    <form *ngIf="!isLoading && usuario" [formGroup]="usuarioForm" (ngSubmit)="onSubmit()" class="edit-form">
+      <!-- Foto de perfil -->
+      <div class="profile-image-container">
+        <img [src]="usuario.foto" alt="Foto de perfil" class="profile-image">
+      </div>
+
+      <ion-list>
+        <!-- Nombre -->
+        <ion-item>
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input formControlName="nombre" type="text" [disabled]="!isAdmin"></ion-input>
+        </ion-item>
+
+        <!-- Apellido1 -->
+        <ion-item>
+          <ion-label position="stacked">Primer Apellido</ion-label>
+          <ion-input formControlName="apellido1" type="text" [disabled]="!isAdmin"></ion-input>
+        </ion-item>
+
+        <!-- Apellido2 -->
+        <ion-item>
+          <ion-label position="stacked">Segundo Apellido</ion-label>
+          <ion-input formControlName="apellido2" type="text" [disabled]="!isAdmin"></ion-input>
+        </ion-item>
+
+        <!-- DNI -->
+        <ion-item>
+          <ion-label position="stacked">DNI</ion-label>
+          <ion-input formControlName="dni" type="text" [disabled]="!isAdmin"></ion-input>
+        </ion-item>
+
+        <!-- Teléfono -->
+        <ion-item>
+          <ion-label position="stacked">Teléfono</ion-label>
+          <ion-input formControlName="telefono" type="tel" [disabled]="!isAdmin"></ion-input>
+        </ion-item>
+
+        <!-- Email -->
+        <ion-item>
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input formControlName="email" type="email" [disabled]="!isAdmin"></ion-input>
+        </ion-item>
+
+        <!-- Role -->
+        <ion-item>
+          <ion-label position="stacked">Rol</ion-label>
+          <ion-select formControlName="role" interface="popover" [disabled]="!isAdmin">
+            <ion-select-option value="atleta">Atleta</ion-select-option>
+            <ion-select-option value="instructor">Instructor</ion-select-option>
+            <ion-select-option value="maestro">Maestro</ion-select-option>
+            <ion-select-option value="admin">Admin</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Número IBJJF -->
+        <ion-item>
+          <ion-label position="stacked">Número IBJJF</ion-label>
+          <ion-input formControlName="numIBJJF" type="text" [disabled]="!isAdmin"></ion-input>
+        </ion-item>
+
+        <!-- Fecha Inicio -->
+        <ion-item>
+          <ion-label position="stacked">Fecha de Inicio</ion-label>
+          <mat-form-field appearance="fill" class="custom-mat-field">
+            <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+            <mat-datepicker #pickerInicio></mat-datepicker>
+            <input matInput
+              [matDatepicker]="pickerInicio"
+              formControlName="fechaInicio"
+              [disabled]="!isAdmin && !isMaestro"
+              placeholder="Selecciona una fecha">
+          </mat-form-field>
+        </ion-item>
+
+        <!-- Cinturón -->
+        <ion-item>
+          <ion-label position="stacked">Cinturón</ion-label>
+          <ion-select formControlName="cinturon" interface="popover" [disabled]="!isAdmin && !isMaestro">
+            <ion-select-option *ngFor="let cinturon of cinturones" [value]="cinturon">
+              {{cinturon}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Grado -->
+        <ion-item>
+          <ion-label position="stacked">Grado</ion-label>
+          <ion-select formControlName="grado" interface="popover" [disabled]="!isAdmin && !isMaestro">
+            <ion-select-option *ngFor="let grado of grados" [value]="grado">
+              {{grado}}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- Fecha Desde -->
+        <ion-item>
+          <ion-label position="stacked">Fecha Desde</ion-label>
+          <mat-form-field appearance="fill" class="custom-mat-field">
+            <mat-datepicker-toggle matSuffix [for]="pickerDesde"></mat-datepicker-toggle>
+            <mat-datepicker #pickerDesde></mat-datepicker>
+            <input matInput
+              [matDatepicker]="pickerDesde"
+              formControlName="fechaDesde"
+              [disabled]="!isAdmin && !isMaestro"
+              placeholder="Selecciona una fecha">
+          </mat-form-field>
+        </ion-item>
+
+        <!-- Clases Asistidas -->
+        <ion-item>
+          <ion-label position="stacked">Clases Asistidas</ion-label>
+          <div class="input-with-button">
+            <ion-input formControlName="clasesAsistidas" type="number" [disabled]="!isAdmin && !isMaestro"></ion-input>
+            <ion-button fill="clear" (click)="resetClasesAsistidas()" [disabled]="!isAdmin && !isMaestro">
+              Reset
+            </ion-button>
+          </div>
+        </ion-item>
+
+        <!-- Clases Impartidas -->
+        <ion-item>
+          <ion-label position="stacked">Clases Impartidas</ion-label>
+          <div class="input-with-button">
+            <ion-input formControlName="clasesImpartidas" type="number" [disabled]="!isAdmin && !isMaestro"></ion-input>
+            <ion-button fill="clear" (click)="resetClasesImpartidas()" [disabled]="!isAdmin && !isMaestro">
+              Reset
+            </ion-button>
+          </div>
+        </ion-item>
+
+        <!-- Estado -->
+        <ion-item>
+          <ion-label>Activo</ion-label>
+          <ion-toggle formControlName="activo" [disabled]="!isAdmin"></ion-toggle>
+        </ion-item>
+      </ion-list>
+
+      <div class="form-actions">
+        <ion-button expand="block" type="submit" [disabled]="!usuarioForm.valid">
+          <ion-icon name="save-outline"></ion-icon>
+          Guardar Cambios
+        </ion-button>
+      </div>
+    </form>
+  </div>
+</div> 
