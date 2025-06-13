@@ -35,8 +35,7 @@ exports.create = async (req, res) => {
 
     // Verificar que la clase no es de un día anterior
     const ahora = moment();
-    const fechaClaseReserva = moment(clase.fecha || 
-      moment().day(clase.diaSemana).format('YYYY-MM-DD'));
+    const fechaClaseReserva = moment(clase.fecha);
     const horaClaseReserva = moment(clase.horaInicio, 'HH:mm');
     const fechaHoraClaseReserva = fechaClaseReserva.set({
       hour: horaClaseReserva.hour(),
@@ -396,59 +395,63 @@ exports.createAdminReserva = async (req, res) => {
 // Crear una nueva reserva múltiple (solo para maestros y admin)
 exports.createMultipleReserva = async (req, res) => {
   try {
-    console.log('=== BACKEND DEBUG === Iniciando createMultipleReserva');
-    console.log('=== BACKEND DEBUG === Request body:', req.body);
-    console.log('=== BACKEND DEBUG === Request user:', req.userId);
-
     const { claseId } = req.body;
     const userId = req.userId;
 
-    console.log('=== BACKEND DEBUG === Buscando clase:', claseId);
+    // Verificar que la clase existe
     const clase = await Clase.findById(claseId);
-    console.log('=== BACKEND DEBUG === Clase encontrada:', clase);
-
     if (!clase) {
-      console.log('=== BACKEND DEBUG === Clase no encontrada');
       return res.status(404).json({ message: 'Clase no encontrada' });
     }
 
-    console.log('=== BACKEND DEBUG === Contando reservas activas');
+    // Verificar que la clase no es de un día anterior
+    const ahora = moment();
+    const fechaClaseReserva = moment(clase.fecha);
+    const horaClaseReserva = moment(clase.horaInicio, 'HH:mm');
+    const fechaHoraClaseReserva = fechaClaseReserva.set({
+      hour: horaClaseReserva.hour(),
+      minute: horaClaseReserva.minute()
+    });
+
+    if (fechaHoraClaseReserva.isBefore(ahora)) {
+      return res.status(400).json({ 
+        message: 'No se pueden reservar clases que ya han pasado' 
+      });
+    }
+
+    // Verificar si hay plazas disponibles
     const reservasActivas = await Reserva.countDocuments({
       clase: claseId,
       status: { $in: ['pendiente', 'confirmada'] }
     });
-    console.log('=== BACKEND DEBUG === Reservas activas:', reservasActivas);
 
     if (reservasActivas >= clase.maxPlazas) {
-      console.log('=== BACKEND DEBUG === Clase llena');
-      return res.status(400).json({ message: 'La clase está llena' });
+      return res.status(400).json({ 
+        message: 'No hay plazas disponibles para esta clase' 
+      });
     }
 
-    console.log('=== BACKEND DEBUG === Creando nueva reserva');
-    const nuevaReserva = new Reserva({
+    // Crear la reserva
+    const reserva = new Reserva({
       atleta: userId,
       clase: claseId,
-      status: 'pendiente',
-      fechaReserva: new Date()
+      status: 'pendiente'
     });
 
-    console.log('=== BACKEND DEBUG === Guardando reserva');
-    await nuevaReserva.save();
-    console.log('=== BACKEND DEBUG === Reserva guardada:', nuevaReserva);
+    await reserva.save();
 
-    console.log('=== BACKEND DEBUG === Actualizando clase');
-    clase.reservas.push(nuevaReserva._id);
-    await clase.save();
-    console.log('=== BACKEND DEBUG === Clase actualizada');
+    // Actualizar el array de reservas en la clase
+    await Clase.findByIdAndUpdate(claseId, {
+      $push: { reservas: reserva._id }
+    });
 
-    res.status(201).json(nuevaReserva);
+    res.status(201).json(reserva);
   } catch (error) {
-    console.error('=== BACKEND DEBUG === Error en createMultipleReserva:', error);
-    console.error('=== BACKEND DEBUG === Stack trace:', error.stack);
+    console.error('Error al crear la reserva:', error);
     res.status(500).json({ 
-      message: 'Error al crear la reserva',
+      message: 'Error al crear la reserva', 
       error: error.message,
-      stack: error.stack
+      code: error.code 
     });
   }
 };

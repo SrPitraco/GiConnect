@@ -1,0 +1,81 @@
+<div class="login-background">
+  <div class="backdrop-logo"></div>
+
+  <div class="content-wrapper">
+    <div class="header-section">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/mestre-portal" text=""></ion-back-button>
+      </ion-buttons>
+      <h1 class="welcome-title">Pasar Lista</h1>
+    </div>
+
+    <div class="scroll-container">
+      <div *ngIf="loading" class="loading-container">
+        <ion-spinner name="crescent"></ion-spinner>
+        <p>Cargando clases...</p>
+      </div>
+
+      <div *ngIf="error" class="error-container">
+        <ion-icon name="alert-circle-outline"></ion-icon>
+        <p>{{ error }}</p>
+      </div>
+
+      <div *ngIf="!loading && !error && clases.length === 0" class="empty-container">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <p>No hay clases para pasar lista</p>
+      </div>
+
+      <div *ngIf="!loading && !error" class="clases-container">
+        <ion-card *ngFor="let clase of clases" class="clase-card">
+          <ion-card-header>
+            <div class="clase-header">
+              <div class="clase-info">
+                <ion-card-title class="clase-titulo">
+                  {{ clase.titulo }}
+                </ion-card-title>
+                <ion-card-subtitle class="clase-horario">
+                  {{ clase.horaInicio }} - {{ clase.horaFin }}
+                </ion-card-subtitle>
+              </div>
+              <div class="instructor-info">
+                <img [src]="clase.instructor?.foto || 'assets/default-avatar.png'" 
+                     [alt]="clase.instructor?.nombre || 'Instructor'"
+                     class="instructor-foto"
+                     (error)="clase.instructor.foto = 'assets/default-avatar.png'">
+                <p class="instructor-nombre">
+                  {{ clase.instructor?.nombre }} {{ clase.instructor?.apellidos }}
+                </p>
+              </div>
+            </div>
+          </ion-card-header>
+
+          <ion-card-content>
+            <div class="estudiantes-container">
+              <div class="estudiante-item" *ngFor="let reserva of clase.reservas">
+                <div class="estudiante-info">
+                  <img [src]="reserva.atleta.foto || 'assets/default-avatar.png'" 
+                       [alt]="reserva.atleta.nombre"
+                       class="estudiante-foto"
+                       (error)="reserva.atleta.foto = 'assets/default-avatar.png'">
+                  <p class="estudiante-nombre">
+                    {{ reserva.atleta.nombre }} {{ reserva.atleta.apellidos }}
+                  </p>
+                </div>
+                <ion-checkbox [(ngModel)]="reserva.asistenciaConfirmada" [disabled]="clase.supervisada"></ion-checkbox>
+              </div>
+            </div>
+
+            <div class="acciones-container">
+              <ion-button *ngIf="!clase.supervisada" expand="block" (click)="confirmarAsistencia(clase)">
+                Confirmar Asistencia
+              </ion-button>
+              <div *ngIf="clase.supervisada" class="clase-supervisada">
+                <p>Clase Supervisada</p>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    </div>
+  </div>
+</div>

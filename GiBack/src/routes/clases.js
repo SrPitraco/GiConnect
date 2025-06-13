@@ -8,6 +8,7 @@ const ctrl         = require('../controllers/claseController');
 // Cualquiera puede ver las clases (solo necesita estar autenticado)
 router.get('/',           authJwt, ctrl.list);
 router.get('/semana',     authJwt, ctrl.listSemana);
+router.get('/para-pasar-lista', authJwt, verifyRole(['maestro', 'admin']), ctrl.getClasesParaPasarLista);
 
 // Solo MAESTRO y ADMIN pueden crear, modificar, eliminar
 router.post(
@@ -76,5 +77,7 @@ router.put(
 );
 
 router.delete('/:id', authJwt, verifyRole(['maestro', 'admin']), ctrl.remove);
+
+router.post('/:claseId/confirmar-asistencia', authJwt, verifyRole(['maestro', 'admin']), ctrl.confirmarAsistencia);
 
 module.exports = router;

@@ -10,6 +10,8 @@ const cron         = require('node-cron');
 const Suscripcion  = require('./models/Suscripcion');
 const Mensaje      = require('./models/Mensaje');
 const Clase        = require('./models/Clase');
+const User         = require('./models/User');
+const Reserva      = require('./models/Reserva');
 
 const SYSTEM_USER_ID = process.env.SYSTEM_USER_ID;
 if (!SYSTEM_USER_ID) {
@@ -73,7 +75,67 @@ cron.schedule(
       fechaLunes.setDate(hoy.getDate() + diasHastaLunes);
       fechaLunes.setHours(0, 0, 0, 0);
 
-      // Obtener todas las clases fijas
+      // Obtener la fecha del lunes de la semana actual
+      const fechaLunesActual = new Date(hoy);
+      fechaLunesActual.setDate(hoy.getDate() - hoy.getDay() + 1);
+      fechaLunesActual.setHours(0, 0, 0, 0);
+
+      console.log('📅 Fechas de referencia:', {
+        fechaLunesActual: fechaLunesActual.toISOString(),
+        fechaLunes: fechaLunes.toISOString()
+      });
+
+      // 1. Obtener las clases que se van a borrar (las de la semana actual)
+      const clasesABorrar = await Clase.find({
+        fecha: { 
+          $gte: fechaLunesActual,
+          $lt: fechaLunes
+        }
+      }).populate('instructor')
+        .populate({
+          path: 'reservas',
+          populate: {
+            path: 'atleta'
+          }
+        });
+
+      console.log(`📚 Encontradas ${clasesABorrar.length} clases a procesar`);
+
+      // 2. Procesar cada clase
+      for (const clase of clasesABorrar) {
+        console.log(`📝 Procesando clase: ${clase.titulo}`);
+
+        // Incrementar clasesImpartidas del instructor
+        await User.findByIdAndUpdate(clase.instructor._id, {
+          $inc: { clasesImpartidas: 1 }
+        });
+        console.log(`✅ Instructor ${clase.instructor.nombre} actualizado`);
+
+        // Procesar reservas
+        for (const reserva of clase.reservas) {
+          if (reserva.asistenciaConfirmada) {
+            await User.findByIdAndUpdate(reserva.atleta._id, {
+              $inc: { clasesAsistidas: 1 }
+            });
+            console.log(`✅ Atleta ${reserva.atleta.nombre} actualizado`);
+          }
+        }
+
+        // Borrar las reservas de la clase
+        await Reserva.deleteMany({ clase: clase._id });
+        console.log(`🗑️  Reservas de la clase ${clase.titulo} eliminadas`);
+      }
+
+      // 3. Borrar las clases procesadas
+      await Clase.deleteMany({
+        fecha: { 
+          $gte: fechaLunesActual,
+          $lt: fechaLunes
+        }
+      });
+      console.log(`🗑️  Clases de la semana actual eliminadas`);
+
+      // 4. Generar las clases de la semana siguiente
       const clasesFijas = await Clase.find({
         diaSemana: { $exists: true }
       }).populate('instructor', 'nombre foto');
@@ -106,7 +168,8 @@ cron.schedule(
             horaInicio: claseFija.horaInicio,
             horaFin: claseFija.horaFin,
             maxPlazas: claseFija.maxPlazas,
-            instructor: claseFija.instructor._id
+            instructor: claseFija.instructor._id,
+            supervisada: false
           });
 
           await nuevaClase.save();
@@ -116,13 +179,7 @@ cron.schedule(
         }
       }
 
-      // Limpiar clases antiguas (anteriores a la fecha de inicio)
-      const clasesEliminadas = await Clase.deleteMany({
-        fecha: { $lt: fechaLunes }
-      });
-
-      console.log(`🗑️  Clases antiguas eliminadas: ${clasesEliminadas.deletedCount}`);
-      console.log(`✨ Generación de clases completada: ${clasesGeneradas.length} clases creadas`);
+      console.log(`✨ Proceso completado: ${clasesGeneradas.length} clases creadas`);
 
     } catch (error) {
       console.error('❌ Error en la generación automática de clases:', error);

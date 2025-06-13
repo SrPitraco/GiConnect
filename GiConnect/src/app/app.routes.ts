@@ -62,5 +62,15 @@ export const routes: Routes = [
     path: 'suscripciones',
     component: SuscripcionesPage,
     canActivate: [authGuard]
+  },
+  {
+    path: 'teacher',
+    children: [
+      {
+        path: 'attendance',
+        loadComponent: () => import('./pages/pasar-lista/pasar-lista.page').then(m => m.PasarListaPage),
+        canActivate: [authGuard]
+      }
+    ]
   }
 ];

@@ -9,6 +9,10 @@ const claseSchema = new mongoose.Schema({
   descripcion: { 
     type: String 
   },
+  supervisada: {
+    type: Boolean,
+    default: false
+  },
   diaSemana: {
     type: String,
     enum: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'],

@@ -1,6 +1,7 @@
 const Clase = require('../models/Clase');
 console.log('Modelo Clase cargado:', Clase);
 const moment = require('moment'); // para manipular fechas
+const Reserva = require('../models/Reserva');
 
 // Listar todas las clases
 exports.list = async (req, res) => {
@@ -128,7 +129,8 @@ exports.listSemana = async (req, res) => {
             horaInicio: claseFija.horaInicio,
             horaFin: claseFija.horaFin,
             maxPlazas: claseFija.maxPlazas,
-            instructor: claseFija.instructor._id
+            instructor: claseFija.instructor._id,
+            supervisada: false
           });
 
           await nuevaClase.save();
@@ -192,7 +194,11 @@ exports.listSemana = async (req, res) => {
 // Crear nueva clase (fija o especial)
 exports.create = async (req, res) => {
   try {
-    const data = { ...req.body, instructor: req.userId };
+    const data = { 
+      ...req.body, 
+      instructor: req.userId,
+      supervisada: false // Aseguramos que siempre se inicialice como false
+    };
     console.log('Creando nueva clase:', data);
     const nueva = await Clase.create(data);
     console.log('Clase creada:', nueva);
@@ -285,7 +291,8 @@ exports.generarClasesSemana = async (req, res) => {
           horaInicio: claseFija.horaInicio,
           horaFin: claseFija.horaFin,
           maxPlazas: claseFija.maxPlazas,
-          instructor: claseFija.instructor._id
+          instructor: claseFija.instructor._id,
+          supervisada: false
         });
 
         await nuevaClase.save();
@@ -314,5 +321,126 @@ exports.generarClasesSemana = async (req, res) => {
   } catch (error) {
     console.error('Error al generar clases:', error);
     res.status(500).json({ message: 'Error al generar clases' });
+  }
+};
+
+// Obtener clases para pasar lista
+exports.getClasesParaPasarLista = async (req, res) => {
+  try {
+    console.log('=== BACKEND DEBUG === Obteniendo clases para pasar lista');
+    console.log('=== BACKEND DEBUG === Usuario:', req.userId);
+    console.log('=== BACKEND DEBUG === Rol:', req.userRole);
+
+    const ahora = new Date();
+    const fechaActual = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate());
+    const horaActual = ahora.getHours() + ':' + ahora.getMinutes();
+
+    console.log('=== BACKEND DEBUG === Fecha actual:', fechaActual);
+    console.log('=== BACKEND DEBUG === Hora actual:', horaActual);
+
+    // Primero obtenemos las clases
+    const clases = await Clase.find({
+      $or: [
+        { fecha: { $lt: fechaActual } },
+        {
+          fecha: fechaActual,
+          horaInicio: { $lte: horaActual }
+        }
+      ]
+    }).populate('instructor', 'nombre apellidos foto');
+
+    console.log('=== BACKEND DEBUG === Clases encontradas:', clases.length);
+
+    // Para cada clase, obtenemos sus reservas
+    const clasesConReservas = await Promise.all(clases.map(async (clase) => {
+      const reservas = await Reserva.find({
+        clase: clase._id,
+        status: { $in: ['pendiente', 'confirmada'] }
+      }).populate('atleta', 'nombre apellidos foto');
+
+      return {
+        _id: clase._id,
+        titulo: clase.titulo,
+        instructor: {
+          nombre: clase.instructor?.nombre || '',
+          apellidos: clase.instructor?.apellidos || '',
+          foto: clase.instructor?.foto || 'assets/default-avatar.png'
+        },
+        horaInicio: clase.horaInicio,
+        horaFin: clase.horaFin,
+        fecha: clase.fecha,
+        reservas: reservas.map(reserva => ({
+          _id: reserva._id,
+          atleta: {
+            _id: reserva.atleta._id,
+            nombre: reserva.atleta.nombre,
+            apellidos: reserva.atleta.apellidos,
+            foto: reserva.atleta.foto || 'assets/default-avatar.png'
+          },
+          status: reserva.status,
+          asistenciaConfirmada: reserva.asistenciaConfirmada || false
+        })),
+        supervisada: clase.supervisada || false
+      };
+    }));
+
+    console.log('=== BACKEND DEBUG === Clases con reservas:', clasesConReservas.length);
+    clasesConReservas.forEach(clase => {
+      console.log(`=== BACKEND DEBUG === Clase "${clase.titulo}":`, {
+        id: clase._id,
+        reservas: clase.reservas.length
+      });
+    });
+
+    res.json(clasesConReservas);
+  } catch (error) {
+    console.error('Error al obtener clases para pasar lista:', error);
+    res.status(500).json({ message: 'Error al obtener clases para pasar lista' });
+  }
+};
+
+// Confirmar asistencia de una clase
+exports.confirmarAsistencia = async (req, res) => {
+  try {
+    const { claseId } = req.params;
+    const { reservas, supervisada } = req.body;
+
+    console.log('Actualizando reservas:', reservas);
+
+    // Actualizar cada reserva
+    for (const reserva of reservas) {
+      const reservaActualizada = await Reserva.findByIdAndUpdate(
+        reserva.reservaId,
+        {
+          status: reserva.status,
+          asistenciaConfirmada: reserva.asistenciaConfirmada
+        },
+        { new: true }
+      );
+      console.log('Reserva actualizada:', reservaActualizada);
+    }
+
+    // Actualizar la clase
+    const clase = await Clase.findByIdAndUpdate(
+      claseId,
+      { supervisada },
+      { new: true }
+    ).populate('instructor', 'nombre apellidos foto')
+     .populate({
+       path: 'reservas',
+       populate: {
+         path: 'atleta',
+         select: 'nombre apellidos foto'
+       }
+     });
+
+    if (!clase) {
+      return res.status(404).json({ message: 'Clase no encontrada' });
+    }
+
+    res.json(clase);
+  } catch (error) {
+    console.error('Error al confirmar asistencia:', error);
+    res.status(500).json({ message: 'Error al confirmar asistencia' });
   }
 };
