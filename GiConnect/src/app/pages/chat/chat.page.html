@@ -1,0 +1,27 @@
+<div id="chat-content">
+  <div class="messages">
+    <div 
+      class="message" 
+      *ngFor="let msg of messages$ | async"
+      [class.me]="msg.user === user"
+    >
+      <div class="bubble">
+        <strong>{{ msg.user }}</strong><br />
+        <span>{{ msg.message }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ion-footer>
+  <ion-toolbar>
+    <div class="message-input">
+      <ion-input
+        name="newMessage"
+        [(ngModel)]="newMessage"
+        placeholder="Escribe un mensaje..."
+      ></ion-input>
+      <ion-button (click)="send()">Enviar</ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>
