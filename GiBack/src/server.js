@@ -4,6 +4,8 @@ const express   = require('express');
 const cors      = require('cors');
 const connectDB = require('./config/db');
 const mongoose  = require('mongoose');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpecs = require('./config/swagger');
 
 //Para los recordatorios de suscripciones
 const cron         = require('node-cron');
@@ -239,6 +241,7 @@ app.use(cors({
 app.use(express.json());
 
 // Montaje de rutas
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 app.use('/api/auth',            authRoutes);
 app.use('/api/clases',          claseRoutes);
 app.use('/api/reservas',        reservaRoutes);
