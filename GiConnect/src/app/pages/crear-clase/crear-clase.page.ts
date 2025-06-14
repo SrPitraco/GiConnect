@@ -89,7 +89,7 @@ export class CrearClasePage implements OnInit {
       descripcion: [''],
       tipoClase: ['fija', [Validators.required]],
       diasSeleccionados: [[], [Validators.required]],
-      fecha: [null],
+      fecha: [''],
       horaInicio: ['', [
         Validators.required,
         Validators.pattern(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)
@@ -272,25 +272,21 @@ export class CrearClasePage implements OnInit {
           this.limpiarFormulario();
           this.router.navigate(['/mestre-portal']);
         } else {
+          // Clase especial
           if (!formData.fecha) {
-            throw new Error('Debes seleccionar una fecha');
+            throw new Error('Debes seleccionar una fecha para la clase especial');
           }
-          claseData.fecha = new Date(formData.fecha).toISOString();
-
-          console.log('Datos a enviar al backend:', claseData);
-          console.log('Tipo de clase:', formData.tipoClase);
-          console.log('Fecha seleccionada:', formData.fecha);
-
-          const response = await firstValueFrom(
-            this.http.post(`${environment.apiUrl}/clases`, claseData)
-          );
-
-          console.log('Respuesta del backend:', response);
+          const claseEspecial = {
+            ...claseData,
+            fecha: formData.fecha
+          };
+          const response = await firstValueFrom(this.http.post(`${environment.apiUrl}/clases`, claseEspecial));
+          console.log('Clase especial creada:', response);
 
           await loading.dismiss();
           
           const toast = await this.toastController.create({
-            message: 'Clase creada correctamente',
+            message: 'Clase especial creada correctamente',
             duration: 2000,
             position: 'middle',
             color: 'success',
