@@ -56,15 +56,7 @@ const GRADOS = [0, 1, 2, 3, 4];
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
-    { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT },
-    AuthService,
-    UserService,
-    FormBuilder,
-    Router,
-    ActivatedRoute,
-    AlertController,
-    LoadingController,
-    NavController
+    { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT }
   ]
 })
 export class EditarUsuarioPage implements OnInit {
