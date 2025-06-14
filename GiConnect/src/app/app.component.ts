@@ -47,6 +47,25 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   private userSubscription: any;
   private routerSubscription: any;
   
+  private beltColors: { [key: string]: string } = {
+    'Blanco': '#FFFFFF',
+    'Gris': '#808080',
+    'Blanco-Amarillo': 'linear-gradient(to right, #FFFFFF 50%, #FFFF00 50%)',
+    'Amarillo': '#FFFF00',
+    'Amarillo-Naranja': 'linear-gradient(to right, #FFFF00 50%, #FFA500 50%)',
+    'Naranja': '#FFA500',
+    'Naranja-Verde': 'linear-gradient(to right, #FFA500 50%, #00FF00 50%)',
+    'Verde': '#00FF00',
+    'Verde-Azul': 'linear-gradient(to right, #00FF00 50%, #0000FF 50%)',
+    'Azul': '#0000FF',
+    'Morado': '#800080',
+    'Marrón': '#8B4513',
+    'Negro': '#000000',
+    'Negro-Rojo': 'linear-gradient(to right, #000000 50%, #FF0000 50%)',
+    'Rojo-Blanco': 'linear-gradient(to right, #FF0000 50%, #FFFFFF 50%)',
+    'Rojo': '#FF0000'
+  };
+
   constructor(
     private router: Router,
     private platform: Platform,
@@ -166,5 +185,9 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
 
   async exitApp() {
     await App.exitApp();
+  }
+
+  getBeltColor(beltName: string): string {
+    return this.beltColors[beltName] || '#FFFFFF';
   }
 }

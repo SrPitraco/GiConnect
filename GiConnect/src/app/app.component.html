@@ -23,7 +23,7 @@
       </div>
       <div class="user-info">
         <span class="user-name">{{ userName || 'Invitado' }}</span>
-        <div *ngIf="userBeltColor" class="belt-stripe" [style.background-color]="userBeltColor"></div>
+        <div *ngIf="userBeltColor" class="belt-stripe" [style.background]="getBeltColor(userBeltColor)"></div>
       </div>
     </div>
     <ion-list>
