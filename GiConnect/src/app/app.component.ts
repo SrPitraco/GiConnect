@@ -19,7 +19,11 @@ import {
   checkboxOutline,
   calendarNumberOutline,
   createOutline,
-  bagAddOutline
+  bagAddOutline,
+  personAddOutline,
+  saveOutline,
+  chevronUpOutline,
+  chevronDownOutline
 } from 'ionicons/icons';
 import { App } from '@capacitor/app';
 import { CommonModule } from '@angular/common';
@@ -73,6 +77,17 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     private el: ElementRef
   ) {
     this.isAndroid = this.platform.is('android');
+    addIcons({ 
+      personOutline, 
+      personAddOutline, 
+      logOutOutline, 
+      homeOutline, 
+      calendarOutline, 
+      timeOutline, 
+      saveOutline,
+      chevronUpOutline,
+      chevronDownOutline
+    });
   }
 
   ngOnInit() {

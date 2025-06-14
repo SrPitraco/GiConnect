@@ -2,6 +2,8 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { Platform } from '@ionic/angular';
+
 interface FirebaseConfig {
   apiKey: string;
   authDomain: string;
@@ -13,23 +15,22 @@ interface FirebaseConfig {
   measurementId: string;
 }
 
-// Función para obtener la IP correcta según el entorno
-function getApiUrl() {
-  // Si estamos en el emulador de Android
-  if (window.location.hostname === '10.0.2.2') {
-    return 'http://10.0.2.2:4000/api';
+// Función para determinar la URL base según la plataforma
+function getBaseUrl() {
+  // Detectar si estamos en un emulador o dispositivo móvil
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  
+  if (isMobile) {
+    // Para emuladores y dispositivos móviles, usar la IP real de la máquina
+    return 'http://192.168.1.252:4000/api';
   }
-  // Si estamos en el emulador de iOS
-  if (window.location.hostname === 'localhost') {
-    return 'http://localhost:4000/api';
-  }
-  // Para dispositivos físicos, usar la IP de la máquina
-  return 'http://192.168.1.252:4000/api';
+  // Para web, usar localhost
+  return 'http://localhost:4000/api';
 }
 
 export const environment = {
   production: false,
-  apiUrl: getApiUrl(),
+  apiUrl: getBaseUrl(),
   allowedOrigins: [
     'http://localhost',
     'http://localhost:8100',

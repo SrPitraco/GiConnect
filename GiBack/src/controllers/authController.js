@@ -124,6 +124,9 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   try {
     console.log('📝 Datos recibidos:', req.body);
+    console.log('🔍 Headers recibidos:', req.headers);
+    console.log('🌐 Origen de la petición:', req.headers.origin);
+    
     const { email, password } = req.body;
     
     if (!email || !password) {

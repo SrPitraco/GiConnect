@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { Platform } from '@ionic/angular';
+import { catchError } from 'rxjs/operators';
 
 interface AuthResponse {
   token: string;
@@ -30,8 +31,23 @@ export class AuthService {
     private http: HttpClient,
     private platform: Platform
   ) {
-    this.apiUrl = environment.apiUrl;
+    // Determinar la URL base según la plataforma
+    if (this.platform.is('android')) {
+      this.apiUrl = 'http://10.0.2.2:4000/api';
+      console.log('📱 Usando URL para Android:', this.apiUrl);
+    } else if (this.platform.is('ios')) {
+      this.apiUrl = 'http://192.168.1.252:4000/api';
+      console.log('🍎 Usando URL para iOS:', this.apiUrl);
+    } else {
+      this.apiUrl = environment.apiUrl;
+      console.log('💻 Usando URL por defecto:', this.apiUrl);
+    }
+    
     console.log('🌐 URL base configurada:', this.apiUrl);
+    console.log('📱 Plataforma:', this.platform.platforms());
+    console.log('🔧 Es Android:', this.platform.is('android'));
+    console.log('🍎 Es iOS:', this.platform.is('ios'));
+    
     // Inicializar el estado del usuario
     this.checkStoredUser();
   }
@@ -47,22 +63,45 @@ export class AuthService {
     try {
       console.log('📝 Intentando login con:', credentials);
       console.log('🌐 URL completa:', `${this.apiUrl}/auth/login`);
+      console.log('🔧 Platform:', this.platform.platforms());
+      console.log('📱 Es Android:', this.platform.is('android'));
+      console.log('🍎 Es iOS:', this.platform.is('ios'));
       
       if (!credentials.email || !credentials.password) {
         throw new Error('Por favor, completa todos los campos');
       }
 
       const headers = new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       });
 
       console.log('📤 Headers:', headers);
+      console.log('📦 Body:', JSON.stringify(credentials));
 
       const response = await firstValueFrom(
         this.http.post<AuthResponse>(
           `${this.apiUrl}/auth/login`,
           credentials,
-          { headers }
+          { 
+            headers,
+            withCredentials: true
+          }
+        ).pipe(
+          catchError((error: HttpErrorResponse) => {
+            console.error('❌ Error en la petición:', {
+              status: error.status,
+              statusText: error.statusText,
+              error: error.error,
+              url: error.url,
+              headers: error.headers,
+              message: error.message,
+              platform: this.platform.platforms(),
+              isAndroid: this.platform.is('android'),
+              isIOS: this.platform.is('ios')
+            });
+            throw error;
+          })
         )
       );
 

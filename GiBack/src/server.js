@@ -209,32 +209,39 @@ connectDB();
 // Configuración de CORS
 app.use(cors({
   origin: function(origin, callback) {
-    // En desarrollo, permitir todas las conexiones
-    if (process.env.NODE_ENV !== 'production') {
-      return callback(null, true);
-    }
-    
-    // En producción, solo permitir orígenes específicos
+    console.log('🌐 Origen de la petición:', origin);
     const allowedOrigins = [
-      'http://localhost',
       'http://localhost:8100',
       'http://localhost:4200',
-      'capacitor://localhost',
+      'http://localhost:8080',
+      'http://localhost:8102',
+      'http://localhost:8101',
       'http://192.168.1.252:8100',
       'http://192.168.1.252:4200',
+      'http://192.168.1.252:8080',
       'http://192.168.1.252:4000',
+      'http://192.168.1.252:8102',
+      'http://192.168.1.252:8101',
       'http://10.0.2.2:4000',
       'http://10.0.2.2:8100',
-      'http://10.0.2.2:4200'
+      'http://10.0.2.2:4200',
+      'http://10.0.2.2:8102',
+      'http://10.0.2.2:8101',
+      'capacitor://localhost',
+      'ionic://localhost'
     ];
     
+    // Permitir solicitudes sin origen (como las de aplicaciones móviles)
     if (!origin || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
     } else {
+      console.log('❌ Origen no permitido:', origin);
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 
 // Middlewares
@@ -254,8 +261,5 @@ app.use('/api/users',           userRoutes);
 // Arranque del servidor
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 Servidor escuchando en puerto ${PORT}`);
-  console.log(`🌐 Accesible en:`);
-  console.log(`   - http://localhost:${PORT}`);
-  console.log(`   - http://192.168.1.252:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

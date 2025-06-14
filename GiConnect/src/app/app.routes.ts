@@ -80,6 +80,11 @@ export const routes: Routes = [
         path: 'editar-usuario/:id',
         loadComponent: () => import('./pages/modificar-usuario/editar-usuario/editar-usuario.page').then(m => m.EditarUsuarioPage),
         canActivate: [authGuard]
+      },
+      {
+        path: 'crear-clase',
+        loadComponent: () => import('./pages/crear-clase/crear-clase.page').then(m => m.CrearClasePage),
+        canActivate: [authGuard]
       }
     ]
   },

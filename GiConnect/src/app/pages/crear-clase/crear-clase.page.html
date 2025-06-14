@@ -1,0 +1,144 @@
+<div class="login-background">
+    <div class="backdrop-logo"></div>
+
+    <div class="ion-padding">
+        <div class="header-section">
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/mestre-portal" text=""></ion-back-button>
+            </ion-buttons>
+            <h1 class="welcome-title">Crear Nueva Clase</h1>
+        </div>
+
+        <form [formGroup]="claseForm" (ngSubmit)="onSubmit()" class="create-form">
+            <ion-list>
+                <!-- Nombre de la clase -->
+                <ion-item>
+                    <ion-label position="stacked">Título de la Clase</ion-label>
+                    <ion-input formControlName="titulo" type="text" placeholder="Ej: Jiu-Jitsu Básico"></ion-input>
+                </ion-item>
+
+                <!-- Descripción -->
+                <ion-item>
+                    <ion-label position="stacked">Descripción</ion-label>
+                    <ion-textarea formControlName="descripcion" placeholder="Describe la clase..."></ion-textarea>
+                </ion-item>
+
+                <!-- Tipo de Clase -->
+                <ion-item>
+                    <ion-label position="stacked">Tipo de Clase: </ion-label>
+                    <ion-segment formControlName="tipoClase" class="tipo-clase-segment">
+                        <ion-segment-button value="fija">
+                            <ion-label>Fija</ion-label>
+                        </ion-segment-button>
+                        <ion-segment-button value="especial">
+                            <ion-label>Especial</ion-label>
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-item>
+
+                <!-- Sección para clase fija -->
+                <ng-container *ngIf="tipoClase === 'fija'">
+                    <ion-item>
+                        <ion-label position="stacked">Días de la Semana</ion-label>
+                        <div class="dias-chips-container">
+                            <ion-chip *ngFor="let dia of diasSemana"
+                                [color]="isDiaSeleccionado(dia.id) ? 'primary' : 'medium'"
+                                (click)="toggleDia(dia.id)" 
+                                [class.selected]="isDiaSeleccionado(dia.id)">
+                                {{dia.nombre}}
+                            </ion-chip>
+                        </div>
+                    </ion-item>
+                </ng-container>
+
+                <!-- Sección para clase especial -->
+                <ng-container *ngIf="tipoClase === 'especial'">
+                    <ion-item>
+                        <ion-label position="stacked">Fecha</ion-label>
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker" formControlName="fecha" [min]="minDate">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                    </ion-item>
+                </ng-container>
+
+                <!-- Hora de Inicio -->
+                <ion-item>
+                    <ion-label position="stacked">Hora de Inicio</ion-label>
+                    <div class="time-control">
+                        <div class="time-buttons">
+                            <ion-button fill="clear" (click)="incrementarHora('horaInicio')">
+                                <ion-icon name="chevron-up-outline"></ion-icon>
+                            </ion-button>
+                            <ion-button fill="clear" (click)="decrementarHora('horaInicio')">
+                                <ion-icon name="chevron-down-outline"></ion-icon>
+                            </ion-button>
+                        </div>
+                        <ion-input formControlName="horaInicio" type="text" placeholder="HH:mm"></ion-input>
+                        <div class="time-buttons">
+                            <ion-button fill="clear" (click)="incrementarMinuto('horaInicio')">
+                                <ion-icon name="chevron-up-outline"></ion-icon>
+                            </ion-button>
+                            <ion-button fill="clear" (click)="decrementarMinuto('horaInicio')">
+                                <ion-icon name="chevron-down-outline"></ion-icon>
+                            </ion-button>
+                        </div>
+                    </div>
+                </ion-item>
+                <ion-note color="danger" *ngIf="claseForm.get('horaInicio')?.errors?.['pattern']">
+                    Formato de hora inválido. Use HH:mm (ej: 09:30)
+                </ion-note>
+
+                <!-- Hora de Fin -->
+                <ion-item>
+                    <ion-label position="stacked">Hora de Fin</ion-label>
+                    <div class="time-control">
+                        <div class="time-buttons">
+                            <ion-button fill="clear" (click)="incrementarHora('horaFin')">
+                                <ion-icon name="chevron-up-outline"></ion-icon>
+                            </ion-button>
+                            <ion-button fill="clear" (click)="decrementarHora('horaFin')">
+                                <ion-icon name="chevron-down-outline"></ion-icon>
+                            </ion-button>
+                        </div>
+                        <ion-input formControlName="horaFin" type="text" placeholder="HH:mm"></ion-input>
+                        <div class="time-buttons">
+                            <ion-button fill="clear" (click)="incrementarMinuto('horaFin')">
+                                <ion-icon name="chevron-up-outline"></ion-icon>
+                            </ion-button>
+                            <ion-button fill="clear" (click)="decrementarMinuto('horaFin')">
+                                <ion-icon name="chevron-down-outline"></ion-icon>
+                            </ion-button>
+                        </div>
+                    </div>
+                </ion-item>
+                <ion-note color="danger" *ngIf="claseForm.get('horaFin')?.errors?.['pattern']">
+                    Formato de hora inválido. Use HH:mm (ej: 09:30)
+                </ion-note>
+
+                <!-- Instructor -->
+                <ion-item>
+                    <ion-label position="stacked">Instructor</ion-label>
+                </ion-item>
+                <ion-button expand="block" fill="outline" (click)="mostrarSelectorInstructor($event)" class="instructor-button">
+                    {{ obtenerNombreInstructor() }}
+                </ion-button>
+
+                <!-- Máximo de Plazas -->
+                <ion-item>
+                    <ion-label position="stacked">Máximo de Plazas</ion-label>
+                    <ion-input formControlName="maxPlazas" type="number" min="1"></ion-input>
+                </ion-item>
+
+                <!-- Botón de Submit -->
+                <div class="submit-button-container">
+                    <ion-button expand="block" type="submit" [disabled]="!claseForm.valid" class="submit-button">
+                        <ion-icon name="save-outline" slot="start"></ion-icon>
+                        Crear Clase
+                    </ion-button>
+                </div>
+            </ion-list>
+        </form>
+    </div>
+</div>
