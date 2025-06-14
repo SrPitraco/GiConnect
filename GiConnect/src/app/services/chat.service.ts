@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Database, ref, push, onValue, set, query, limitToLast } from '@angular/fire/database';
+import { Database, ref, push, onValue, query, limitToLast } from 'firebase/database';
 import { BehaviorSubject } from 'rxjs';
+import { DataSnapshot } from 'firebase/database';
+import { getDatabase } from 'firebase/database';
 
 export interface ChatMessage {
   user: string;
@@ -13,14 +15,16 @@ export interface ChatMessage {
 })
 export class ChatService {
   private messages$ = new BehaviorSubject<ChatMessage[]>([]);
+  private db: Database;
 
-  constructor(private db: Database) {
+  constructor() {
+    this.db = getDatabase();
     this.listenForMessages();
   }
 
   private listenForMessages() {
     const messagesRef = query(ref(this.db, 'chat/messages'), limitToLast(50));
-    onValue(messagesRef, (snapshot) => {
+    onValue(messagesRef, (snapshot: DataSnapshot) => {
       const data = snapshot.val() || {};
       const formatted = Object.values(data) as ChatMessage[];
       this.messages$.next(formatted);

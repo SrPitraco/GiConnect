@@ -9,27 +9,23 @@ import { routes } from './app/app.routes';
 import { environment } from './environments/environment';
 import { AuthInterceptor } from './app/interceptors/auth.interceptor';
 
-// ✅ Firebase (con AngularFire 17+)
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideDatabase, getDatabase } from '@angular/fire/database';
+// Firebase imports
+import { initializeApp } from 'firebase/app';
+import { getDatabase } from 'firebase/database';
 
 if (environment.production) {
   enableProdMode();
 }
 
+// Initialize Firebase
+const app = initializeApp(environment.firebaseConfig);
+const database = getDatabase(app);
+
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(IonicModule.forRoot()),
-    importProvidersFrom(HttpClientModule),
-
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     provideRouter(routes),
-    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebaseConfig))),
-    importProvidersFrom(provideDatabase(() => getDatabase())),
-
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
+    importProvidersFrom(IonicModule.forRoot()),
+    importProvidersFrom(HttpClientModule)
   ]
 }).catch(err => console.error(err));
