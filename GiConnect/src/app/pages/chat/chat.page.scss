@@ -27,8 +27,8 @@
 
 ion-header {
   --background: transparent;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding-top: 0.5rem;
+  
 }
 
 ion-title {
@@ -47,7 +47,7 @@ ion-title {
   width: 100%;
   overflow-y: auto;
   padding: 10px;
-  padding-bottom: 130px;
+  padding-bottom: 160px;
   flex: 1;
 }
 
