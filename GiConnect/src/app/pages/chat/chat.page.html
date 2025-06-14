@@ -16,11 +16,13 @@
 <ion-footer>
   <ion-toolbar>
     <div class="message-input">
-      <ion-input
-        name="newMessage"
-        [(ngModel)]="newMessage"
-        placeholder="Escribe un mensaje..."
-      ></ion-input>
+      <ion-item lines="none" class="message-input-item">
+        <ion-input
+          name="newMessage"
+          [(ngModel)]="newMessage"
+          placeholder="Escribe un mensaje..."
+        ></ion-input>
+      </ion-item>
       <ion-button (click)="send()">Enviar</ion-button>
     </div>
   </ion-toolbar>

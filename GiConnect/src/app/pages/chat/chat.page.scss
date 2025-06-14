@@ -5,12 +5,11 @@
     --padding-bottom: 10px;
     display: flex;
     flex-direction: column-reverse; /* 👈 Para arrancar scroll abajo */
-    position: absolute;
-    top: 0;
-    bottom: 56px; /* Altura del ion-footer */
     width: 100%;
     overflow-y: auto;
     padding: 10px;
+    padding-bottom: 60px; /* Sube un poco el ion-footer */
+    height: 100%;
   }
   
   .messages {
@@ -46,11 +45,22 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 12px;
+    padding: 8px 8px;
+    padding-bottom: 10px;
+  }
+
+  .message-input-item {
+    
+    padding-bottom: 2rem;
   }
 
   ion-footer {
-    position: absolute;
     bottom: 0;
     width: 100%;
+    z-index: 10;
+  }
+
+  ion-button {
+    margin-bottom: 2rem;
+    margin-left: 1rem;
   }

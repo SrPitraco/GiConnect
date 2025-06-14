@@ -2,6 +2,17 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+interface FirebaseConfig {
+  apiKey: string;
+  authDomain: string;
+  databaseURL: string;
+  projectId: string;
+  storageBucket: string;
+  messagingSenderId: string;
+  appId: string;
+  measurementId: string;
+}
+
 // Función para obtener la IP correcta según el entorno
 function getApiUrl() {
   // Si estamos en el emulador de Android
@@ -40,7 +51,7 @@ export const environment = {
     messagingSenderId: "428486646092",
     appId: "1:428486646092:web:edaeba3e24cb0ce82657e9",
     measurementId: "G-1FX12BTWVW"
-  }
+  } as FirebaseConfig
 };
 
 /*
