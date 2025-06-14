@@ -55,10 +55,14 @@
                 <ng-container *ngIf="tipoClase === 'especial'">
                     <ion-item>
                         <ion-label position="stacked">Fecha</ion-label>
-                        <mat-form-field>
-                            <input matInput [matDatepicker]="picker" formControlName="fecha" [min]="minDate">
+                        <mat-form-field appearance="fill" class="custom-mat-field">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
+                            <input matInput
+                                [matDatepicker]="picker"
+                                formControlName="fecha"
+                                [min]="minDate"
+                                placeholder="Selecciona una fecha">
                         </mat-form-field>
                     </ion-item>
                 </ng-container>

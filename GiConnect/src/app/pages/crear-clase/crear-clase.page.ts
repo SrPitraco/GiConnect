@@ -10,12 +10,28 @@ import { InstructorPopoverComponent } from '../../components/instructor-popover/
 import { addIcons } from 'ionicons';
 import { calendarOutline, timeOutline, personOutline, saveOutline } from 'ionicons/icons';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localeEs);
+
+export const DD_MM_YYYY_FORMAT = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-crear-clase',
@@ -32,6 +48,10 @@ import { environment } from '../../../environments/environment';
     MatFormFieldModule,
     MatInputModule,
     InstructorPopoverComponent
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+    { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT }
   ]
 })
 export class CrearClasePage implements OnInit {
@@ -84,6 +104,7 @@ export class CrearClasePage implements OnInit {
 
     // Suscribirse a cambios en el tipo de clase
     this.claseForm.get('tipoClase')?.valueChanges.subscribe(tipo => {
+      this.tipoClase = tipo;
       if (tipo === 'fija') {
         this.claseForm.get('fecha')?.clearValidators();
         this.claseForm.get('diasSeleccionados')?.setValidators([Validators.required]);
@@ -105,6 +126,7 @@ export class CrearClasePage implements OnInit {
         instructor: user.nombre
       });
     }
+    this.limpiarFormulario();
     await this.cargarInstructores();
   }
 
@@ -247,6 +269,7 @@ export class CrearClasePage implements OnInit {
           });
           await toast.present();
           
+          this.limpiarFormulario();
           this.router.navigate(['/mestre-portal']);
         } else {
           if (!formData.fecha) {
@@ -276,6 +299,7 @@ export class CrearClasePage implements OnInit {
           });
           await toast.present();
           
+          this.limpiarFormulario();
           this.router.navigate(['/mestre-portal']);
         }
       } catch (error: any) {
@@ -294,6 +318,15 @@ export class CrearClasePage implements OnInit {
       console.log('Formulario inválido:', this.claseForm.errors);
       console.log('Estado del formulario:', this.claseForm.getRawValue());
     }
+  }
+
+  private limpiarFormulario() {
+    this.claseForm.reset({
+      tipoClase: 'fija',
+      maxPlazas: 10
+    });
+    this.instructorSeleccionado = null;
+    this.tipoClase = 'fija';
   }
 
   obtenerNombreInstructor(): string {

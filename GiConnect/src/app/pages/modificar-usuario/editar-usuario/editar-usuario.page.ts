@@ -67,6 +67,7 @@ export class EditarUsuarioPage implements OnInit {
   cinturones = CINTURONES;
   grados = GRADOS;
   isLoading = false;
+  rolesDisponibles: { value: string, label: string }[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -96,8 +97,6 @@ export class EditarUsuarioPage implements OnInit {
       clasesImpartidas: [0],
       activo: [true]
     });
-
-    
   }
 
   ngOnInit() {
@@ -110,6 +109,17 @@ export class EditarUsuarioPage implements OnInit {
     const currentUser = this.authService.getUser();
     this.isAdmin = currentUser?.role === 'admin';
     this.isMaestro = currentUser?.role === 'maestro';
+
+    // Configurar roles disponibles según el tipo de usuario
+    this.rolesDisponibles = [
+      { value: 'atleta', label: 'Atleta' },
+      { value: 'instructor', label: 'Instructor' },
+      { value: 'maestro', label: 'Maestro' }
+    ];
+
+    if (this.isAdmin) {
+      this.rolesDisponibles.push({ value: 'admin', label: 'Admin' });
+    }
 
     this.loadUsuario(userId);
   }
@@ -126,17 +136,18 @@ export class EditarUsuarioPage implements OnInit {
         });
 
         if (this.isMaestro) {
-          // Si es maestro, solo permite editar ciertos campos
+          // Si es maestro, permite editar campos específicos
           this.usuarioForm.get('fechaInicio')?.enable();
           this.usuarioForm.get('cinturon')?.enable();
           this.usuarioForm.get('grado')?.enable();
           this.usuarioForm.get('fechaDesde')?.enable();
           this.usuarioForm.get('clasesAsistidas')?.enable();
           this.usuarioForm.get('clasesImpartidas')?.enable();
+          this.usuarioForm.get('role')?.enable();
 
           // Deshabilitar el resto de campos
           Object.keys(this.usuarioForm.controls).forEach(key => {
-            if (!['fechaInicio', 'cinturon', 'grado', 'fechaDesde', 'clasesAsistidas', 'clasesImpartidas'].includes(key)) {
+            if (!['fechaInicio', 'cinturon', 'grado', 'fechaDesde', 'clasesAsistidas', 'clasesImpartidas', 'role'].includes(key)) {
               this.usuarioForm.get(key)?.disable();
             }
           });
@@ -171,14 +182,15 @@ export class EditarUsuarioPage implements OnInit {
         if (this.isAdmin) {
           // Si es admin, puede actualizar todos los campos
           Object.assign(updatedUser, formData);
-        } else {
-          // Si es maestro, solo puede actualizar campos específicos
+        } else if (this.isMaestro) {
+          // Si es maestro, puede actualizar campos específicos incluyendo el rol
           updatedUser.fechaInicio = formData.fechaInicio;
           updatedUser.cinturon = formData.cinturon;
           updatedUser.grado = formData.grado;
           updatedUser.fechaDesde = formData.fechaDesde;
           updatedUser.clasesAsistidas = formData.clasesAsistidas;
           updatedUser.clasesImpartidas = formData.clasesImpartidas;
+          updatedUser.role = formData.role;
         }
 
         this.userService.updateUser(this.usuario._id, updatedUser).subscribe({

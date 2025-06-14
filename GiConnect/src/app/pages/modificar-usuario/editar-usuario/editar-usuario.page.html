@@ -60,11 +60,10 @@
         <!-- Role -->
         <ion-item>
           <ion-label position="stacked">Rol</ion-label>
-          <ion-select formControlName="role" interface="popover" [disabled]="!isAdmin">
-            <ion-select-option value="atleta">Atleta</ion-select-option>
-            <ion-select-option value="instructor">Instructor</ion-select-option>
-            <ion-select-option value="maestro">Maestro</ion-select-option>
-            <ion-select-option value="admin">Admin</ion-select-option>
+          <ion-select formControlName="role" interface="popover">
+            <ion-select-option *ngFor="let rol of rolesDisponibles" [value]="rol.value">
+              {{rol.label}}
+            </ion-select-option>
           </ion-select>
         </ion-item>
 
