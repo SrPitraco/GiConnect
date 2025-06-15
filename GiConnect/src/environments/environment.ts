@@ -22,10 +22,10 @@ function getBaseUrl() {
   
   if (isMobile) {
     // Para emuladores y dispositivos móviles, usar la IP real de la máquina
-    return 'http://192.168.1.252:4000/api';
+    return 'https://giconnect-production.up.railway.app/api';
   }
-  // Para web, usar localhost
-  return 'http://localhost:4000/api';
+  // Para web, usar la URL de producción
+  return 'https://giconnect-production.up.railway.app/api';
 }
 
 export const environment = {

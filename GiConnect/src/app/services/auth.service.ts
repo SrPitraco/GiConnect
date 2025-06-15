@@ -31,22 +31,10 @@ export class AuthService {
     private http: HttpClient,
     private platform: Platform
   ) {
-    // Determinar la URL base según la plataforma
-    if (this.platform.is('android')) {
-      this.apiUrl = 'http://10.0.2.2:4000/api';
-      console.log('📱 Usando URL para Android:', this.apiUrl);
-    } else if (this.platform.is('ios')) {
-      this.apiUrl = 'http://192.168.1.252:4000/api';
-      console.log('🍎 Usando URL para iOS:', this.apiUrl);
-    } else {
-      this.apiUrl = environment.apiUrl;
-      console.log('💻 Usando URL por defecto:', this.apiUrl);
-    }
-    
+    // Usar la URL de producción para todas las plataformas
+    this.apiUrl = 'https://giconnect-production.up.railway.app/api';
     console.log('🌐 URL base configurada:', this.apiUrl);
     console.log('📱 Plataforma:', this.platform.platforms());
-    console.log('🔧 Es Android:', this.platform.is('android'));
-    console.log('🍎 Es iOS:', this.platform.is('ios'));
     
     // Inicializar el estado del usuario
     this.checkStoredUser();

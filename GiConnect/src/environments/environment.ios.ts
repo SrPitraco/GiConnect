@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://192.168.1.252:4000/api',
+  apiUrl: 'https://giconnect-production.up.railway.app/api',
   allowedOrigins: [
     'http://localhost',
     'http://localhost:8100',
@@ -17,7 +17,8 @@ export const environment = {
     'http://10.0.2.2:8100',
     'http://10.0.2.2:4200',
     'http://10.0.2.2:8102',
-    'http://10.0.2.2:8101'
+    'http://10.0.2.2:8101',
+    'https://giconnect-production.up.railway.app'
   ],
   firebaseConfig: {
     apiKey: "AIzaSyCA1l-x6AhsovfkRi68jH6G_BP9S9UZtXU",
