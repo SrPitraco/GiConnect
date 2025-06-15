@@ -16,5 +16,8 @@
     "firebase": "^11.9.1",
     "moment": "^2.30.1",
     "swiper": "^11.2.8"
+  },
+  "scripts": {
+    "compodoc": "compodoc -p tsconfig.json -s"
   }
 }

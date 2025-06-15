@@ -1,0 +1,805 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>GiConnect documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">GiConnect documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  Subscription</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/pages/perfil/perfil.page.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#fechaFin" 
+>
+                                            fechaFin
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#tipo" 
+>
+                                            tipo
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="fechaFin"></a>
+                                        <span class="name "><b>fechaFin</b>
+                                            <a href="#fechaFin">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>fechaFin:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="tipo"></a>
+                                        <span class="name "><b>tipo</b>
+                                            <a href="#tipo">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>tipo:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { IonicModule, Platform, AlertController, ToastController } from &#x27;@ionic/angular&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { addIcons } from &#x27;ionicons&#x27;;
+import { createOutline, cameraOutline, saveOutline } from &#x27;ionicons/icons&#x27;;
+import { HttpClient, HttpHeaders } from &#x27;@angular/common/http&#x27;;
+import { environment } from &#x27;../../../environments/environment&#x27;;
+import { Camera, CameraResultType, CameraSource } from &#x27;@capacitor/camera&#x27;;
+import { AuthService } from &#x27;../../services/auth.service&#x27;;
+import { SuscripcionService } from &#x27;../../services/suscripcion.service&#x27;;
+import { Suscripcion } from &#x27;../../interfaces/suscripcion.interface&#x27;;
+
+interface UserData {
+  nombre: string;
+  apellido1: string;
+  apellido2: string;
+  email: string;
+  telefono: string;
+  dni: string;
+  numIBJJF: string;
+  fechaInicio: string | null;
+  cinturon: string;
+  grado: string;
+  fechaDesde: string | null;
+  clasesAsistidas: number;
+  clasesImpartidas: number;
+  role: string;
+  foto: string | null;
+}
+
+interface Subscription {
+  tipo: string;
+  fechaFin: string;
+}
+
+@Component({
+  selector: &#x27;app-perfil&#x27;,
+  templateUrl: &#x27;./perfil.page.html&#x27;,
+  styleUrls: [&#x27;./perfil.page.scss&#x27;],
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+    FormsModule
+  ]
+})
+export class PerfilPage implements OnInit {
+  userData: UserData &#x3D; {
+    nombre: &#x27;&#x27;,
+    apellido1: &#x27;&#x27;,
+    apellido2: &#x27;&#x27;,
+    email: &#x27;&#x27;,
+    telefono: &#x27;&#x27;,
+    dni: &#x27;&#x27;,
+    numIBJJF: &#x27;&#x27;,
+    fechaInicio: null,
+    cinturon: &#x27;&#x27;,
+    grado: &#x27;&#x27;,
+    fechaDesde: null,
+    clasesAsistidas: 0,
+    clasesImpartidas: 0,
+    role: &#x27;&#x27;,
+    foto: null
+  };
+
+  userName: string &#x3D; &#x27;&#x27;;
+  userRole: string &#x3D; &#x27;&#x27;;
+  userPhoto: string | null &#x3D; null;
+  activeSubscription: Suscripcion | null &#x3D; null;
+
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private alertController: AlertController,
+    private toastController: ToastController,
+    private platform: Platform,
+    private authService: AuthService,
+    private suscripcionService: SuscripcionService
+  ) {
+    addIcons({ createOutline, cameraOutline, saveOutline });
+  }
+
+  ngOnInit() {
+    this.loadUserData();
+    this.loadSubscription();
+  }
+
+  loadUserData() {
+    const userInfo &#x3D; localStorage.getItem(&#x27;user&#x27;);
+    if (userInfo) {
+      try {
+        const user &#x3D; JSON.parse(userInfo);
+        console.log(&#x27;Usuario cargado:&#x27;, user); // Para debug
+        this.userData &#x3D; {
+          ...this.userData,
+          ...user,
+          fechaInicio: user.fechaInicio || null,
+          fechaDesde: user.fechaDesde || null
+        };
+        this.userName &#x3D; &#x60;${user.nombre} ${user.apellido1}&#x60;;
+        this.userRole &#x3D; this.getRoleName(user.role);
+        this.userPhoto &#x3D; user.foto || null;
+      } catch (error) {
+        console.error(&#x27;Error parsing user info:&#x27;, error);
+      }
+    }
+  }
+
+  loadSubscription() {
+    console.log(&#x27;Cargando suscripciones activas...&#x27;);
+    this.suscripcionService.getSuscripcionesActivas().subscribe({
+      next: (suscripciones: Suscripcion[]) &#x3D;&gt; {
+        console.log(&#x27;Suscripciones recibidas:&#x27;, suscripciones);
+        if (suscripciones &amp;&amp; suscripciones.length &gt; 0) {
+          // Ordenar por fecha de fin y tomar la más reciente
+          suscripciones.sort((a, b) &#x3D;&gt; new Date(b.fechaFin).getTime() - new Date(a.fechaFin).getTime());
+          this.activeSubscription &#x3D; suscripciones[0];
+          console.log(&#x27;Suscripción activa:&#x27;, this.activeSubscription);
+        } else {
+          this.activeSubscription &#x3D; null;
+          console.log(&#x27;No hay suscripciones activas&#x27;);
+        }
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(&#x27;Error al cargar suscripciones:&#x27;, error);
+        this.activeSubscription &#x3D; null;
+      }
+    });
+  }
+
+  isSubscriptionExpired(): boolean {
+    if (!this.activeSubscription) return true;
+    const fechaFin &#x3D; new Date(this.activeSubscription.fechaFin);
+    const hoy &#x3D; new Date();
+    return fechaFin &lt; hoy;
+  }
+
+  getSubscriptionStatus(): string {
+    if (!this.activeSubscription) {
+      return &#x27;Sin suscripción activa&#x27;;
+    }
+    if (this.isSubscriptionExpired()) {
+      return &#x27;Suscripción expirada&#x27;;
+    }
+    return &#x60;Suscripción ${this.activeSubscription.tipo} activa hasta ${new Date(this.activeSubscription.fechaFin).toLocaleDateString(&#x27;es-ES&#x27;)}&#x60;;
+  }
+
+  getRoleName(role: string): string {
+    switch (role?.toLowerCase()) {
+      case &#x27;admin&#x27;:
+        return &#x27;Administrador&#x27;;
+      case &#x27;maestro&#x27;:
+        return &#x27;Maestro&#x27;;
+      case &#x27;instructor&#x27;:
+        return &#x27;Instructor&#x27;;
+      case &#x27;atleta&#x27;:
+        return &#x27;Atleta&#x27;;
+      default:
+        console.warn(&#x27;Rol no reconocido:&#x27;, role);
+        return &#x27;Usuario&#x27;;
+    }
+  }
+
+  async updateField(field: keyof UserData) {
+    try {
+      const token &#x3D; localStorage.getItem(&#x27;token&#x27;);
+      if (!token) {
+        throw new Error(&#x27;No hay token de autenticación&#x27;);
+      }
+
+      const headers &#x3D; new HttpHeaders({
+        &#x27;Authorization&#x27;: &#x60;Bearer ${token}&#x60;,
+        &#x27;Content-Type&#x27;: &#x27;application/json&#x27;
+      });
+
+      const response &#x3D; await this.http.put(
+        &#x60;${environment.apiUrl}/users/${field}&#x60;,
+        { [field]: this.userData[field] },
+        { headers }
+      ).toPromise();
+
+      // Actualizar el localStorage
+      const userInfo &#x3D; localStorage.getItem(&#x27;user&#x27;);
+      if (userInfo) {
+        const user &#x3D; JSON.parse(userInfo);
+        user[field] &#x3D; this.userData[field];
+        localStorage.setItem(&#x27;user&#x27;, JSON.stringify(user));
+      }
+
+      this.presentToast(&#x27;Campo actualizado correctamente&#x27;);
+    } catch (error) {
+      console.error(&#x60;Error al actualizar ${field}:&#x60;, error);
+      this.presentToast(&#x60;Error al actualizar ${field}&#x60;);
+    }
+  }
+
+  async changePhoto() {
+    if (this.platform.is(&#x27;hybrid&#x27;)) {
+      const alert &#x3D; await this.alertController.create({
+        header: &#x27;Seleccionar fuente&#x27;,
+        cssClass: &#x27;image-source-alert&#x27;,
+        buttons: [
+          {
+            text: &#x27;Cámara&#x27;,
+            cssClass: &#x27;alert-button&#x27;,
+            handler: () &#x3D;&gt; {
+              this.takePicture();
+            }
+          },
+          {
+            text: &#x27;Galería&#x27;,
+            cssClass: &#x27;alert-button&#x27;,
+            handler: () &#x3D;&gt; {
+              this.pickFromGallery();
+            }
+          },
+          {
+            text: &#x27;Cancelar&#x27;,
+            cssClass: &#x27;alert-button-cancel&#x27;,
+            role: &#x27;cancel&#x27;
+          }
+        ],
+        backdropDismiss: true
+      });
+
+      await alert.present();
+    } else {
+      // En web, usamos el input file
+      const input &#x3D; document.createElement(&#x27;input&#x27;);
+      input.type &#x3D; &#x27;file&#x27;;
+      input.accept &#x3D; &#x27;image/*&#x27;;
+      input.onchange &#x3D; (event: any) &#x3D;&gt; {
+        const file &#x3D; event.target.files[0];
+        if (file) {
+          this.handleFile(file);
+        }
+      };
+      input.click();
+    }
+  }
+
+  private async handleFile(file: File) {
+    try {
+      const base64 &#x3D; await this.fileToBase64(file);
+      await this.updateUserPhoto(base64);
+    } catch (error) {
+      console.error(&#x27;Error al procesar el archivo:&#x27;, error);
+      this.presentToast(&#x27;Error al procesar la imagen&#x27;);
+    }
+  }
+
+  private fileToBase64(file: File): Promise&lt;string&gt; {
+    return new Promise((resolve, reject) &#x3D;&gt; {
+      const reader &#x3D; new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload &#x3D; () &#x3D;&gt; resolve(reader.result as string);
+      reader.onerror &#x3D; error &#x3D;&gt; reject(error);
+    });
+  }
+
+  private async updateUserPhoto(base64Image: string) {
+    try {
+      const token &#x3D; localStorage.getItem(&#x27;token&#x27;);
+      if (!token) {
+        throw new Error(&#x27;No hay token de autenticación&#x27;);
+      }
+
+      // Comprimir la imagen antes de enviarla
+      const compressedImage &#x3D; await this.authService.compressImage(base64Image);
+      console.log(&#x27;Tamaño de la imagen comprimida:&#x27;, compressedImage.length);
+
+      const headers &#x3D; new HttpHeaders({
+        &#x27;Authorization&#x27;: &#x60;Bearer ${token}&#x60;,
+        &#x27;Content-Type&#x27;: &#x27;application/json&#x27;
+      });
+
+      const response &#x3D; await this.http.put(
+        &#x60;${environment.apiUrl}/users/me/photo&#x60;,
+        { foto: compressedImage },
+        { headers }
+      ).toPromise();
+
+      // Actualizar la foto en el localStorage
+      const userInfo &#x3D; localStorage.getItem(&#x27;user&#x27;);
+      if (userInfo) {
+        const user &#x3D; JSON.parse(userInfo);
+        user.foto &#x3D; compressedImage;
+        localStorage.setItem(&#x27;user&#x27;, JSON.stringify(user));
+        this.userPhoto &#x3D; compressedImage;
+      }
+
+      this.presentToast(&#x27;Foto actualizada correctamente&#x27;);
+    } catch (error: any) {
+      console.error(&#x27;Error al actualizar la foto:&#x27;, error);
+      if (error.status &#x3D;&#x3D;&#x3D; 413) {
+        this.presentToast(&#x27;La imagen es demasiado grande. Por favor, selecciona una imagen más pequeña.&#x27;);
+      } else {
+        this.presentToast(error.error?.error || &#x27;Error al actualizar la foto. Por favor, inténtalo de nuevo.&#x27;);
+      }
+    }
+  }
+
+  private async presentToast(message: string) {
+    const toast &#x3D; await this.toastController.create({
+      message,
+      duration: 2000,
+      position: &#x27;middle&#x27;,
+      cssClass: &#x27;success-toast&#x27;
+    });
+    await toast.present();
+  }
+
+  async saveChanges() {
+    try {
+      const userInfo &#x3D; localStorage.getItem(&#x27;user&#x27;);
+      if (!userInfo) {
+        throw new Error(&#x27;No hay usuario registrado&#x27;);
+      }
+
+      const user &#x3D; JSON.parse(userInfo);
+      console.log(&#x27;Usuario a actualizar:&#x27;, user); // Para debug
+      const token &#x3D; localStorage.getItem(&#x27;token&#x27;);
+
+      if (!user._id) { // Cambiado de user.id a user._id
+        throw new Error(&#x27;ID de usuario no encontrado&#x27;);
+      }
+
+      if (!token) {
+        throw new Error(&#x27;Token de autorización no encontrado&#x27;);
+      }
+
+      // Configurar headers con el token
+      const headers &#x3D; new HttpHeaders({
+        &#x27;Authorization&#x27;: &#x60;Bearer ${token}&#x60;,
+        &#x27;Content-Type&#x27;: &#x27;application/json&#x27;
+      });
+      
+      // Actualizar en la base de datos
+      const response &#x3D; await this.http.put(
+        &#x60;${environment.apiUrl}/users/${user._id}&#x60;, // Cambiado de user.id a user._id
+        this.userData,
+        { headers }
+      ).toPromise();
+      
+      if (response) {
+        // Actualizar localStorage con los nuevos datos
+        const updatedUser &#x3D; { ...user, ...this.userData };
+        localStorage.setItem(&#x27;user&#x27;, JSON.stringify(updatedUser));
+        
+        // Actualizar las variables locales
+        this.userName &#x3D; &#x60;${this.userData.nombre} ${this.userData.apellido1}&#x60;;
+        this.userRole &#x3D; this.getRoleName(this.userData.role);
+        
+        // Mostrar alerta de éxito
+        const alert &#x3D; await this.alertController.create({
+          header: &#x27;Éxito&#x27;,
+          message: &#x27;Los cambios se han guardado correctamente&#x27;,
+          buttons: [
+            {
+              text: &#x27;OK&#x27;,
+              handler: () &#x3D;&gt; {
+                this.router.navigate([&#x27;/home&#x27;]);
+              }
+            }
+          ]
+        });
+
+        await alert.present();
+      }
+    } catch (error) {
+      console.error(&#x27;Error al guardar los cambios:&#x27;, error);
+      // Mostrar alerta de error
+      const alert &#x3D; await this.alertController.create({
+        header: &#x27;Error&#x27;,
+        message: &#x27;Ha ocurrido un error al guardar los cambios. Por favor, inténtalo de nuevo.&#x27;,
+        buttons: [&#x27;OK&#x27;]
+      });
+
+      await alert.present();
+    }
+  }
+
+  async pickFromGallery() {
+    try {
+      console.log(&#x27;Iniciando selección de foto desde galería&#x27;);
+      
+      // Verificar permisos específicamente para la galería
+      const permissionStatus &#x3D; await Camera.checkPermissions();
+      console.log(&#x27;Estado de permisos:&#x27;, permissionStatus);
+      
+      if (permissionStatus.photos !&#x3D;&#x3D; &#x27;granted&#x27;) {
+        console.log(&#x27;Solicitando permisos de galería&#x27;);
+        const requestResult &#x3D; await Camera.requestPermissions({
+          permissions: [&#x27;photos&#x27;]
+        });
+        console.log(&#x27;Resultado de solicitud de permisos:&#x27;, requestResult);
+        
+        if (requestResult.photos !&#x3D;&#x3D; &#x27;granted&#x27;) {
+          this.presentToast(&#x27;Se necesita permiso para acceder a la galería&#x27;);
+          return;
+        }
+      }
+
+      console.log(&#x27;Configurando opciones de la galería&#x27;);
+      const options: any &#x3D; {
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Photos,
+        correctOrientation: true
+      };
+      
+      console.log(&#x27;Opciones de la galería:&#x27;, options);
+      console.log(&#x27;Intentando obtener foto&#x27;);
+      
+      const image &#x3D; await Camera.getPhoto(options);
+      console.log(&#x27;Foto obtenida:&#x27;, image);
+
+      if (image.base64String) {
+        console.log(&#x27;Procesando imagen base64&#x27;);
+        const base64Image &#x3D; &#x60;data:image/${image.format};base64,${image.base64String}&#x60;;
+        await this.updateUserPhoto(base64Image);
+        console.log(&#x27;Imagen procesada y enviada al servidor&#x27;);
+      }
+    } catch (error: any) {
+      console.error(&#x27;Error detallado al seleccionar la foto:&#x27;, error);
+      if (error.message &#x3D;&#x3D;&#x3D; &#x27;User cancelled photos app&#x27; || error.message &#x3D;&#x3D;&#x3D; &#x27;User cancelled photos&#x27;) {
+        console.log(&#x27;Usuario canceló la selección&#x27;);
+        return;
+      }
+      this.presentToast(&#x27;Error al seleccionar la foto. Por favor, inténtalo de nuevo.&#x27;);
+    }
+  }
+
+  async takePicture() {
+    try {
+      console.log(&#x27;Iniciando captura de foto&#x27;);
+      
+      // Verificar permisos específicamente para la cámara
+      const permissionStatus &#x3D; await Camera.checkPermissions();
+      console.log(&#x27;Estado de permisos:&#x27;, permissionStatus);
+      
+      if (permissionStatus.camera !&#x3D;&#x3D; &#x27;granted&#x27;) {
+        console.log(&#x27;Solicitando permisos de cámara&#x27;);
+        const requestResult &#x3D; await Camera.requestPermissions({
+          permissions: [&#x27;camera&#x27;]
+        });
+        console.log(&#x27;Resultado de solicitud de permisos:&#x27;, requestResult);
+        
+        if (requestResult.camera !&#x3D;&#x3D; &#x27;granted&#x27;) {
+          this.presentToast(&#x27;Se necesita permiso para acceder a la cámara&#x27;);
+          return;
+        }
+      }
+
+      console.log(&#x27;Configurando opciones de la cámara&#x27;);
+      const options: any &#x3D; {
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Base64,
+        source: CameraSource.Camera,
+        correctOrientation: true
+      };
+      
+      console.log(&#x27;Opciones de la cámara:&#x27;, options);
+      console.log(&#x27;Intentando obtener foto&#x27;);
+      
+      const image &#x3D; await Camera.getPhoto(options);
+      console.log(&#x27;Foto obtenida:&#x27;, image);
+
+      if (image.base64String) {
+        console.log(&#x27;Procesando imagen base64&#x27;);
+        const base64Image &#x3D; &#x60;data:image/${image.format};base64,${image.base64String}&#x60;;
+        await this.updateUserPhoto(base64Image);
+        console.log(&#x27;Imagen procesada y enviada al servidor&#x27;);
+      }
+    } catch (error: any) {
+      console.error(&#x27;Error detallado al tomar la foto:&#x27;, error);
+      if (error.message &#x3D;&#x3D;&#x3D; &#x27;User cancelled photos app&#x27; || error.message &#x3D;&#x3D;&#x3D; &#x27;User cancelled photos&#x27;) {
+        console.log(&#x27;Usuario canceló la captura&#x27;);
+        return;
+      }
+      this.presentToast(&#x27;Error al tomar la foto. Por favor, inténtalo de nuevo.&#x27;);
+    }
+  }
+} </code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Subscription.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
