@@ -83,14 +83,6 @@ exports.listSemana = async (req, res) => {
     });
 
     console.log('=== BACKEND DEBUG === Clases especiales futuras encontradas:', clasesEspeciales.length);
-    clasesEspeciales.forEach(clase => {
-      console.log('=== BACKEND DEBUG === Clase especial:', {
-        id: clase._id,
-        titulo: clase.titulo,
-        fecha: clase.fecha,
-        instructor: clase.instructor?.nombre
-      });
-    });
 
     // 4. Generar nuevas clases a partir de las fijas si no existen
     const clasesGeneradas = [];
@@ -111,42 +103,52 @@ exports.listSemana = async (req, res) => {
 
       // Para cada clase fija, verificar si ya existe una clase con la misma fecha y hora
       for (const claseFija of clasesDelDia) {
-        const claseExistente = todasLasClases.find(clase => {
-          const fechaClaseExistente = new Date(clase.fecha);
-          return fechaClaseExistente.getDate() === fechaClase.getDate() &&
-                 fechaClaseExistente.getMonth() === fechaClase.getMonth() &&
-                 fechaClaseExistente.getFullYear() === fechaClase.getFullYear() &&
-                 clase.horaInicio === claseFija.horaInicio &&
-                 clase.titulo === claseFija.titulo;
+        // Verificar si ya existe una clase con los mismos datos
+        const claseExistente = await Clase.findOne({
+          titulo: claseFija.titulo,
+          horaInicio: claseFija.horaInicio,
+          horaFin: claseFija.horaFin,
+          fecha: {
+            $gte: new Date(fechaClase.setHours(0, 0, 0, 0)),
+            $lt: new Date(fechaClase.setHours(23, 59, 59, 999))
+          }
         });
 
         if (!claseExistente) {
-          // Crear nueva clase con la fecha correcta
-          const nuevaClase = new Clase({
-            titulo: claseFija.titulo,
-            descripcion: claseFija.descripcion,
-            fecha: new Date(fechaClase),
-            horaInicio: claseFija.horaInicio,
-            horaFin: claseFija.horaFin,
-            maxPlazas: claseFija.maxPlazas,
-            instructor: claseFija.instructor._id,
-            supervisada: false
-          });
+          try {
+            // Crear nueva clase con la fecha correcta
+            const nuevaClase = new Clase({
+              titulo: claseFija.titulo,
+              descripcion: claseFija.descripcion,
+              fecha: new Date(fechaClase),
+              horaInicio: claseFija.horaInicio,
+              horaFin: claseFija.horaFin,
+              maxPlazas: claseFija.maxPlazas,
+              instructor: claseFija.instructor._id,
+              supervisada: false
+            });
 
-          await nuevaClase.save();
-          clasesGeneradas.push(nuevaClase);
-          
-          console.log(`=== BACKEND DEBUG === Clase generada:`, {
-            titulo: nuevaClase.titulo,
-            fecha: nuevaClase.fecha,
-            diaSemana: diasSemana[claseFija.diaSemana],
-            instructor: nuevaClase.instructor
-          });
+            await nuevaClase.save();
+            clasesGeneradas.push(nuevaClase);
+            
+            console.log(`=== BACKEND DEBUG === Clase generada:`, {
+              titulo: nuevaClase.titulo,
+              fecha: nuevaClase.fecha,
+              diaSemana: diasSemana[claseFija.diaSemana],
+              instructor: nuevaClase.instructor
+            });
+          } catch (error) {
+            // Si hay un error de duplicado (código 11000), lo ignoramos
+            if (error.code !== 11000) {
+              throw error;
+            }
+            console.log('=== BACKEND DEBUG === Clase duplicada detectada y evitada');
+          }
         }
       }
     }
 
-    // 4. Obtener todas las clases actualizadas
+    // 5. Obtener todas las clases actualizadas
     const clasesFinales = await Clase.find({
       $or: [
         {
@@ -170,16 +172,7 @@ exports.listSemana = async (req, res) => {
       }
     });
 
-    console.log('=== BACKEND DEBUG === IDs de clases especiales:', clasesEspeciales.map(c => c._id));
     console.log('=== BACKEND DEBUG === Total de clases finales:', clasesFinales.length);
-    clasesFinales.forEach(clase => {
-      console.log(`=== BACKEND DEBUG === Clase final "${clase.titulo}":`, {
-        id: clase._id,
-        fecha: clase.fecha,
-        esEspecial: !clase.diaSemana,
-        reservas: clase.reservas?.length || 0
-      });
-    });
 
     res.json({ 
       clases: clasesFinales,

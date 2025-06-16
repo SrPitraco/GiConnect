@@ -73,7 +73,20 @@ const claseSchema = new mongoose.Schema({
 // Índices para mejorar el rendimiento de las búsquedas
 claseSchema.index({ diaSemana: 1 });
 claseSchema.index({ fecha: 1 });
-claseSchema.index({ instructor: 1 });
+
+// Índice compuesto único para evitar duplicados
+claseSchema.index(
+  { 
+    titulo: 1, 
+    horaInicio: 1, 
+    horaFin: 1, 
+    fecha: 1 
+  }, 
+  { 
+    unique: true,
+    partialFilterExpression: { fecha: { $exists: true } }
+  }
+);
 
 // Método para verificar si hay plazas disponibles
 claseSchema.methods.hayPlazas = async function() {
