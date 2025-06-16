@@ -245,7 +245,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 
-app.options('*', cors());
+app.options('/*', cors());
 // Middlewares
 app.use(express.json());
 
