@@ -103,14 +103,20 @@ exports.listSemana = async (req, res) => {
 
       // Para cada clase fija, verificar si ya existe una clase con la misma fecha y hora
       for (const claseFija of clasesDelDia) {
+        // Crear una fecha de inicio y fin del día para la búsqueda
+        const fechaInicioDia = new Date(fechaClase);
+        fechaInicioDia.setHours(0, 0, 0, 0);
+        const fechaFinDia = new Date(fechaClase);
+        fechaFinDia.setHours(23, 59, 59, 999);
+
         // Verificar si ya existe una clase con los mismos datos
         const claseExistente = await Clase.findOne({
           titulo: claseFija.titulo,
           horaInicio: claseFija.horaInicio,
           horaFin: claseFija.horaFin,
           fecha: {
-            $gte: new Date(fechaClase.setHours(0, 0, 0, 0)),
-            $lt: new Date(fechaClase.setHours(23, 59, 59, 999))
+            $gte: fechaInicioDia,
+            $lt: fechaFinDia
           }
         });
 
@@ -120,7 +126,7 @@ exports.listSemana = async (req, res) => {
             const nuevaClase = new Clase({
               titulo: claseFija.titulo,
               descripcion: claseFija.descripcion,
-              fecha: new Date(fechaClase),
+              fecha: fechaInicioDia, // Usar la fecha de inicio del día
               horaInicio: claseFija.horaInicio,
               horaFin: claseFija.horaFin,
               maxPlazas: claseFija.maxPlazas,
@@ -144,6 +150,12 @@ exports.listSemana = async (req, res) => {
             }
             console.log('=== BACKEND DEBUG === Clase duplicada detectada y evitada');
           }
+        } else {
+          console.log('=== BACKEND DEBUG === Clase ya existe:', {
+            titulo: claseFija.titulo,
+            fecha: fechaInicioDia,
+            horaInicio: claseFija.horaInicio
+          });
         }
       }
     }
