@@ -1,2 +1,6 @@
 .env
 node_modules
+
+# Firebase credentials
+*-firebase-adminsdk-*.json
+.firebase/
