@@ -1,0 +1,2282 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Application documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Application documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SuscripcionesPage</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>GiConnect/src/app/pages/suscripciones/suscripciones.page.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>{ provide: MAT_DATE_LOCALE, useValue:  }</code>
+                            <code>{ provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT }</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-suscripciones</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>IonicModule</code>
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>MatDatepickerModule</code>
+                            <code>MatNativeDateModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./suscripciones.page.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./suscripciones.page.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#currentActionSheet" >currentActionSheet</a>
+                            </li>
+                            <li>
+                                <a href="#isAdminOrMaestro" >isAdminOrMaestro</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#maxDate" >maxDate</a>
+                            </li>
+                            <li>
+                                <a href="#minDate" >minDate</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#platform" >platform</a>
+                            </li>
+                            <li>
+                                <a href="#suscripcionesActivas" >suscripcionesActivas</a>
+                            </li>
+                            <li>
+                                <a href="#suscripcionForm" >suscripcionForm</a>
+                            </li>
+                            <li>
+                                <a href="#tiposSuscripcion" >tiposSuscripcion</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkUserRole" >checkUserRole</a>
+                            </li>
+                            <li>
+                                <a href="#getSelectedTipoText" >getSelectedTipoText</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#handleBackdropClick" >handleBackdropClick</a>
+                            </li>
+                            <li>
+                                <a href="#ionViewWillEnter" >ionViewWillEnter</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadSuscripciones" >loadSuscripciones</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onFechaInicioSelected" >onFechaInicioSelected</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#openPicker" >openPicker</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#openSubscriptionOptions" >openSubscriptionOptions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#resetForm" >resetForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#setupFormListeners" >setupFormListeners</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: FormBuilder, router: Router, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, suscripcionService: <a href="../injectables/SuscripcionService.html" target="_self">SuscripcionService</a>, modalCtrl: ModalController, platform: Platform, pickerCtrl: PickerController, alertController: AlertController, actionSheetCtrl: ActionSheetController)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:65</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>suscripcionService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SuscripcionService.html" target="_self" >SuscripcionService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>modalCtrl</td>
+                                                  
+                                                        <td>
+                                                                    <code>ModalController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>platform</td>
+                                                  
+                                                        <td>
+                                                                    <code>Platform</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>pickerCtrl</td>
+                                                  
+                                                        <td>
+                                                                    <code>PickerController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>alertController</td>
+                                                  
+                                                        <td>
+                                                                    <code>AlertController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>actionSheetCtrl</td>
+                                                  
+                                                        <td>
+                                                                    <code>ActionSheetController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkUserRole"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>checkUserRole</b></span>
+                        <a href="#checkUserRole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkUserRole()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="134"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:134</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getSelectedTipoText"></a>
+                    <span class="name">
+                        <span ><b>getSelectedTipoText</b></span>
+                        <a href="#getSelectedTipoText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getSelectedTipoText()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="397"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:397</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="handleBackdropClick"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>handleBackdropClick</b></span>
+                        <a href="#handleBackdropClick"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>handleBackdropClick(event: MouseEvent)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="382"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:382</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MouseEvent</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ionViewWillEnter"></a>
+                    <span class="name">
+                        <span ><b>ionViewWillEnter</b></span>
+                        <a href="#ionViewWillEnter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ionViewWillEnter()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="111"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:111</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadSuscripciones"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>loadSuscripciones</b></span>
+                        <a href="#loadSuscripciones"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadSuscripciones()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:164</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="392"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:392</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="105"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:105</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFechaInicioSelected"></a>
+                    <span class="name">
+                        <span ><b>onFechaInicioSelected</b></span>
+                        <a href="#onFechaInicioSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFechaInicioSelected(event: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="128"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="177"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:177</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openPicker"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>openPicker</b></span>
+                        <a href="#openPicker"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>openPicker()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="309"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:309</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openSubscriptionOptions"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>openSubscriptionOptions</b></span>
+                        <a href="#openSubscriptionOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>openSubscriptionOptions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="339"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:339</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetForm"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>resetForm</b></span>
+                        <a href="#resetForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>resetForm()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="116"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:116</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setupFormListeners"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>setupFormListeners</b></span>
+                        <a href="#setupFormListeners"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setupFormListeners()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:139</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentActionSheet"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>currentActionSheet</b></span>
+                        <a href="#currentActionSheet"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>HTMLIonActionSheetElement | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAdminOrMaestro"></a>
+                    <span class="name">
+                        <span ><b>isAdminOrMaestro</b></span>
+                        <a href="#isAdminOrMaestro"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="maxDate"></a>
+                    <span class="name">
+                        <span ><b>maxDate</b></span>
+                        <a href="#maxDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="minDate"></a>
+                    <span class="name">
+                        <span ><b>minDate</b></span>
+                        <a href="#minDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="platform"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>platform</b></span>
+                        <a href="#platform"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Platform</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="suscripcionesActivas"></a>
+                    <span class="name">
+                        <span ><b>suscripcionesActivas</b></span>
+                        <a href="#suscripcionesActivas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Suscripcion.html" target="_self" >Suscripcion[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="suscripcionForm"></a>
+                    <span class="name">
+                        <span ><b>suscripcionForm</b></span>
+                        <a href="#suscripcionForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tiposSuscripcion"></a>
+                    <span class="name">
+                        <span ><b>tiposSuscripcion</b></span>
+                        <a href="#tiposSuscripcion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>TIPOS_SUSCRIPCION</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">GiConnect/src/app/pages/suscripciones/suscripciones.page.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, OnDestroy } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { TIPOS_SUSCRIPCION, TipoSuscripcion } from &#x27;../../constants/suscripciones&#x27;;
+import { AuthService } from &#x27;../../services/auth.service&#x27;;
+import { SuscripcionService } from &#x27;../../services/suscripcion.service&#x27;;
+import { formatDate, registerLocaleData } from &#x27;@angular/common&#x27;;
+import { Suscripcion, NuevaSuscripcion } from &#x27;../../interfaces/suscripcion.interface&#x27;;
+import { IonicModule, ModalController, Platform, PickerController, AlertController, ActionSheetController } from &#x27;@ionic/angular&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { addIcons } from &#x27;ionicons&#x27;;
+import { timeOutline, calendarOutline, checkmarkCircle, cardOutline, addCircleOutline } from &#x27;ionicons/icons&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { MatDatepickerModule } from &#x27;@angular/material/datepicker&#x27;;
+import { MatNativeDateModule, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS } from &#x27;@angular/material/core&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import localeEs from &#x27;@angular/common/locales/es&#x27;;
+
+registerLocaleData(localeEs);
+
+// Define custom date formats
+export const DD_MM_YYYY_FORMAT &#x3D; {
+  parse: {
+    dateInput: &#x27;DD/MM/YYYY&#x27;,
+  },
+  display: {
+    dateInput: &#x27;DD/MM/YYYY&#x27;,
+    monthYearLabel: &#x27;MMM YYYY&#x27;,
+    dateA11yLabel: &#x27;LL&#x27;,
+    monthYearA11yLabel: &#x27;MMMM YYYY&#x27;,
+  },
+};
+
+@Component({
+  selector: &#x27;app-suscripciones&#x27;,
+  templateUrl: &#x27;./suscripciones.page.html&#x27;,
+  styleUrls: [&#x27;./suscripciones.page.scss&#x27;],
+  standalone: true,
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: &#x27;es-ES&#x27; },
+    // Use the custom date format
+    { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT },
+  ]
+})
+export class SuscripcionesPage implements OnInit, OnDestroy {
+  suscripcionesActivas: Suscripcion[] &#x3D; [];
+  tiposSuscripcion &#x3D; TIPOS_SUSCRIPCION;
+  suscripcionForm: FormGroup;
+  isAdminOrMaestro &#x3D; false;
+  minDate: Date;
+  maxDate: Date;
+  public platform: Platform;
+  private currentActionSheet: HTMLIonActionSheetElement | null &#x3D; null;
+  isLoading &#x3D; false;
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private authService: AuthService,
+    private suscripcionService: SuscripcionService,
+    private modalCtrl: ModalController,
+    platform: Platform,
+    private pickerCtrl: PickerController,
+    private alertController: AlertController,
+    private actionSheetCtrl: ActionSheetController
+  ) {
+    this.platform &#x3D; platform;
+    const today &#x3D; new Date();
+    this.minDate &#x3D; today;
+    
+    const maxDate &#x3D; new Date();
+    maxDate.setFullYear(maxDate.getFullYear() + 1);
+    this.maxDate &#x3D; maxDate;
+
+    this.suscripcionForm &#x3D; this.fb.group({
+      tipo: [&#x27;&#x27;, Validators.required],
+      fechaInicio: [null, Validators.required],
+      precio: [{ value: &#x27;&#x27;, disabled: true }],
+      fechaFin: [{ value: &#x27;&#x27;, disabled: true }]
+    });
+    addIcons({ timeOutline, calendarOutline, checkmarkCircle, cardOutline, addCircleOutline });
+
+    // Configuración específica para iOS
+    if (this.platform.is(&#x27;ios&#x27;)) {
+      this.platform.ready().then(() &#x3D;&gt; {
+        const select &#x3D; document.querySelector(&#x27;.custom-select&#x27;);
+        if (select) {
+          select.setAttribute(&#x27;interface&#x27;, &#x27;popover&#x27;);
+        }
+      });
+    }
+  }
+
+  ngOnInit() {
+    this.resetForm();
+    this.setupFormListeners();
+    this.checkUserRole();
+  }
+
+  ionViewWillEnter() {
+    this.resetForm();
+    this.loadSuscripciones();
+  }
+
+  private resetForm() {
+    if (this.suscripcionForm) {
+      this.suscripcionForm.reset();
+      this.suscripcionForm.patchValue({
+        tipo: &#x27;&#x27;,
+        fechaInicio: null,
+        precio: &#x27;&#x27;,
+        fechaFin: &#x27;&#x27;
+      });
+    }
+  }
+
+  onFechaInicioSelected(event: any) {
+    if (event) {
+      this.suscripcionForm.get(&#x27;fechaInicio&#x27;)?.setValue(event);
+    }
+  }
+
+  private checkUserRole() {
+    const user &#x3D; this.authService.getUser();
+    this.isAdminOrMaestro &#x3D; user?.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27; || user?.role &#x3D;&#x3D;&#x3D; &#x27;maestro&#x27;;
+  }
+
+  private setupFormListeners() {
+    this.suscripcionForm.get(&#x27;tipo&#x27;)?.valueChanges.subscribe(tipoId &#x3D;&gt; {
+      const tipo &#x3D; this.tiposSuscripcion.find(t &#x3D;&gt; t.id &#x3D;&#x3D;&#x3D; tipoId);
+      if (tipo) {
+        this.suscripcionForm.patchValue({
+          precio: tipo.precio
+        });
+      }
+    });
+
+    this.suscripcionForm.get(&#x27;fechaInicio&#x27;)?.valueChanges.subscribe(fechaInicio &#x3D;&gt; {
+      const tipoId &#x3D; this.suscripcionForm.get(&#x27;tipo&#x27;)?.value;
+      if (fechaInicio &amp;&amp; tipoId) {
+        const tipo &#x3D; this.tiposSuscripcion.find(t &#x3D;&gt; t.id &#x3D;&#x3D;&#x3D; tipoId);
+        if (tipo) {
+          const fechaFin &#x3D; new Date(fechaInicio);
+          fechaFin.setMonth(fechaFin.getMonth() + tipo.meses);
+          this.suscripcionForm.patchValue({
+            fechaFin: fechaFin
+          });
+        }
+      }
+    });
+  }
+
+  private loadSuscripciones() {
+    if (!this.isAdminOrMaestro) {
+      this.suscripcionService.getSuscripcionesActivas().subscribe(
+        (suscripciones: Suscripcion[]) &#x3D;&gt; {
+          this.suscripcionesActivas &#x3D; suscripciones;
+        },
+        (error: any) &#x3D;&gt; {
+          console.error(&#x27;Error al cargar suscripciones:&#x27;, error);
+        }
+      );
+    }
+  }
+
+  async onSubmit() {
+    console.log(&#x27;Intentando enviar formulario...&#x27;);
+    console.log(&#x27;Formulario válido:&#x27;, this.suscripcionForm.valid);
+    console.log(&#x27;Valores del formulario:&#x27;, this.suscripcionForm.getRawValue());
+    
+    if (this.suscripcionForm.valid) {
+      this.isLoading &#x3D; true;
+      const currentUser &#x3D; this.authService.getUser();
+      
+      console.log(&#x27;Usuario actual:&#x27;, currentUser);
+      
+      if (!currentUser) {
+        this.isLoading &#x3D; false;
+        const alert &#x3D; await this.alertController.create({
+          header: &#x27;Error&#x27;,
+          message: &#x27;Debes iniciar sesión para crear una suscripción&#x27;,
+          buttons: []
+        });
+        
+        await alert.present();
+        
+        // Cerrar automáticamente después de 3 segundos
+        setTimeout(() &#x3D;&gt; {
+          alert.dismiss();
+        }, 3000);
+        return;
+      }
+
+      const formValue &#x3D; this.suscripcionForm.getRawValue();
+      console.log(&#x27;Valor del tipo seleccionado:&#x27;, formValue.tipo);
+      console.log(&#x27;Tipo de fechaInicio:&#x27;, typeof formValue.fechaInicio);
+      console.log(&#x27;Valor de fechaInicio:&#x27;, formValue.fechaInicio);
+      console.log(&#x27;Tipo de fechaFin:&#x27;, typeof formValue.fechaFin);
+      console.log(&#x27;Valor de fechaFin:&#x27;, formValue.fechaFin);
+      console.log(&#x27;Tipo de precio:&#x27;, typeof formValue.precio);
+      console.log(&#x27;Valor de precio:&#x27;, formValue.precio);
+
+      // Asegurarnos de que las fechas son objetos Date válidos
+      const fechaInicio &#x3D; formValue.fechaInicio instanceof Date ? formValue.fechaInicio : new Date(formValue.fechaInicio);
+      const fechaFin &#x3D; formValue.fechaFin instanceof Date ? formValue.fechaFin : new Date(formValue.fechaFin);
+
+      const suscripcionToCreate: NuevaSuscripcion &#x3D; {
+        tipo: formValue.tipo,
+        fechaInicio: fechaInicio,
+        fechaFin: fechaFin,
+        precio: Number(formValue.precio),
+        atleta: currentUser._id,
+        pagado: true
+      };
+
+      console.log(&#x27;Suscripción a crear:&#x27;, suscripcionToCreate);
+
+      this.suscripcionService.createSuscripcion(suscripcionToCreate).subscribe({
+        next: async (response: Suscripcion) &#x3D;&gt; {
+          console.log(&#x27;Suscripción creada con éxito:&#x27;, response);
+          this.loadSuscripciones();
+          this.suscripcionForm.reset();
+          this.isLoading &#x3D; false;
+          
+          // Mostrar mensaje de éxito
+          const alert &#x3D; await this.alertController.create({
+            header: &#x27;Éxito&#x27;,
+            message: &#x27;Suscripción creada correctamente&#x27;,
+            buttons: []
+          });
+          
+          await alert.present();
+          
+          // Cerrar automáticamente después de 3 segundos y navegar
+          setTimeout(() &#x3D;&gt; {
+            alert.dismiss();
+            this.router.navigate([&#x27;/home&#x27;]);
+          }, 3000);
+        },
+        error: async (error: any) &#x3D;&gt; {
+          console.error(&#x27;Error al crear suscripción:&#x27;, error);
+          console.error(&#x27;Detalles del error:&#x27;, {
+            status: error.status,
+            message: error.error?.message,
+            error: error.error
+          });
+          this.isLoading &#x3D; false;
+          
+          let errorMessage &#x3D; &#x27;No se pudo crear la suscripción. Por favor, inténtalo de nuevo.&#x27;;
+          if (error.error?.message) {
+            errorMessage &#x3D; error.error.message;
+          }
+          
+          // Si el error es por suscripción activa, mostrar un mensaje más específico
+          if (error.status &#x3D;&#x3D;&#x3D; 400 &amp;&amp; error.error?.message?.includes(&#x27;Ya tienes una suscripción activa&#x27;)) {
+            errorMessage &#x3D; &#x27;Ya tienes una suscripción activa. No puedes crear otra hasta que expire la actual.&#x27;;
+          }
+          
+          const alert &#x3D; await this.alertController.create({
+            header: &#x27;Error&#x27;,
+            message: errorMessage,
+            buttons: []
+          });
+          
+          await alert.present();
+          
+          // Cerrar automáticamente después de 3 segundos
+          setTimeout(() &#x3D;&gt; {
+            alert.dismiss();
+          }, 3000);
+        }
+      });
+    } else {
+      console.log(&#x27;Errores del formulario:&#x27;, this.suscripcionForm.errors);
+      console.log(&#x27;Estado de los campos:&#x27;, {
+        tipo: this.suscripcionForm.get(&#x27;tipo&#x27;)?.errors,
+        fechaInicio: this.suscripcionForm.get(&#x27;fechaInicio&#x27;)?.errors,
+        precio: this.suscripcionForm.get(&#x27;precio&#x27;)?.errors,
+        fechaFin: this.suscripcionForm.get(&#x27;fechaFin&#x27;)?.errors
+      });
+      
+      // Mostrar mensaje de error si el formulario no es válido
+      const alert &#x3D; await this.alertController.create({
+        header: &#x27;Error&#x27;,
+        message: &#x27;Por favor, completa todos los campos requeridos correctamente&#x27;,
+        buttons: []
+      });
+      
+      await alert.present();
+      
+      // Cerrar automáticamente después de 3 segundos
+      setTimeout(() &#x3D;&gt; {
+        alert.dismiss();
+      }, 3000);
+    }
+  }
+
+  async openPicker() {
+    if (this.platform.is(&#x27;ios&#x27;)) {
+      const picker &#x3D; await this.pickerCtrl.create({
+        columns: [
+          {
+            name: &#x27;tipo&#x27;,
+            options: this.tiposSuscripcion.map(tipo &#x3D;&gt; ({
+              text: &#x60;${tipo.nombre} - ${tipo.precio}€&#x60;,
+              value: tipo.id
+            }))
+          }
+        ],
+        buttons: [
+          {
+            text: &#x27;Cancelar&#x27;,
+            role: &#x27;cancel&#x27;
+          },
+          {
+            text: &#x27;Confirmar&#x27;,
+            handler: (value) &#x3D;&gt; {
+              this.suscripcionForm.get(&#x27;tipo&#x27;)?.setValue(value.tipo.value);
+            }
+          }
+        ]
+      });
+
+      await picker.present();
+    }
+  }
+
+  async openSubscriptionOptions() {
+    // Si ya hay un action-sheet abierto, lo cerramos primero
+    if (this.currentActionSheet) {
+      await this.currentActionSheet.dismiss();
+      this.currentActionSheet &#x3D; null;
+      return;
+    }
+
+    const actionSheet &#x3D; await this.actionSheetCtrl.create({
+      header: &#x27;Tipo de Suscripción&#x27;,
+      buttons: [
+        ...this.tiposSuscripcion.map(tipo &#x3D;&gt; ({
+          text: &#x60;${tipo.nombre} - ${tipo.precio}€&#x60;,
+          handler: () &#x3D;&gt; {
+            this.suscripcionForm.patchValue({ tipo: tipo.id });
+            this.currentActionSheet &#x3D; null;
+          }
+        })),
+        {
+          text: &#x27;Cancelar&#x27;,
+          role: &#x27;cancel&#x27;,
+          handler: () &#x3D;&gt; {
+            this.currentActionSheet &#x3D; null;
+          }
+        }
+      ],
+      cssClass: &#x27;custom-action-sheet&#x27;
+    });
+
+    // Guardamos la referencia al action-sheet actual
+    this.currentActionSheet &#x3D; actionSheet;
+
+    // Cuando se cierre el action-sheet, limpiamos la referencia
+    actionSheet.onDidDismiss().then(() &#x3D;&gt; {
+      this.currentActionSheet &#x3D; null;
+    });
+
+    // Agregamos un listener para el backdrop
+    document.addEventListener(&#x27;click&#x27;, this.handleBackdropClick.bind(this));
+
+    await actionSheet.present();
+  }
+
+  private handleBackdropClick(event: MouseEvent) {
+    if (this.currentActionSheet) {
+      const target &#x3D; event.target as HTMLElement;
+      if (target.classList.contains(&#x27;action-sheet-backdrop&#x27;)) {
+        this.currentActionSheet.dismiss();
+        this.currentActionSheet &#x3D; null;
+      }
+    }
+  }
+
+  ngOnDestroy() {
+    // Limpiamos el listener cuando el componente se destruye
+    document.removeEventListener(&#x27;click&#x27;, this.handleBackdropClick.bind(this));
+  }
+
+  getSelectedTipoText(): string {
+    const tipoId &#x3D; this.suscripcionForm.get(&#x27;tipo&#x27;)?.value;
+    const tipo &#x3D; this.tiposSuscripcion.find(t &#x3D;&gt; t.id &#x3D;&#x3D;&#x3D; tipoId);
+    return tipo ? &#x60;${tipo.nombre} - ${tipo.precio}€&#x60; : &#x27;&#x27;;
+  }
+} </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;login-background&quot;&gt;
+  &lt;div class&#x3D;&quot;backdrop-logo&quot;&gt;&lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;ion-padding&quot;&gt;
+    &lt;div class&#x3D;&quot;profile-container&quot;&gt;
+      &lt;h2 class&#x3D;&quot;welcome-title&quot;&gt;Suscripciones&lt;/h2&gt;
+      
+      &lt;!-- Sección de suscripciones activas --&gt;
+      &lt;div class&#x3D;&quot;section-title&quot; *ngIf&#x3D;&quot;!isAdminOrMaestro&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;time-outline&quot;&gt;&lt;/ion-icon&gt;
+        Mis Suscripciones
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;subscription-info&quot; *ngIf&#x3D;&quot;!isAdminOrMaestro &amp;&amp; suscripcionesActivas.length &gt; 0&quot;&gt;
+        &lt;ion-list&gt;
+          &lt;ion-item *ngFor&#x3D;&quot;let suscripcion of suscripcionesActivas&quot; class&#x3D;&quot;subscription-item&quot;&gt;
+            &lt;ion-label&gt;
+              &lt;h3 class&#x3D;&quot;subscription-type&quot;&gt;{{ suscripcion.tipo | titlecase }}&lt;/h3&gt;
+              &lt;div class&#x3D;&quot;subscription-dates&quot;&gt;
+                &lt;p&gt;&lt;ion-icon name&#x3D;&quot;calendar-outline&quot;&gt;&lt;/ion-icon&gt; Inicio: {{ suscripcion.fechaInicio | date:&#x27;dd/MM/yyyy&#x27;:&#x27;es-ES&#x27; }}&lt;/p&gt;
+                &lt;p&gt;&lt;ion-icon name&#x3D;&quot;calendar-outline&quot;&gt;&lt;/ion-icon&gt; Fin: {{ suscripcion.fechaFin | date:&#x27;dd/MM/yyyy&#x27;:&#x27;es-ES&#x27; }}&lt;/p&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;subscription-status&quot; [class.paid]&#x3D;&quot;suscripcion.pagado&quot;&gt;
+                &lt;ion-icon [name]&#x3D;&quot;suscripcion.pagado ? &#x27;checkmark-circle&#x27; : &#x27;time&#x27;&quot;&gt;&lt;/ion-icon&gt;
+                {{ suscripcion.pagado ? &#x27;Pagado&#x27; : &#x27;Pendiente de pago&#x27; }}
+              &lt;/div&gt;
+            &lt;/ion-label&gt;
+          &lt;/ion-item&gt;
+        &lt;/ion-list&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;subscription-info&quot; *ngIf&#x3D;&quot;!isAdminOrMaestro &amp;&amp; suscripcionesActivas.length &#x3D;&#x3D;&#x3D; 0&quot;&gt;
+        &lt;p&gt;Sin suscripciones activas&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Formulario de nueva suscripción --&gt;
+      &lt;div class&#x3D;&quot;section-title&quot; *ngIf&#x3D;&quot;!isAdminOrMaestro&quot;&gt;
+        &lt;ion-icon name&#x3D;&quot;add-circle-outline&quot; class&#x3D;&quot;section-icon&quot;&gt;&lt;/ion-icon&gt;
+        Nueva Suscripción
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;subscription-form&quot; *ngIf&#x3D;&quot;!isAdminOrMaestro&quot;&gt;
+        &lt;form [formGroup]&#x3D;&quot;suscripcionForm&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot;&gt;
+          &lt;ion-list&gt;
+            &lt;ion-item&gt;
+              &lt;ion-label&gt;
+                &lt;h3&gt;Tipo de Suscripción&lt;/h3&gt;
+                &lt;ion-button 
+                  expand&#x3D;&quot;block&quot; 
+                  fill&#x3D;&quot;outline&quot; 
+                  class&#x3D;&quot;custom-select&quot;
+                  (click)&#x3D;&quot;openSubscriptionOptions()&quot;&gt;
+                  {{ getSelectedTipoText() || &#x27;Selecciona un tipo&#x27; }}
+                &lt;/ion-button&gt;
+              &lt;/ion-label&gt;
+            &lt;/ion-item&gt;
+
+            &lt;ion-item&gt;
+              &lt;ion-label&gt;
+                &lt;h3&gt;Precio&lt;/h3&gt;
+                &lt;ion-input formControlName&#x3D;&quot;precio&quot; type&#x3D;&quot;number&quot; readonly&gt;
+                  &lt;span slot&#x3D;&quot;end&quot;&gt;€&lt;/span&gt;
+                &lt;/ion-input&gt;
+              &lt;/ion-label&gt;
+            &lt;/ion-item&gt;
+
+            &lt;div class&#x3D;&quot;form-group&quot;&gt;
+              &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Fecha de Inicio&lt;/ion-label&gt;
+              &lt;ion-item class&#x3D;&quot;custom-input&quot;&gt;
+                &lt;mat-form-field appearance&#x3D;&quot;fill&quot; class&#x3D;&quot;custom-mat-field&quot;&gt;
+                  &lt;mat-datepicker-toggle matSuffix [for]&#x3D;&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+                  &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt;
+                  &lt;input matInput
+                    [matDatepicker]&#x3D;&quot;picker&quot;
+                    formControlName&#x3D;&quot;fechaInicio&quot;
+                    [min]&#x3D;&quot;minDate&quot;
+                    [max]&#x3D;&quot;maxDate&quot;
+                    (dateChange)&#x3D;&quot;onFechaInicioSelected($event.value)&quot;
+                    [value]&#x3D;&quot;suscripcionForm.get(&#x27;fechaInicio&#x27;)?.value | date:&#x27;dd/MM/yyyy&#x27;:&#x27;es-ES&#x27;&quot;
+                    placeholder&#x3D;&quot;Selecciona una fecha&quot;&gt;
+                &lt;/mat-form-field&gt;
+              &lt;/ion-item&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;form-group&quot;&gt;
+              &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Fecha de Fin&lt;/ion-label&gt;
+              &lt;ion-item class&#x3D;&quot;custom-input&quot;&gt;
+                &lt;mat-form-field appearance&#x3D;&quot;fill&quot; class&#x3D;&quot;custom-mat-field&quot;&gt;
+                  &lt;mat-datepicker-toggle matSuffix [for]&#x3D;&quot;pickerFin&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+                  &lt;mat-datepicker #pickerFin&gt;&lt;/mat-datepicker&gt;
+                  &lt;input matInput
+                    [matDatepicker]&#x3D;&quot;pickerFin&quot;
+                    formControlName&#x3D;&quot;fechaFin&quot;
+                    [min]&#x3D;&quot;minDate&quot;
+                    [max]&#x3D;&quot;maxDate&quot;
+                    readonly
+                    [value]&#x3D;&quot;suscripcionForm.get(&#x27;fechaFin&#x27;)?.value | date:&#x27;dd/MM/yyyy&#x27;:&#x27;es-ES&#x27;&quot;
+                    placeholder&#x3D;&quot;Se calculará automáticamente&quot;&gt;
+                &lt;/mat-form-field&gt;
+              &lt;/ion-item&gt;
+            &lt;/div&gt;
+          &lt;/ion-list&gt;
+
+          &lt;div class&#x3D;&quot;profile-actions&quot;&gt;
+            &lt;ion-button 
+              expand&#x3D;&quot;block&quot; 
+              type&#x3D;&quot;submit&quot; 
+              [disabled]&#x3D;&quot;!suscripcionForm.valid || isLoading&quot; 
+              style&#x3D;&quot;display: flex; align-items: center; justify-content: center;&quot;&gt;
+              &lt;ion-icon name&#x3D;&quot;card-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+              &lt;span style&#x3D;&quot;display: flex; align-items: center;&quot;&gt;
+                &lt;ion-spinner *ngIf&#x3D;&quot;isLoading&quot; name&#x3D;&quot;crescent&quot; style&#x3D;&quot;margin-right: 8px;&quot;&gt;&lt;/ion-spinner&gt;
+                Pagar Suscripción
+              &lt;/span&gt;
+            &lt;/ion-button&gt;
+          &lt;/div&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt; </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./suscripciones.page.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">
+
+.login-background {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  padding: 10px 0;
+}
+
+.backdrop-logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(&#x27;/assets/logoCuadradoPNG.png&#x27;);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.welcome-title {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: #153ae0;
+  position: relative;
+  z-index: 2;
+}
+
+.profile-container {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+  padding: 20px;
+  margin: 10px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  width: 90%;
+  backdrop-filter: blur(8px);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.section-title {
+  color: #153ae0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 20px 0 10px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #153ae0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  ion-icon {
+    font-size: 1.4rem;
+    color: #153ae0;
+    min-width: 24px;
+  }
+}
+
+.subscription-info {
+  background: rgba(21, 58, 224, 0.1);
+  padding: 10px;
+  border-radius: 8px;
+  margin: 10px 0;
+
+  ion-list {
+    background: transparent;
+    padding: 0;
+  }
+
+  ion-item {
+    --background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 10px;
+
+    h3 {
+      color: #153ae0;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    p {
+      color: #333;
+      margin: 5px 0 0;
+      font-size: 1rem;
+    }
+  }
+
+  .subscription-type {
+    color: #153ae0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .subscription-dates {
+    p {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #666;
+      margin: 0.3rem 0;
+
+      ion-icon {
+        color: #153ae0;
+      }
+    }
+  }
+
+  .subscription-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--ion-color-warning);
+
+    &amp;.paid {
+      color: var(--ion-color-success);
+    }
+
+    ion-icon {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.subscription-form {
+  ion-list {
+    background: transparent;
+    padding: 0;
+  }
+
+  ion-item {
+    --background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 10px;
+
+    h3 {
+      color: #153ae0;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    ion-input, ion-select, ion-datetime {
+      --padding-start: 0;
+      --padding-end: 0;
+      --color: #333;
+      font-size: 1rem;
+    }
+
+    ion-select {
+      --padding-end: 40px;
+      --padding-start: 16px;
+      --icon-margin-end: 0;
+      --icon-margin-start: 0;
+      --icon-color: #153ae0;
+      --icon-opacity: 1;
+      position: relative;
+      width: 100%;
+
+      &amp;::part(icon) {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+      }
+    }
+  }
+
+  
+}
+
+/* Estilos específicos para iOS */
+:host-context(.ios) {
+  .custom-select {
+    --padding-end: 40px;
+    --icon-margin-end: 0;
+    --icon-margin-start: 8px;
+    --icon-color: #153ae0;
+    --icon-opacity: 1;
+    position: relative;
+    
+    &amp;::part(icon) {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+
+
+
+.custom-mat-field {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  ::ng-deep {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding: 0;
+      min-height: unset;
+    }
+
+    .mat-mdc-form-field-flex {
+      padding: 0;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      background: transparent;
+      padding: 0;
+    }
+
+    .mat-mdc-form-field-icon-suffix {
+      color: var(--ion-color-primary);
+    }
+
+    .mat-mdc-form-field-icon-prefix {
+      color: var(--ion-color-primary);
+    }
+
+    .mat-mdc-input-element {
+      color: var(--ion-color-dark);
+      font-size: 1rem;
+      padding: 8px 0;
+    }
+
+    .mat-mdc-form-field-underline {
+      display: none;
+    }
+  }
+}
+
+// Estilos específicos para iOS
+.ios {
+  ion-select {
+    --padding-end: 40px;
+    --icon-margin-end: 0;
+    --icon-margin-start: 0;
+    
+    &amp;::part(icon) {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      margin: 0;
+    }
+  }
+}
+
+// Variables
+$primary-color: #153ae0;
+$border-color: rgba(0, 0, 0, 0.1);
+$text-color: #333;
+
+// Estilos comunes
+.custom-select {
+  --border-color: #153ae0;
+  --color: #153ae0;
+  --background: transparent;
+  margin: 0;
+  height: 48px;
+  font-size: 1rem;
+  text-align: left;
+  position: relative;
+  width: 100%;
+  padding-right: 40px;
+
+  &amp;::after {
+    content: &#x27;&#x27;;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid transparent;
+    border-top-color: #153ae0;
+  }
+}
+
+// Estilos del action-sheet
+::ng-deep {
+  .custom-action-sheet {
+    .action-sheet-wrapper {
+      margin: 0;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .action-sheet-group {
+      .action-sheet-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: $primary-color;
+        padding: 16px;
+      }
+
+      .action-sheet-button {
+        font-size: 1.1rem;
+        color: $text-color;
+        padding: 16px;
+        border-bottom: 1px solid $border-color;
+        min-height: 56px;
+        display: flex;
+        align-items: center;
+      }
+
+      .action-sheet-cancel {
+        font-weight: 500;
+        color: $primary-color;
+        border-top: 1px solid $border-color;
+      }
+    }
+  }
+
+  .action-sheet-backdrop {
+    cursor: pointer;
+    --backdrop-opacity: 0.4;
+  }
+} </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="login-background">  <div class="backdrop-logo"></div>  <div class="ion-padding">    <div class="profile-container">      <h2 class="welcome-title">Suscripciones</h2>            <!-- Sección de suscripciones activas -->      <div class="section-title" *ngIf="!isAdminOrMaestro">        <ion-icon name="time-outline"></ion-icon>        Mis Suscripciones      </div>      <div class="subscription-info" *ngIf="!isAdminOrMaestro && suscripcionesActivas.length > 0">        <ion-list>          <ion-item *ngFor="let suscripcion of suscripcionesActivas" class="subscription-item">            <ion-label>              <h3 class="subscription-type">{{ suscripcion.tipo | titlecase }}</h3>              <div class="subscription-dates">                <p><ion-icon name="calendar-outline"></ion-icon> Inicio: {{ suscripcion.fechaInicio | date:\'dd/MM/yyyy\':\'es-ES\' }}</p>                <p><ion-icon name="calendar-outline"></ion-icon> Fin: {{ suscripcion.fechaFin | date:\'dd/MM/yyyy\':\'es-ES\' }}</p>              </div>              <div class="subscription-status" [class.paid]="suscripcion.pagado">                <ion-icon [name]="suscripcion.pagado ? \'checkmark-circle\' : \'time\'"></ion-icon>                {{ suscripcion.pagado ? \'Pagado\' : \'Pendiente de pago\' }}              </div>            </ion-label>          </ion-item>        </ion-list>      </div>      <div class="subscription-info" *ngIf="!isAdminOrMaestro && suscripcionesActivas.length === 0">        <p>Sin suscripciones activas</p>      </div>      <!-- Formulario de nueva suscripción -->      <div class="section-title" *ngIf="!isAdminOrMaestro">        <ion-icon name="add-circle-outline" class="section-icon"></ion-icon>        Nueva Suscripción      </div>      <div class="subscription-form" *ngIf="!isAdminOrMaestro">        <form [formGroup]="suscripcionForm" (ngSubmit)="onSubmit()">          <ion-list>            <ion-item>              <ion-label>                <h3>Tipo de Suscripción</h3>                <ion-button                   expand="block"                   fill="outline"                   class="custom-select"                  (click)="openSubscriptionOptions()">                  {{ getSelectedTipoText() || \'Selecciona un tipo\' }}                </ion-button>              </ion-label>            </ion-item>            <ion-item>              <ion-label>                <h3>Precio</h3>                <ion-input formControlName="precio" type="number" readonly>                  <span slot="end">€</span>                </ion-input>              </ion-label>            </ion-item>            <div class="form-group">              <ion-label position="stacked">Fecha de Inicio</ion-label>              <ion-item class="custom-input">                <mat-form-field appearance="fill" class="custom-mat-field">                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>                  <mat-datepicker #picker></mat-datepicker>                  <input matInput                    [matDatepicker]="picker"                    formControlName="fechaInicio"                    [min]="minDate"                    [max]="maxDate"                    (dateChange)="onFechaInicioSelected($event.value)"                    [value]="suscripcionForm.get(\'fechaInicio\')?.value | date:\'dd/MM/yyyy\':\'es-ES\'"                    placeholder="Selecciona una fecha">                </mat-form-field>              </ion-item>            </div>            <div class="form-group">              <ion-label position="stacked">Fecha de Fin</ion-label>              <ion-item class="custom-input">                <mat-form-field appearance="fill" class="custom-mat-field">                  <mat-datepicker-toggle matSuffix [for]="pickerFin"></mat-datepicker-toggle>                  <mat-datepicker #pickerFin></mat-datepicker>                  <input matInput                    [matDatepicker]="pickerFin"                    formControlName="fechaFin"                    [min]="minDate"                    [max]="maxDate"                    readonly                    [value]="suscripcionForm.get(\'fechaFin\')?.value | date:\'dd/MM/yyyy\':\'es-ES\'"                    placeholder="Se calculará automáticamente">                </mat-form-field>              </ion-item>            </div>          </ion-list>          <div class="profile-actions">            <ion-button               expand="block"               type="submit"               [disabled]="!suscripcionForm.valid || isLoading"               style="display: flex; align-items: center; justify-content: center;">              <ion-icon name="card-outline" slot="start"></ion-icon>              <span style="display: flex; align-items: center;">                <ion-spinner *ngIf="isLoading" name="crescent" style="margin-right: 8px;"></ion-spinner>                Pagar Suscripción              </span>            </ion-button>          </div>        </form>      </div>    </div>  </div></div> </div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChatPage', 'selector': 'app-chat'},{'name': 'CrearClasePage', 'selector': 'app-crear-clase'},{'name': 'EditarUsuarioPage', 'selector': 'app-editar-usuario'},{'name': 'ForgotPasswordPage', 'selector': 'app-forgot-password'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'InstructorPopoverComponent', 'selector': 'app-instructor-popover'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'MestrePortalPage', 'selector': 'app-mestre-portal'},{'name': 'ModificarUsuarioPage', 'selector': 'app-modificar-usuario'},{'name': 'PasarListaPage', 'selector': 'app-pasar-lista'},{'name': 'PerfilPage', 'selector': 'app-perfil'},{'name': 'PruebaPage', 'selector': 'app-prueba'},{'name': 'RegisterPage', 'selector': 'app-register'},{'name': 'ReservasPage', 'selector': 'app-reservas'},{'name': 'ResetPasswordPage', 'selector': 'app-reset-password'},{'name': 'SuscripcionesPage', 'selector': 'app-suscripciones'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'SuscripcionesPage'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SuscripcionesPage.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

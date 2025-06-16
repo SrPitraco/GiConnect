@@ -1,0 +1,1828 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Application documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Application documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  EditarUsuarioPage</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>{ provide: MAT_DATE_LOCALE, useValue:  }</code>
+                            <code>{ provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT }</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-editar-usuario</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>IonicModule</code>
+                            <code>CommonModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>MatDatepickerModule</code>
+                            <code>MatNativeDateModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./editar-usuario.page.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./editar-usuario.page.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#cinturones" >cinturones</a>
+                            </li>
+                            <li>
+                                <a href="#grados" >grados</a>
+                            </li>
+                            <li>
+                                <a href="#isAdmin" >isAdmin</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#isMaestro" >isMaestro</a>
+                            </li>
+                            <li>
+                                <a href="#rolesDisponibles" >rolesDisponibles</a>
+                            </li>
+                            <li>
+                                <a href="#usuario" >usuario</a>
+                            </li>
+                            <li>
+                                <a href="#usuarioForm" >usuarioForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#loadUsuario" >loadUsuario</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#resetClasesAsistidas" >resetClasesAsistidas</a>
+                            </li>
+                            <li>
+                                <a href="#resetClasesImpartidas" >resetClasesImpartidas</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: FormBuilder, route: ActivatedRoute, router: Router, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, alertController: AlertController, loadingController: LoadingController, navController: NavController)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:70</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>route</td>
+                                                  
+                                                        <td>
+                                                                    <code>ActivatedRoute</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>alertController</td>
+                                                  
+                                                        <td>
+                                                                    <code>AlertController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>loadingController</td>
+                                                  
+                                                        <td>
+                                                                    <code>LoadingController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>navController</td>
+                                                  
+                                                        <td>
+                                                                    <code>NavController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadUsuario"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>loadUsuario</b></span>
+                        <a href="#loadUsuario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>loadUsuario(userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:127</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>userId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="170"
+                                    class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:170</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetClasesAsistidas"></a>
+                    <span class="name">
+                        <span ><b>resetClasesAsistidas</b></span>
+                        <a href="#resetClasesAsistidas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetClasesAsistidas()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="237"
+                                    class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:237</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetClasesImpartidas"></a>
+                    <span class="name">
+                        <span ><b>resetClasesImpartidas</b></span>
+                        <a href="#resetClasesImpartidas"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>resetClasesImpartidas()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="241"
+                                    class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:241</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cinturones"></a>
+                    <span class="name">
+                        <span ><b>cinturones</b></span>
+                        <a href="#cinturones"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>CINTURONES</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="grados"></a>
+                    <span class="name">
+                        <span ><b>grados</b></span>
+                        <a href="#grados"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>GRADOS</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAdmin"></a>
+                    <span class="name">
+                        <span ><b>isAdmin</b></span>
+                        <a href="#isAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isMaestro"></a>
+                    <span class="name">
+                        <span ><b>isMaestro</b></span>
+                        <a href="#isMaestro"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rolesDisponibles"></a>
+                    <span class="name">
+                        <span ><b>rolesDisponibles</b></span>
+                        <a href="#rolesDisponibles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usuario"></a>
+                    <span class="name">
+                        <span ><b>usuario</b></span>
+                        <a href="#usuario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >User | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usuarioForm"></a>
+                    <span class="name">
+                        <span ><b>usuarioForm</b></span>
+                        <a href="#usuarioForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">GiConnect/src/app/pages/modificar-usuario/editar-usuario/editar-usuario.page.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { ActivatedRoute, Router } from &#x27;@angular/router&#x27;;
+import { IonicModule, AlertController, LoadingController, NavController } from &#x27;@ionic/angular&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
+import { MatDatepickerModule } from &#x27;@angular/material/datepicker&#x27;;
+import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from &#x27;@angular/material/core&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { AuthService } from &#x27;src/app/services/auth.service&#x27;;
+import { UserService } from &#x27;src/app/services/user.service&#x27;;
+import { User } from &#x27;src/app/interfaces/user.interface&#x27;;
+import { addIcons } from &#x27;ionicons&#x27;;
+import { personOutline, calendarOutline, createOutline, saveOutline } from &#x27;ionicons/icons&#x27;;
+import localeEs from &#x27;@angular/common/locales/es&#x27;;
+import { registerLocaleData } from &#x27;@angular/common&#x27;;
+
+registerLocaleData(localeEs);
+
+// Define custom date formats
+export const DD_MM_YYYY_FORMAT &#x3D; {
+  parse: {
+    dateInput: &#x27;DD/MM/YYYY&#x27;,
+  },
+  display: {
+    dateInput: &#x27;DD/MM/YYYY&#x27;,
+    monthYearLabel: &#x27;MMM YYYY&#x27;,
+    dateA11yLabel: &#x27;LL&#x27;,
+    monthYearA11yLabel: &#x27;MMMM YYYY&#x27;,
+  },
+};
+
+const CINTURONES &#x3D; [
+  &#x27;Blanco&#x27;, &#x27;Gris&#x27;, &#x27;Blanco-Amarillo&#x27;, &#x27;Amarillo&#x27;, &#x27;Amarillo-Naranja&#x27;,
+  &#x27;Naranja&#x27;, &#x27;Naranja-Verde&#x27;, &#x27;Verde&#x27;, &#x27;Verde-Azul&#x27;, &#x27;Azul&#x27;, &#x27;Morado&#x27;,
+  &#x27;Marrón&#x27;, &#x27;Negro&#x27;, &#x27;Negro-Rojo&#x27;, &#x27;Rojo-Blanco&#x27;, &#x27;Rojo&#x27;
+];
+
+const GRADOS &#x3D; [0, 1, 2, 3, 4];
+
+@Component({
+  selector: &#x27;app-editar-usuario&#x27;,
+  templateUrl: &#x27;./editar-usuario.page.html&#x27;,
+  styleUrls: [&#x27;./editar-usuario.page.scss&#x27;],
+  standalone: true,
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: &#x27;es-ES&#x27; },
+    { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT }
+  ]
+})
+export class EditarUsuarioPage implements OnInit {
+  usuarioForm: FormGroup;
+  usuario: User | null &#x3D; null;
+  isAdmin &#x3D; false;
+  isMaestro &#x3D; false;
+  cinturones &#x3D; CINTURONES;
+  grados &#x3D; GRADOS;
+  isLoading &#x3D; false;
+  rolesDisponibles: { value: string, label: string }[] &#x3D; [];
+
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService,
+    private userService: UserService,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    private navController: NavController
+  ) {
+    this.usuarioForm &#x3D; this.fb.group({
+      foto: [&#x27;&#x27;],
+      nombre: [&#x27;&#x27;, Validators.required],
+      apellido1: [&#x27;&#x27;, Validators.required],
+      apellido2: [&#x27;&#x27;],
+      dni: [&#x27;&#x27;, [Validators.required, Validators.pattern(/^[0-9]{8}[A-Za-z]$/)]],
+      telefono: [&#x27;&#x27;, [Validators.required, Validators.pattern(/^[0-9]{9}$/)]],
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+      role: [&#x27;&#x27;, Validators.required],
+      numIBJJF: [&#x27;&#x27;],
+      fechaInicio: [null],
+      cinturon: [&#x27;&#x27;],
+      grado: [0],
+      fechaDesde: [null],
+      clasesAsistidas: [0],
+      clasesImpartidas: [0],
+      activo: [true]
+    });
+  }
+
+  ngOnInit() {
+    const userId &#x3D; this.route.snapshot.paramMap.get(&#x27;id&#x27;);
+    if (!userId) {
+      this.router.navigate([&#x27;/modificar-usuario&#x27;]);
+      return;
+    }
+
+    const currentUser &#x3D; this.authService.getUser();
+    this.isAdmin &#x3D; currentUser?.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27;;
+    this.isMaestro &#x3D; currentUser?.role &#x3D;&#x3D;&#x3D; &#x27;maestro&#x27;;
+
+    // Configurar roles disponibles según el tipo de usuario
+    this.rolesDisponibles &#x3D; [
+      { value: &#x27;atleta&#x27;, label: &#x27;Atleta&#x27; },
+      { value: &#x27;instructor&#x27;, label: &#x27;Instructor&#x27; },
+      { value: &#x27;maestro&#x27;, label: &#x27;Maestro&#x27; }
+    ];
+
+    if (this.isAdmin) {
+      this.rolesDisponibles.push({ value: &#x27;admin&#x27;, label: &#x27;Admin&#x27; });
+    }
+
+    this.loadUsuario(userId);
+  }
+
+  private loadUsuario(userId: string) {
+    this.isLoading &#x3D; true;
+    this.userService.getUserById(userId).subscribe({
+      next: (usuario: User) &#x3D;&gt; {
+        this.usuario &#x3D; usuario;
+        this.usuarioForm.patchValue({
+          ...usuario,
+          fechaInicio: usuario.fechaInicio ? new Date(usuario.fechaInicio) : null,
+          fechaDesde: usuario.fechaDesde ? new Date(usuario.fechaDesde) : null
+        });
+
+        if (this.isMaestro) {
+          // Si es maestro, permite editar campos específicos
+          this.usuarioForm.get(&#x27;fechaInicio&#x27;)?.enable();
+          this.usuarioForm.get(&#x27;cinturon&#x27;)?.enable();
+          this.usuarioForm.get(&#x27;grado&#x27;)?.enable();
+          this.usuarioForm.get(&#x27;fechaDesde&#x27;)?.enable();
+          this.usuarioForm.get(&#x27;clasesAsistidas&#x27;)?.enable();
+          this.usuarioForm.get(&#x27;clasesImpartidas&#x27;)?.enable();
+          this.usuarioForm.get(&#x27;role&#x27;)?.enable();
+
+          // Deshabilitar el resto de campos
+          Object.keys(this.usuarioForm.controls).forEach(key &#x3D;&gt; {
+            if (![&#x27;fechaInicio&#x27;, &#x27;cinturon&#x27;, &#x27;grado&#x27;, &#x27;fechaDesde&#x27;, &#x27;clasesAsistidas&#x27;, &#x27;clasesImpartidas&#x27;, &#x27;role&#x27;].includes(key)) {
+              this.usuarioForm.get(key)?.disable();
+            }
+          });
+        }
+        this.isLoading &#x3D; false;
+      },
+      error: async (error: Error) &#x3D;&gt; {
+        console.error(&#x27;Error al cargar usuario:&#x27;, error);
+        this.isLoading &#x3D; false;
+        const alert &#x3D; await this.alertController.create({
+          header: &#x27;Error&#x27;,
+          message: &#x27;No se pudo cargar la información del usuario&#x27;,
+          buttons: [&#x27;OK&#x27;]
+        });
+        await alert.present();
+      }
+    });
+  }
+
+  async onSubmit() {
+    if (this.usuarioForm.valid &amp;&amp; this.usuario &amp;&amp; this.usuario._id) {
+      const loading &#x3D; await this.loadingController.create({
+        message: &#x27;Guardando cambios...&#x27;,
+        spinner: &#x27;circular&#x27;
+      });
+      await loading.present();
+
+      try {
+        const formData &#x3D; this.usuarioForm.value;
+        const updatedUser: Partial&lt;User&gt; &#x3D; {};
+
+        if (this.isAdmin) {
+          // Si es admin, puede actualizar todos los campos
+          Object.assign(updatedUser, formData);
+        } else if (this.isMaestro) {
+          // Si es maestro, puede actualizar campos específicos incluyendo el rol
+          updatedUser.fechaInicio &#x3D; formData.fechaInicio;
+          updatedUser.cinturon &#x3D; formData.cinturon;
+          updatedUser.grado &#x3D; formData.grado;
+          updatedUser.fechaDesde &#x3D; formData.fechaDesde;
+          updatedUser.clasesAsistidas &#x3D; formData.clasesAsistidas;
+          updatedUser.clasesImpartidas &#x3D; formData.clasesImpartidas;
+          updatedUser.role &#x3D; formData.role;
+        }
+
+        this.userService.updateUser(this.usuario._id, updatedUser).subscribe({
+          next: async () &#x3D;&gt; {
+            const alert &#x3D; await this.alertController.create({
+              header: &#x27;Éxito&#x27;,
+              message: &#x27;Usuario actualizado correctamente&#x27;,
+              buttons: [],
+              backdropDismiss: false
+            });
+            await alert.present();
+
+            setTimeout(() &#x3D;&gt; {
+              alert.dismiss();
+              this.router.navigate([&#x27;/teacher/modificar-usuario&#x27;]);
+            }, 2000);
+          },
+          error: async (error: Error) &#x3D;&gt; {
+            console.error(&#x27;Error al actualizar usuario:&#x27;, error);
+            const alert &#x3D; await this.alertController.create({
+              header: &#x27;Error&#x27;,
+              message: &#x27;No se pudo actualizar el usuario. Por favor, inténtalo de nuevo.&#x27;,
+              buttons: [&#x27;OK&#x27;]
+            });
+            await alert.present();
+          },
+          complete: () &#x3D;&gt; {
+            loading.dismiss();
+          }
+        });
+      } catch (error) {
+        console.error(&#x27;Error al actualizar usuario:&#x27;, error);
+        const alert &#x3D; await this.alertController.create({
+          header: &#x27;Error&#x27;,
+          message: &#x27;No se pudo actualizar el usuario. Por favor, inténtalo de nuevo.&#x27;,
+          buttons: [&#x27;OK&#x27;]
+        });
+        await alert.present();
+        await loading.dismiss();
+      }
+    }
+  }
+
+  resetClasesAsistidas() {
+    this.usuarioForm.patchValue({ clasesAsistidas: 0 });
+  }
+
+  resetClasesImpartidas() {
+    this.usuarioForm.patchValue({ clasesImpartidas: 0 });
+  }
+}
+
+addIcons({ personOutline, calendarOutline, createOutline, saveOutline }); </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;login-background&quot;&gt;
+  &lt;div class&#x3D;&quot;backdrop-logo&quot;&gt;&lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;ion-padding&quot;&gt;
+    &lt;div class&#x3D;&quot;header-section&quot;&gt;
+      &lt;ion-buttons&gt;
+        &lt;ion-back-button defaultHref&#x3D;&quot;/modificar-usuario&quot;&gt;&lt;/ion-back-button&gt;
+      &lt;/ion-buttons&gt;
+      &lt;h2 class&#x3D;&quot;welcome-title&quot;&gt;Editar Usuario&lt;/h2&gt;
+    &lt;/div&gt;
+
+    &lt;div *ngIf&#x3D;&quot;isLoading&quot; class&#x3D;&quot;loading-container&quot;&gt;
+      &lt;ion-spinner name&#x3D;&quot;crescent&quot;&gt;&lt;/ion-spinner&gt;
+      &lt;p&gt;Cargando usuario...&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;form *ngIf&#x3D;&quot;!isLoading &amp;&amp; usuario&quot; [formGroup]&#x3D;&quot;usuarioForm&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot; class&#x3D;&quot;edit-form&quot;&gt;
+      &lt;!-- Foto de perfil --&gt;
+      &lt;div class&#x3D;&quot;profile-image-container&quot;&gt;
+        &lt;img [src]&#x3D;&quot;usuario.foto&quot; alt&#x3D;&quot;Foto de perfil&quot; class&#x3D;&quot;profile-image&quot;&gt;
+      &lt;/div&gt;
+
+      &lt;ion-list&gt;
+        &lt;!-- Nombre --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Nombre&lt;/ion-label&gt;
+          &lt;ion-input formControlName&#x3D;&quot;nombre&quot; type&#x3D;&quot;text&quot; [disabled]&#x3D;&quot;!isAdmin&quot;&gt;&lt;/ion-input&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Apellido1 --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Primer Apellido&lt;/ion-label&gt;
+          &lt;ion-input formControlName&#x3D;&quot;apellido1&quot; type&#x3D;&quot;text&quot; [disabled]&#x3D;&quot;!isAdmin&quot;&gt;&lt;/ion-input&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Apellido2 --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Segundo Apellido&lt;/ion-label&gt;
+          &lt;ion-input formControlName&#x3D;&quot;apellido2&quot; type&#x3D;&quot;text&quot; [disabled]&#x3D;&quot;!isAdmin&quot;&gt;&lt;/ion-input&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- DNI --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;DNI&lt;/ion-label&gt;
+          &lt;ion-input formControlName&#x3D;&quot;dni&quot; type&#x3D;&quot;text&quot; [disabled]&#x3D;&quot;!isAdmin&quot;&gt;&lt;/ion-input&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Teléfono --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Teléfono&lt;/ion-label&gt;
+          &lt;ion-input formControlName&#x3D;&quot;telefono&quot; type&#x3D;&quot;tel&quot; [disabled]&#x3D;&quot;!isAdmin&quot;&gt;&lt;/ion-input&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Email --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Email&lt;/ion-label&gt;
+          &lt;ion-input formControlName&#x3D;&quot;email&quot; type&#x3D;&quot;email&quot; [disabled]&#x3D;&quot;!isAdmin&quot;&gt;&lt;/ion-input&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Role --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Rol&lt;/ion-label&gt;
+          &lt;ion-select formControlName&#x3D;&quot;role&quot; interface&#x3D;&quot;popover&quot;&gt;
+            &lt;ion-select-option *ngFor&#x3D;&quot;let rol of rolesDisponibles&quot; [value]&#x3D;&quot;rol.value&quot;&gt;
+              {{rol.label}}
+            &lt;/ion-select-option&gt;
+          &lt;/ion-select&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Número IBJJF --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Número IBJJF&lt;/ion-label&gt;
+          &lt;ion-input formControlName&#x3D;&quot;numIBJJF&quot; type&#x3D;&quot;text&quot; [disabled]&#x3D;&quot;!isAdmin&quot;&gt;&lt;/ion-input&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Fecha Inicio --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Fecha de Inicio&lt;/ion-label&gt;
+          &lt;mat-form-field appearance&#x3D;&quot;fill&quot; class&#x3D;&quot;custom-mat-field&quot;&gt;
+            &lt;mat-datepicker-toggle matSuffix [for]&#x3D;&quot;pickerInicio&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+            &lt;mat-datepicker #pickerInicio&gt;&lt;/mat-datepicker&gt;
+            &lt;input matInput
+              [matDatepicker]&#x3D;&quot;pickerInicio&quot;
+              formControlName&#x3D;&quot;fechaInicio&quot;
+              [disabled]&#x3D;&quot;!isAdmin &amp;&amp; !isMaestro&quot;
+              placeholder&#x3D;&quot;Selecciona una fecha&quot;&gt;
+          &lt;/mat-form-field&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Cinturón --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Cinturón&lt;/ion-label&gt;
+          &lt;ion-select formControlName&#x3D;&quot;cinturon&quot; interface&#x3D;&quot;popover&quot; [disabled]&#x3D;&quot;!isAdmin &amp;&amp; !isMaestro&quot;&gt;
+            &lt;ion-select-option *ngFor&#x3D;&quot;let cinturon of cinturones&quot; [value]&#x3D;&quot;cinturon&quot;&gt;
+              {{cinturon}}
+            &lt;/ion-select-option&gt;
+          &lt;/ion-select&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Grado --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Grado&lt;/ion-label&gt;
+          &lt;ion-select formControlName&#x3D;&quot;grado&quot; interface&#x3D;&quot;popover&quot; [disabled]&#x3D;&quot;!isAdmin &amp;&amp; !isMaestro&quot;&gt;
+            &lt;ion-select-option *ngFor&#x3D;&quot;let grado of grados&quot; [value]&#x3D;&quot;grado&quot;&gt;
+              {{grado}}
+            &lt;/ion-select-option&gt;
+          &lt;/ion-select&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Fecha Desde --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Fecha Desde&lt;/ion-label&gt;
+          &lt;mat-form-field appearance&#x3D;&quot;fill&quot; class&#x3D;&quot;custom-mat-field&quot;&gt;
+            &lt;mat-datepicker-toggle matSuffix [for]&#x3D;&quot;pickerDesde&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+            &lt;mat-datepicker #pickerDesde&gt;&lt;/mat-datepicker&gt;
+            &lt;input matInput
+              [matDatepicker]&#x3D;&quot;pickerDesde&quot;
+              formControlName&#x3D;&quot;fechaDesde&quot;
+              [disabled]&#x3D;&quot;!isAdmin &amp;&amp; !isMaestro&quot;
+              placeholder&#x3D;&quot;Selecciona una fecha&quot;&gt;
+          &lt;/mat-form-field&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Clases Asistidas --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Clases Asistidas&lt;/ion-label&gt;
+          &lt;div class&#x3D;&quot;input-with-button&quot;&gt;
+            &lt;ion-input formControlName&#x3D;&quot;clasesAsistidas&quot; type&#x3D;&quot;number&quot; [disabled]&#x3D;&quot;!isAdmin &amp;&amp; !isMaestro&quot;&gt;&lt;/ion-input&gt;
+            &lt;ion-button fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;resetClasesAsistidas()&quot; [disabled]&#x3D;&quot;!isAdmin &amp;&amp; !isMaestro&quot;&gt;
+              Reset
+            &lt;/ion-button&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Clases Impartidas --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Clases Impartidas&lt;/ion-label&gt;
+          &lt;div class&#x3D;&quot;input-with-button&quot;&gt;
+            &lt;ion-input formControlName&#x3D;&quot;clasesImpartidas&quot; type&#x3D;&quot;number&quot; [disabled]&#x3D;&quot;!isAdmin &amp;&amp; !isMaestro&quot;&gt;&lt;/ion-input&gt;
+            &lt;ion-button fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;resetClasesImpartidas()&quot; [disabled]&#x3D;&quot;!isAdmin &amp;&amp; !isMaestro&quot;&gt;
+              Reset
+            &lt;/ion-button&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+
+        &lt;!-- Estado --&gt;
+        &lt;ion-item&gt;
+          &lt;ion-label&gt;Activo&lt;/ion-label&gt;
+          &lt;ion-toggle formControlName&#x3D;&quot;activo&quot; [disabled]&#x3D;&quot;!isAdmin&quot;&gt;&lt;/ion-toggle&gt;
+        &lt;/ion-item&gt;
+      &lt;/ion-list&gt;
+
+      &lt;div class&#x3D;&quot;form-actions&quot;&gt;
+        &lt;ion-button expand&#x3D;&quot;block&quot; type&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;!usuarioForm.valid&quot;&gt;
+          &lt;ion-icon name&#x3D;&quot;save-outline&quot;&gt;&lt;/ion-icon&gt;
+          Guardar Cambios
+        &lt;/ion-button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/div&gt; </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./editar-usuario.page.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.login-background {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  padding-top: 2rem;
+  overflow-y: auto;
+}
+
+.backdrop-logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(&#x27;/assets/logoCuadradoPNG.png&#x27;);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.header-section {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 1rem 0 0.5rem 0;
+  margin-bottom: 3rem;
+  position: relative;
+
+  ion-buttons {
+    margin: 0;
+    padding: 0;
+    height: 24px;
+    margin-left: 0.5rem;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+
+    ion-back-button {
+      --background: #153ae0;
+      --color: white;
+      --opacity: 1;
+      --padding-start: 0;
+      --padding-end: 0;
+      --min-width: 24px;
+      --min-height: 24px;
+      --icon-font-size: 24px;
+      --icon-margin-start: 0;
+      --icon-margin-end: 0;
+      --icon-padding-start: 0;
+      --icon-padding-end: 0;
+      border-radius: 4px;
+      --background-hover: #153ae0;
+      --background-activated: #153ae0;
+      --background-focused: #153ae0;
+      --ripple-color: transparent;
+      --border-radius: 4px;
+      --box-shadow: none;
+    }
+
+    ion-back-button::part(native) {
+      background: #153ae0;
+      color: white;
+      border-radius: 4px;
+    }
+  }
+
+  .welcome-title {
+    text-align: center;
+    margin: 0;
+    font-size: 1.5rem;
+    color: #153ae0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+  }
+}
+
+.profile-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+  padding: 0.5rem;
+
+  .profile-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #153ae0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #153ae0;
+  position: relative;
+  z-index: 1;
+
+  ion-spinner {
+    margin-bottom: 1rem;
+  }
+}
+
+.edit-form {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+
+  ion-list {
+    background: transparent;
+    padding: 0;
+  }
+
+  ion-item {
+    --background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 1rem;
+
+    ion-label {
+      color: #153ae0;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    ion-input, ion-select, ion-datetime {
+      --padding-start: 0;
+      --padding-end: 0;
+      --color: #333;
+      font-size: 1rem;
+    }
+
+    ion-toggle {
+      --background: #ccc;
+      --background-checked: #153ae0;
+      --handle-background: white;
+      --handle-background-checked: white;
+    }
+
+    ion-select {
+      --padding-end: 40px;
+      --padding-start: 16px;
+      --icon-margin-end: 0;
+      --icon-margin-start: 0;
+      --icon-color: #153ae0;
+      --icon-opacity: 1;
+      position: relative;
+      width: 100%;
+
+      &amp;::part(icon) {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+      }
+
+      &amp;::part(placeholder),
+      &amp;::part(text) {
+        color: #333;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+.custom-mat-field {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  ::ng-deep {
+    .mat-form-field-wrapper {
+      margin: 0;
+      padding: 0;
+    }
+
+    .mat-form-field-flex {
+      background: transparent;
+      padding: 0;
+    }
+
+    .mat-form-field-underline {
+      display: none;
+    }
+
+    .mat-form-field-infix {
+      padding: 0;
+      border: none;
+    }
+
+    .mat-form-field-suffix {
+      top: 0;
+    }
+
+    .mat-datepicker-toggle {
+      color: #153ae0;
+    }
+  }
+}
+
+.form-actions {
+  margin-top: 2rem;
+  padding: 0 1rem;
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ion-button {
+    --background: #153ae0;
+    --background-hover: #153ae0;
+    --background-activated: #153ae0;
+    --background-focused: #153ae0;
+    --color: white;
+    --border-radius: 8px;
+    --box-shadow: none;
+    margin: 0;
+    height: 48px;
+    font-weight: 500;
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+
+    &amp;[disabled] {
+      --background: #ccc;
+      --color: #666;
+    }
+
+    ion-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+.form-container {
+  padding-bottom: calc(env(safe-area-inset-bottom, 20px) + 100px);
+}
+
+// Estilos específicos para el popover del select
+::ng-deep {
+  .select-interface-option {
+    --background: white;
+    --color: #333;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 40px;
+    font-size: 1rem;
+    background: white;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .select-popover {
+    --width: 90%;
+    --max-width: 400px;
+    --background: white;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    top: 55% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0;
+    padding: 4px 0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .select-interface-option.selected {
+    --background: #f0f4ff;
+    --color: #153ae0;
+    font-weight: 500;
+    background: #f0f4ff;
+  }
+
+  .select-interface-option ion-radio {
+    --color: #153ae0;
+    --color-checked: #153ae0;
+    margin-right: 12px;
+  }
+
+  .select-interface-option ion-label {
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    line-height: 40px;
+  }
+
+  .select-interface-option.selected ion-label {
+    color: #153ae0;
+    font-weight: 500;
+  }
+
+  .select-popover ion-list {
+    background: white;
+    padding: 0;
+    margin: 0;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .select-popover ion-item {
+    --background: white;
+    --background-hover: #f0f4ff;
+    --background-activated: #f0f4ff;
+    --background-focused: #f0f4ff;
+    --color: #333;
+    --color-hover: #153ae0;
+    --color-activated: #153ae0;
+    --color-focused: #153ae0;
+    --border-color: #eee;
+    --border-style: solid;
+    --border-width: 0 0 1px 0;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    text-align: center;
+  }
+
+  .select-popover ion-item::part(native) {
+    padding: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .select-popover ion-item:first-child {
+    --border-radius: 12px 12px 0 0;
+  }
+
+  .select-popover ion-item:last-child {
+    --border-width: 0;
+    --border-radius: 0 0 12px 12px;
+  }
+}
+
+.input-with-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+
+  ion-input {
+    flex: 1;
+  }
+
+  ion-button {
+    --padding-start: 8px;
+    --padding-end: 8px;
+    margin: 0;
+    height: 40px;
+    
+    font-size: 0.9rem;
+    color: #153ae0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    &amp;::part(native) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0;
+      width: 100%;
+    }
+
+    &amp;::part(content) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-align: center;
+    }
+
+    ion-icon {
+      margin: 0;
+      font-size: 16px;
+    }
+  }
+} </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="login-background">  <div class="backdrop-logo"></div>  <div class="ion-padding">    <div class="header-section">      <ion-buttons>        <ion-back-button defaultHref="/modificar-usuario"></ion-back-button>      </ion-buttons>      <h2 class="welcome-title">Editar Usuario</h2>    </div>    <div *ngIf="isLoading" class="loading-container">      <ion-spinner name="crescent"></ion-spinner>      <p>Cargando usuario...</p>    </div>    <form *ngIf="!isLoading && usuario" [formGroup]="usuarioForm" (ngSubmit)="onSubmit()" class="edit-form">      <!-- Foto de perfil -->      <div class="profile-image-container">        <img [src]="usuario.foto" alt="Foto de perfil" class="profile-image">      </div>      <ion-list>        <!-- Nombre -->        <ion-item>          <ion-label position="stacked">Nombre</ion-label>          <ion-input formControlName="nombre" type="text" [disabled]="!isAdmin"></ion-input>        </ion-item>        <!-- Apellido1 -->        <ion-item>          <ion-label position="stacked">Primer Apellido</ion-label>          <ion-input formControlName="apellido1" type="text" [disabled]="!isAdmin"></ion-input>        </ion-item>        <!-- Apellido2 -->        <ion-item>          <ion-label position="stacked">Segundo Apellido</ion-label>          <ion-input formControlName="apellido2" type="text" [disabled]="!isAdmin"></ion-input>        </ion-item>        <!-- DNI -->        <ion-item>          <ion-label position="stacked">DNI</ion-label>          <ion-input formControlName="dni" type="text" [disabled]="!isAdmin"></ion-input>        </ion-item>        <!-- Teléfono -->        <ion-item>          <ion-label position="stacked">Teléfono</ion-label>          <ion-input formControlName="telefono" type="tel" [disabled]="!isAdmin"></ion-input>        </ion-item>        <!-- Email -->        <ion-item>          <ion-label position="stacked">Email</ion-label>          <ion-input formControlName="email" type="email" [disabled]="!isAdmin"></ion-input>        </ion-item>        <!-- Role -->        <ion-item>          <ion-label position="stacked">Rol</ion-label>          <ion-select formControlName="role" interface="popover">            <ion-select-option *ngFor="let rol of rolesDisponibles" [value]="rol.value">              {{rol.label}}            </ion-select-option>          </ion-select>        </ion-item>        <!-- Número IBJJF -->        <ion-item>          <ion-label position="stacked">Número IBJJF</ion-label>          <ion-input formControlName="numIBJJF" type="text" [disabled]="!isAdmin"></ion-input>        </ion-item>        <!-- Fecha Inicio -->        <ion-item>          <ion-label position="stacked">Fecha de Inicio</ion-label>          <mat-form-field appearance="fill" class="custom-mat-field">            <mat-datepicker-toggle matSuffix [for]="pickerInicio"></mat-datepicker-toggle>            <mat-datepicker #pickerInicio></mat-datepicker>            <input matInput              [matDatepicker]="pickerInicio"              formControlName="fechaInicio"              [disabled]="!isAdmin && !isMaestro"              placeholder="Selecciona una fecha">          </mat-form-field>        </ion-item>        <!-- Cinturón -->        <ion-item>          <ion-label position="stacked">Cinturón</ion-label>          <ion-select formControlName="cinturon" interface="popover" [disabled]="!isAdmin && !isMaestro">            <ion-select-option *ngFor="let cinturon of cinturones" [value]="cinturon">              {{cinturon}}            </ion-select-option>          </ion-select>        </ion-item>        <!-- Grado -->        <ion-item>          <ion-label position="stacked">Grado</ion-label>          <ion-select formControlName="grado" interface="popover" [disabled]="!isAdmin && !isMaestro">            <ion-select-option *ngFor="let grado of grados" [value]="grado">              {{grado}}            </ion-select-option>          </ion-select>        </ion-item>        <!-- Fecha Desde -->        <ion-item>          <ion-label position="stacked">Fecha Desde</ion-label>          <mat-form-field appearance="fill" class="custom-mat-field">            <mat-datepicker-toggle matSuffix [for]="pickerDesde"></mat-datepicker-toggle>            <mat-datepicker #pickerDesde></mat-datepicker>            <input matInput              [matDatepicker]="pickerDesde"              formControlName="fechaDesde"              [disabled]="!isAdmin && !isMaestro"              placeholder="Selecciona una fecha">          </mat-form-field>        </ion-item>        <!-- Clases Asistidas -->        <ion-item>          <ion-label position="stacked">Clases Asistidas</ion-label>          <div class="input-with-button">            <ion-input formControlName="clasesAsistidas" type="number" [disabled]="!isAdmin && !isMaestro"></ion-input>            <ion-button fill="clear" (click)="resetClasesAsistidas()" [disabled]="!isAdmin && !isMaestro">              Reset            </ion-button>          </div>        </ion-item>        <!-- Clases Impartidas -->        <ion-item>          <ion-label position="stacked">Clases Impartidas</ion-label>          <div class="input-with-button">            <ion-input formControlName="clasesImpartidas" type="number" [disabled]="!isAdmin && !isMaestro"></ion-input>            <ion-button fill="clear" (click)="resetClasesImpartidas()" [disabled]="!isAdmin && !isMaestro">              Reset            </ion-button>          </div>        </ion-item>        <!-- Estado -->        <ion-item>          <ion-label>Activo</ion-label>          <ion-toggle formControlName="activo" [disabled]="!isAdmin"></ion-toggle>        </ion-item>      </ion-list>      <div class="form-actions">        <ion-button expand="block" type="submit" [disabled]="!usuarioForm.valid">          <ion-icon name="save-outline"></ion-icon>          Guardar Cambios        </ion-button>      </div>    </form>  </div></div> </div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChatPage', 'selector': 'app-chat'},{'name': 'CrearClasePage', 'selector': 'app-crear-clase'},{'name': 'EditarUsuarioPage', 'selector': 'app-editar-usuario'},{'name': 'ForgotPasswordPage', 'selector': 'app-forgot-password'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'InstructorPopoverComponent', 'selector': 'app-instructor-popover'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'MestrePortalPage', 'selector': 'app-mestre-portal'},{'name': 'ModificarUsuarioPage', 'selector': 'app-modificar-usuario'},{'name': 'PasarListaPage', 'selector': 'app-pasar-lista'},{'name': 'PerfilPage', 'selector': 'app-perfil'},{'name': 'PruebaPage', 'selector': 'app-prueba'},{'name': 'RegisterPage', 'selector': 'app-register'},{'name': 'ReservasPage', 'selector': 'app-reservas'},{'name': 'ResetPasswordPage', 'selector': 'app-reset-password'},{'name': 'SuscripcionesPage', 'selector': 'app-suscripciones'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'EditarUsuarioPage'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'EditarUsuarioPage.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

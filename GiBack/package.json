@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
-    "update-admin": "node src/scripts/updateToAdmin.js"
+    "update-admin": "node src/scripts/updateToAdmin.js",
+    "docs": "jsdoc -c jsdoc.json"
   },
   "engines": {
     "node": ">=14.0.0"
@@ -30,6 +31,8 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
+    "clean-jsdoc-theme": "^4.3.0",
+    "jsdoc": "^4.0.4",
     "nodemon": "^3.1.10"
   }
 }

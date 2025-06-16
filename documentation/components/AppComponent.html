@@ -1,0 +1,2015 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Application documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Application documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AppComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>GiConnect/src/app/app.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>AfterViewInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-root</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>IonicModule</code>
+                            <code>RouterOutlet</code>
+                            <code>CommonModule</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./app.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./app.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#beltColors" >beltColors</a>
+                            </li>
+                            <li>
+                                <a href="#isAdminOrMaestro" >isAdminOrMaestro</a>
+                            </li>
+                            <li>
+                                <a href="#isAndroid" >isAndroid</a>
+                            </li>
+                            <li>
+                                <a href="#isMenuOpen" >isMenuOpen</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#routerSubscription" >routerSubscription</a>
+                            </li>
+                            <li>
+                                <a href="#userBeltColor" >userBeltColor</a>
+                            </li>
+                            <li>
+                                <a href="#userName" >userName</a>
+                            </li>
+                            <li>
+                                <a href="#userPhoto" >userPhoto</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#userSubscription" >userSubscription</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#checkUserRole" >checkUserRole</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#exitApp" >exitApp</a>
+                            </li>
+                            <li>
+                                <a href="#getBeltColor" >getBeltColor</a>
+                            </li>
+                            <li>
+                                <a href="#logout" >logout</a>
+                            </li>
+                            <li>
+                                <a href="#navigateTo" >navigateTo</a>
+                            </li>
+                            <li>
+                                <a href="#navigateToLogin" >navigateToLogin</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#onClickOutside" >onClickOutside</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#resetUserInfo" >resetUserInfo</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#setupRouterListener" >setupRouterListener</a>
+                            </li>
+                            <li>
+                                <a href="#toggleMenu" >toggleMenu</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#document:click" >document:click</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(router: Router, platform: Platform, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, el: ElementRef)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">GiConnect/src/app/app.component.ts:71</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>platform</td>
+                                                  
+                                                        <td>
+                                                                    <code>Platform</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>el</td>
+                                                  
+                                                        <td>
+                                                                    <code>ElementRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="document:click"></a>
+                    <span class="name">
+                        <span ><b>document:click</b></span>
+                        <a href="#document:click"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <i>Arguments : </i><code>'$event.target' </code>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>document:click(target: HTMLElement)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:173</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkUserRole"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>checkUserRole</b></span>
+                        <a href="#checkUserRole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkUserRole()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="110"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:110</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="exitApp"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>exitApp</b></span>
+                        <a href="#exitApp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>exitApp()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="201"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:201</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getBeltColor"></a>
+                    <span class="name">
+                        <span ><b>getBeltColor</b></span>
+                        <a href="#getBeltColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getBeltColor(beltName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="205"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:205</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>beltName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="logout"></a>
+                    <span class="name">
+                        <span ><b>logout</b></span>
+                        <a href="#logout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>logout()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="195"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:195</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navigateTo"></a>
+                    <span class="name">
+                        <span ><b>navigateTo</b></span>
+                        <a href="#navigateTo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>navigateTo(path: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="190"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:190</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>path</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navigateToLogin"></a>
+                    <span class="name">
+                        <span ><b>navigateToLogin</b></span>
+                        <a href="#navigateToLogin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>navigateToLogin()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="185"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:185</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="139"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:139</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="130"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:130</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="93"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onClickOutside"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>onClickOutside</b></span>
+                        <a href="#onClickOutside"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onClickOutside(target: HTMLElement)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;document:click&#x27;, [&#x27;$event.target&#x27;])<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:173</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>target</td>
+                                            <td>
+                                                        <code>HTMLElement</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetUserInfo"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>resetUserInfo</b></span>
+                        <a href="#resetUserInfo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>resetUserInfo()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="161"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:161</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setupRouterListener"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>setupRouterListener</b></span>
+                        <a href="#setupRouterListener"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setupRouterListener()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleMenu"></a>
+                    <span class="name">
+                        <span ><b>toggleMenu</b></span>
+                        <a href="#toggleMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleMenu()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="168"
+                                    class="link-to-prism">GiConnect/src/app/app.component.ts:168</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="beltColors"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>beltColors</b></span>
+                        <a href="#beltColors"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    &#x27;Blanco&#x27;: &#x27;#FFFFFF&#x27;,
+    &#x27;Gris&#x27;: &#x27;#808080&#x27;,
+    &#x27;Blanco-Amarillo&#x27;: &#x27;linear-gradient(to right, #FFFFFF 50%, #FFFF00 50%)&#x27;,
+    &#x27;Amarillo&#x27;: &#x27;#FFFF00&#x27;,
+    &#x27;Amarillo-Naranja&#x27;: &#x27;linear-gradient(to right, #FFFF00 50%, #FFA500 50%)&#x27;,
+    &#x27;Naranja&#x27;: &#x27;#FFA500&#x27;,
+    &#x27;Naranja-Verde&#x27;: &#x27;linear-gradient(to right, #FFA500 50%, #00FF00 50%)&#x27;,
+    &#x27;Verde&#x27;: &#x27;#00FF00&#x27;,
+    &#x27;Verde-Azul&#x27;: &#x27;linear-gradient(to right, #00FF00 50%, #0000FF 50%)&#x27;,
+    &#x27;Azul&#x27;: &#x27;#0000FF&#x27;,
+    &#x27;Morado&#x27;: &#x27;#800080&#x27;,
+    &#x27;Marrón&#x27;: &#x27;#8B4513&#x27;,
+    &#x27;Negro&#x27;: &#x27;#000000&#x27;,
+    &#x27;Negro-Rojo&#x27;: &#x27;linear-gradient(to right, #000000 50%, #FF0000 50%)&#x27;,
+    &#x27;Rojo-Blanco&#x27;: &#x27;linear-gradient(to right, #FF0000 50%, #FFFFFF 50%)&#x27;,
+    &#x27;Rojo&#x27;: &#x27;#FF0000&#x27;
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">GiConnect/src/app/app.component.ts:54</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAdminOrMaestro"></a>
+                    <span class="name">
+                        <span ><b>isAdminOrMaestro</b></span>
+                        <a href="#isAdminOrMaestro"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">GiConnect/src/app/app.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAndroid"></a>
+                    <span class="name">
+                        <span ><b>isAndroid</b></span>
+                        <a href="#isAndroid"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">GiConnect/src/app/app.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isMenuOpen"></a>
+                    <span class="name">
+                        <span ><b>isMenuOpen</b></span>
+                        <a href="#isMenuOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">GiConnect/src/app/app.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="routerSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>routerSubscription</b></span>
+                        <a href="#routerSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">GiConnect/src/app/app.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userBeltColor"></a>
+                    <span class="name">
+                        <span ><b>userBeltColor</b></span>
+                        <a href="#userBeltColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">GiConnect/src/app/app.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userName"></a>
+                    <span class="name">
+                        <span ><b>userName</b></span>
+                        <a href="#userName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">GiConnect/src/app/app.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userPhoto"></a>
+                    <span class="name">
+                        <span ><b>userPhoto</b></span>
+                        <a href="#userPhoto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">GiConnect/src/app/app.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userSubscription"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>userSubscription</b></span>
+                        <a href="#userSubscription"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">GiConnect/src/app/app.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, HostListener, AfterViewInit, OnDestroy, ElementRef } from &#x27;@angular/core&#x27;;
+import { Router, RouterOutlet, NavigationEnd } from &#x27;@angular/router&#x27;;
+import { Platform, IonicModule } from &#x27;@ionic/angular&#x27;;
+import { addIcons } from &#x27;ionicons&#x27;;
+import { 
+  menu, 
+  personOutline,
+  logInOutline, 
+  powerOutline,
+  homeOutline,
+  timeOutline,
+  newspaperOutline,
+  chatbubbleOutline,
+  cartOutline,
+  logOutOutline,
+  medalOutline,
+  calendarOutline,
+  cardOutline,
+  checkboxOutline,
+  calendarNumberOutline,
+  createOutline,
+  bagAddOutline,
+  personAddOutline,
+  saveOutline,
+  chevronUpOutline,
+  chevronDownOutline
+} from &#x27;ionicons/icons&#x27;;
+import { App } from &#x27;@capacitor/app&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { AuthService } from &#x27;./services/auth.service&#x27;;
+import { filter } from &#x27;rxjs/operators&#x27;;
+
+@Component({
+  selector: &#x27;app-root&#x27;,
+  standalone: true,
+  imports: [
+    IonicModule,
+    RouterOutlet,
+    CommonModule
+  ],
+  templateUrl: &#x27;./app.component.html&#x27;,
+  styleUrls: [&#x27;./app.component.scss&#x27;]
+})
+export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
+  isMenuOpen &#x3D; false;
+  userName: string | null &#x3D; null;
+  userPhoto: string | null &#x3D; null;
+  userBeltColor: string | null &#x3D; null;
+  isAndroid &#x3D; false;
+  isAdminOrMaestro &#x3D; false;
+  private userSubscription: any;
+  private routerSubscription: any;
+  
+  private beltColors: { [key: string]: string } &#x3D; {
+    &#x27;Blanco&#x27;: &#x27;#FFFFFF&#x27;,
+    &#x27;Gris&#x27;: &#x27;#808080&#x27;,
+    &#x27;Blanco-Amarillo&#x27;: &#x27;linear-gradient(to right, #FFFFFF 50%, #FFFF00 50%)&#x27;,
+    &#x27;Amarillo&#x27;: &#x27;#FFFF00&#x27;,
+    &#x27;Amarillo-Naranja&#x27;: &#x27;linear-gradient(to right, #FFFF00 50%, #FFA500 50%)&#x27;,
+    &#x27;Naranja&#x27;: &#x27;#FFA500&#x27;,
+    &#x27;Naranja-Verde&#x27;: &#x27;linear-gradient(to right, #FFA500 50%, #00FF00 50%)&#x27;,
+    &#x27;Verde&#x27;: &#x27;#00FF00&#x27;,
+    &#x27;Verde-Azul&#x27;: &#x27;linear-gradient(to right, #00FF00 50%, #0000FF 50%)&#x27;,
+    &#x27;Azul&#x27;: &#x27;#0000FF&#x27;,
+    &#x27;Morado&#x27;: &#x27;#800080&#x27;,
+    &#x27;Marrón&#x27;: &#x27;#8B4513&#x27;,
+    &#x27;Negro&#x27;: &#x27;#000000&#x27;,
+    &#x27;Negro-Rojo&#x27;: &#x27;linear-gradient(to right, #000000 50%, #FF0000 50%)&#x27;,
+    &#x27;Rojo-Blanco&#x27;: &#x27;linear-gradient(to right, #FF0000 50%, #FFFFFF 50%)&#x27;,
+    &#x27;Rojo&#x27;: &#x27;#FF0000&#x27;
+  };
+
+  constructor(
+    private router: Router,
+    private platform: Platform,
+    private authService: AuthService,
+    private el: ElementRef
+  ) {
+    this.isAndroid &#x3D; this.platform.is(&#x27;android&#x27;);
+    addIcons({ 
+      personOutline, 
+      personAddOutline, 
+      logOutOutline, 
+      homeOutline, 
+      calendarOutline, 
+      timeOutline, 
+      saveOutline,
+      chevronUpOutline,
+      chevronDownOutline
+    });
+  }
+
+  ngOnInit() {
+    this.checkUserRole();
+    this.setupRouterListener();
+  }
+
+  private setupRouterListener() {
+    this.routerSubscription &#x3D; this.router.events.pipe(
+      filter(event &#x3D;&gt; event instanceof NavigationEnd)
+    ).subscribe((event: any) &#x3D;&gt; {
+      // Si estamos en la página de reservas, recargamos los datos
+      if (event.url &#x3D;&#x3D;&#x3D; &#x27;/reservas&#x27;) {
+        // Emitimos un evento personalizado que la página de reservas escuchará
+        window.dispatchEvent(new CustomEvent(&#x27;reloadReservas&#x27;));
+      }
+    });
+  }
+
+  private checkUserRole() {
+    this.userSubscription &#x3D; this.authService.user$.subscribe(user &#x3D;&gt; {
+      console.log(&#x27;Usuario actualizado:&#x27;, user);
+      if (user) {
+        this.userName &#x3D; user.nombre ? &#x60;${user.nombre} ${user.apellido1}&#x60; : null;
+        this.userPhoto &#x3D; user.foto || null;
+        this.userBeltColor &#x3D; user.cinturon || null;
+        this.isAdminOrMaestro &#x3D; user.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27; || user.role &#x3D;&#x3D;&#x3D; &#x27;maestro&#x27;;
+        console.log(&#x27;Información del menú actualizada:&#x27;, {
+          name: this.userName,
+          photo: this.userPhoto,
+          belt: this.userBeltColor,
+          isAdminOrMaestro: this.isAdminOrMaestro
+        });
+      } else {
+        this.resetUserInfo();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+  }
+
+  ngAfterViewInit() {
+    addIcons({
+      menu, 
+      personOutline,
+      logInOutline, 
+      powerOutline,
+      homeOutline,
+      timeOutline,
+      newspaperOutline,
+      chatbubbleOutline,
+      cartOutline,
+      logOutOutline,
+      medalOutline,
+      calendarOutline,
+      cardOutline,
+      checkboxOutline,
+      calendarNumberOutline,
+      createOutline,
+      bagAddOutline
+    });
+  }
+
+  private resetUserInfo() {
+    this.userName &#x3D; null;
+    this.userPhoto &#x3D; null;
+    this.userBeltColor &#x3D; null;
+    this.isAdminOrMaestro &#x3D; false;
+  }
+
+  toggleMenu() {
+    this.isMenuOpen &#x3D; !this.isMenuOpen;
+  }
+
+  @HostListener(&#x27;document:click&#x27;, [&#x27;$event.target&#x27;])
+  onClickOutside(target: HTMLElement) {
+    const menuEl &#x3D; this.el.nativeElement.querySelector(&#x27;.menu-content&#x27;);
+    const buttonEl &#x3D; this.el.nativeElement.querySelector(&#x27;.menu-button&#x27;);
+    if (
+      this.isMenuOpen &amp;&amp;
+      menuEl &amp;&amp; !menuEl.contains(target) &amp;&amp;
+      buttonEl &amp;&amp; !buttonEl.contains(target)
+    ) {
+      this.isMenuOpen &#x3D; false;
+    }
+  }
+
+  navigateToLogin() {
+    this.router.navigateByUrl(&#x27;/auth/login&#x27;);
+    this.isMenuOpen &#x3D; false;
+  }
+
+  navigateTo(path: string) {
+    this.router.navigateByUrl(path);
+    this.isMenuOpen &#x3D; false;
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigateByUrl(&#x27;/auth/login&#x27;);
+    this.isMenuOpen &#x3D; false;
+  }
+
+  async exitApp() {
+    await App.exitApp();
+  }
+
+  getBeltColor(beltName: string): string {
+    return this.beltColors[beltName] || &#x27;#FFFFFF&#x27;;
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;ion-app&gt;
+  &lt;ion-header&gt;
+    &lt;ion-toolbar class&#x3D;&quot;toolbar-flex&quot; color&#x3D;&quot;primary&quot; style&#x3D;&quot;--background: #153ae0; --color: white;&quot;&gt;
+      &lt;img src&#x3D;&quot;assets/logoRedondo.svg&quot; class&#x3D;&quot;logo left-logo&quot; alt&#x3D;&quot;Logo Izda&quot; /&gt;
+      &lt;ion-title class&#x3D;&quot;app-title&quot;&gt;GiConnect&lt;/ion-title&gt;
+      &lt;img src&#x3D;&quot;assets/logoRedondo.svg&quot; class&#x3D;&quot;logo right-logo&quot; alt&#x3D;&quot;Logo Dcha&quot; /&gt;
+    &lt;/ion-toolbar&gt;
+  &lt;/ion-header&gt;
+
+  &lt;div class&#x3D;&quot;menu-bar&quot;&gt;
+    &lt;button class&#x3D;&quot;menu-button&quot; (click)&#x3D;&quot;toggleMenu()&quot;&gt;
+      &lt;ion-icon name&#x3D;&quot;menu&quot;&gt;&lt;/ion-icon&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;menu-content&quot; [class.show]&#x3D;&quot;isMenuOpen&quot;&gt;
+    &lt;div class&#x3D;&quot;menu-header&quot;&gt;
+      &lt;div class&#x3D;&quot;user-avatar&quot;&gt;
+        &lt;img *ngIf&#x3D;&quot;userPhoto&quot; [src]&#x3D;&quot;userPhoto&quot; alt&#x3D;&quot;Foto de usuario&quot;&gt;
+        &lt;div *ngIf&#x3D;&quot;!userPhoto&quot; class&#x3D;&quot;default-avatar&quot;&gt;
+          &lt;ion-icon name&#x3D;&quot;person-outline&quot;&gt;&lt;/ion-icon&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;user-info&quot;&gt;
+        &lt;span class&#x3D;&quot;user-name&quot;&gt;{{ userName || &#x27;Invitado&#x27; }}&lt;/span&gt;
+        &lt;div *ngIf&#x3D;&quot;userBeltColor&quot; class&#x3D;&quot;belt-stripe&quot; [style.background]&#x3D;&quot;getBeltColor(userBeltColor)&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;ion-list&gt;
+      &lt;ng-container *ngIf&#x3D;&quot;!userName&quot;&gt;
+        &lt;ion-item button (click)&#x3D;&quot;navigateToLogin()&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;log-in-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Iniciar Sesión&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+        &lt;ion-item *ngIf&#x3D;&quot;isAndroid&quot; button (click)&#x3D;&quot;exitApp()&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;power-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Salir&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+      &lt;/ng-container&gt;
+
+      &lt;ng-container *ngIf&#x3D;&quot;userName&quot;&gt;
+        &lt;ion-item *ngIf&#x3D;&quot;isAdminOrMaestro&quot; button (click)&#x3D;&quot;navigateTo(&#x27;/mestre-portal&#x27;)&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;medal-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Portal del Maestro&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+        &lt;ion-item button (click)&#x3D;&quot;navigateTo(&#x27;/perfil&#x27;)&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;person-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Perfil&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+        &lt;ion-item button (click)&#x3D;&quot;navigateTo(&#x27;/home&#x27;)&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;home-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Home&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+        &lt;ion-item button (click)&#x3D;&quot;navigateTo(&#x27;/reservas&#x27;)&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;calendar-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Reservar Clases&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+        &lt;ion-item *ngIf&#x3D;&quot;!isAdminOrMaestro&quot; button (click)&#x3D;&quot;navigateTo(&#x27;/suscripciones&#x27;)&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;card-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Suscripciones&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+        &lt;ion-item button (click)&#x3D;&quot;navigateTo(&#x27;/prueba&#x27;)&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;newspaper-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Enlaces de interés&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+        &lt;ion-item button (click)&#x3D;&quot;navigateTo(&#x27;/chat&#x27;)&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;chatbubble-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Chat&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+        &lt;ion-item button (click)&#x3D;&quot;navigateTo(&#x27;/prueba&#x27;)&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;cart-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Tienda&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+        &lt;ion-item button (click)&#x3D;&quot;logout()&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;log-out-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Cerrar Sesión&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+        &lt;ion-item *ngIf&#x3D;&quot;isAndroid&quot; button (click)&#x3D;&quot;exitApp()&quot; lines&#x3D;&quot;none&quot; class&#x3D;&quot;menu-item&quot;&gt;
+          &lt;div class&#x3D;&quot;menu-item-content&quot;&gt;
+            &lt;ion-icon name&#x3D;&quot;power-outline&quot;&gt;&lt;/ion-icon&gt;
+            &lt;span&gt;Salir&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/ion-item&gt;
+      &lt;/ng-container&gt;
+    &lt;/ion-list&gt;
+  &lt;/div&gt;
+
+  &lt;ion-content&gt;
+    &lt;ion-router-outlet&gt;&lt;/ion-router-outlet&gt;
+  &lt;/ion-content&gt;
+&lt;/ion-app&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./app.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/* src/app/app.component.scss */
+
+/* Estilos del toolbar */
+ion-header ion-toolbar.toolbar-flex {
+  --background: #153ae0 !important;
+  --color: white !important;
+  background: #153ae0 !important;
+  color: white !important;
+}
+
+/* 1) Flex para centrar el título */
+.toolbar-flex {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: relative;      /* para logos absolutos */
+  padding: 0 16px !important;
+}
+
+/* 3) Logos absolutos */
+.logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.left-logo { left: 16px; }
+.right-logo { right: 16px; }
+
+/* 4) Título centrado */
+.app-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin: 0;
+  color: inherit; /* hereda el --color del toolbar */
+}
+
+.menu-bar {
+  background-color: white;
+  padding: 2px 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 28px;
+}
+
+.menu-button {
+  background-color: #153ae0;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  ion-icon {
+    font-size: 14px;
+    color: white;
+  }
+
+  &amp;:hover {
+    opacity: 0.9;
+  }
+}
+
+.menu-content {
+  position: absolute;
+  top: 68px;       /* justo debajo del toolbar */
+  left: 0;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0.8);
+
+  /* OCULTO fuera de pantalla */
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  
+  /* ANIMACIÓN suave */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  max-height: calc(100vh - 68px);
+  overflow-y: auto;
+
+  &amp;.show {
+    /* VISIBLE en su posición */
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+
+
+
+.menu-header {
+  padding: 16px;
+  background-color: rgba(255, 255, 255, 0);
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .default-avatar {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e0e0;
+    color: #666;
+
+    svg {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
+
+.user-info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+
+  .user-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  .belt-stripe {
+    width: 100%;
+    height: 10px;
+    border-radius: 5px;
+    margin-top: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+}
+
+ion-button {
+  --color: #153ae0;
+}
+
+ion-list {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+
+  ion-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --min-height: 48px;
+    --background: transparent;
+    --color: var(--ion-color-dark);
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    ion-icon {
+      font-size: 24px;
+      margin-right: 16px;
+      color: var(--ion-color-primary);
+      min-width: 24px;
+    }
+
+    ion-label {
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    &amp;:hover {
+      --background: rgba(var(--ion-color-primary-rgb), 0.1);
+    }
+  }
+}
+
+.menu-item {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --min-height: 48px;
+  --background: transparent;
+  --color: var(--ion-color-dark);
+  margin: 8px 0;
+
+  .menu-item-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+
+    ion-icon {
+      font-size: 24px;
+      color: var(--ion-color-primary);
+      min-width: 24px;
+    }
+
+    span {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ion-color-dark);
+    }
+  }
+
+  &amp;:hover {
+    --background: rgba(var(--ion-color-primary-rgb), 0.1);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ion-app>  <ion-header>    <ion-toolbar class="toolbar-flex" color="primary" style="--background: #153ae0; --color: white;">      <img src="assets/logoRedondo.svg" class="logo left-logo" alt="Logo Izda" />      <ion-title class="app-title">GiConnect</ion-title>      <img src="assets/logoRedondo.svg" class="logo right-logo" alt="Logo Dcha" />    </ion-toolbar>  </ion-header>  <div class="menu-bar">    <button class="menu-button" (click)="toggleMenu()">      <ion-icon name="menu"></ion-icon>    </button>  </div>  <div class="menu-content" [class.show]="isMenuOpen">    <div class="menu-header">      <div class="user-avatar">        <img *ngIf="userPhoto" [src]="userPhoto" alt="Foto de usuario">        <div *ngIf="!userPhoto" class="default-avatar">          <ion-icon name="person-outline"></ion-icon>        </div>      </div>      <div class="user-info">        <span class="user-name">{{ userName || \'Invitado\' }}</span>        <div *ngIf="userBeltColor" class="belt-stripe" [style.background]="getBeltColor(userBeltColor)"></div>      </div>    </div>    <ion-list>      <ng-container *ngIf="!userName">        <ion-item button (click)="navigateToLogin()" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="log-in-outline"></ion-icon>            <span>Iniciar Sesión</span>          </div>        </ion-item>        <ion-item *ngIf="isAndroid" button (click)="exitApp()" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="power-outline"></ion-icon>            <span>Salir</span>          </div>        </ion-item>      </ng-container>      <ng-container *ngIf="userName">        <ion-item *ngIf="isAdminOrMaestro" button (click)="navigateTo(\'/mestre-portal\')" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="medal-outline"></ion-icon>            <span>Portal del Maestro</span>          </div>        </ion-item>        <ion-item button (click)="navigateTo(\'/perfil\')" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="person-outline"></ion-icon>            <span>Perfil</span>          </div>        </ion-item>        <ion-item button (click)="navigateTo(\'/home\')" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="home-outline"></ion-icon>            <span>Home</span>          </div>        </ion-item>        <ion-item button (click)="navigateTo(\'/reservas\')" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="calendar-outline"></ion-icon>            <span>Reservar Clases</span>          </div>        </ion-item>        <ion-item *ngIf="!isAdminOrMaestro" button (click)="navigateTo(\'/suscripciones\')" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="card-outline"></ion-icon>            <span>Suscripciones</span>          </div>        </ion-item>        <ion-item button (click)="navigateTo(\'/prueba\')" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="newspaper-outline"></ion-icon>            <span>Enlaces de interés</span>          </div>        </ion-item>        <ion-item button (click)="navigateTo(\'/chat\')" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="chatbubble-outline"></ion-icon>            <span>Chat</span>          </div>        </ion-item>        <ion-item button (click)="navigateTo(\'/prueba\')" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="cart-outline"></ion-icon>            <span>Tienda</span>          </div>        </ion-item>        <ion-item button (click)="logout()" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="log-out-outline"></ion-icon>            <span>Cerrar Sesión</span>          </div>        </ion-item>        <ion-item *ngIf="isAndroid" button (click)="exitApp()" lines="none" class="menu-item">          <div class="menu-item-content">            <ion-icon name="power-outline"></ion-icon>            <span>Salir</span>          </div>        </ion-item>      </ng-container>    </ion-list>  </div>  <ion-content>    <ion-router-outlet></ion-router-outlet>  </ion-content></ion-app></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChatPage', 'selector': 'app-chat'},{'name': 'CrearClasePage', 'selector': 'app-crear-clase'},{'name': 'EditarUsuarioPage', 'selector': 'app-editar-usuario'},{'name': 'ForgotPasswordPage', 'selector': 'app-forgot-password'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'InstructorPopoverComponent', 'selector': 'app-instructor-popover'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'MestrePortalPage', 'selector': 'app-mestre-portal'},{'name': 'ModificarUsuarioPage', 'selector': 'app-modificar-usuario'},{'name': 'PasarListaPage', 'selector': 'app-pasar-lista'},{'name': 'PerfilPage', 'selector': 'app-perfil'},{'name': 'PruebaPage', 'selector': 'app-prueba'},{'name': 'RegisterPage', 'selector': 'app-register'},{'name': 'ReservasPage', 'selector': 'app-reservas'},{'name': 'ResetPasswordPage', 'selector': 'app-reset-password'},{'name': 'SuscripcionesPage', 'selector': 'app-suscripciones'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AppComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AppComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

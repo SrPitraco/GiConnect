@@ -1,0 +1,2582 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Application documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Application documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CrearClasePage</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>GiConnect/src/app/pages/crear-clase/crear-clase.page.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>{ provide: MAT_DATE_LOCALE, useValue:  }</code>
+                            <code>{ provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT }</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-crear-clase</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>IonicModule</code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>MatDatepickerModule</code>
+                            <code>MatNativeDateModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                                <code><a href="../components/InstructorPopoverComponent.html" target="_self" >InstructorPopoverComponent</a></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./crear-clase.page.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./crear-clase.page.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#claseForm" >claseForm</a>
+                            </li>
+                            <li>
+                                <a href="#diasSemana" >diasSemana</a>
+                            </li>
+                            <li>
+                                <a href="#instructores" >instructores</a>
+                            </li>
+                            <li>
+                                <a href="#instructorSeleccionado" >instructorSeleccionado</a>
+                            </li>
+                            <li>
+                                <a href="#isAdmin" >isAdmin</a>
+                            </li>
+                            <li>
+                                <a href="#isMaestro" >isMaestro</a>
+                            </li>
+                            <li>
+                                <a href="#minDate" >minDate</a>
+                            </li>
+                            <li>
+                                <a href="#tipoClase" >tipoClase</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#capitalizarPrimeraLetra" >capitalizarPrimeraLetra</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#cargarInstructores" >cargarInstructores</a>
+                            </li>
+                            <li>
+                                <a href="#decrementarHora" >decrementarHora</a>
+                            </li>
+                            <li>
+                                <a href="#decrementarMinuto" >decrementarMinuto</a>
+                            </li>
+                            <li>
+                                <a href="#incrementarHora" >incrementarHora</a>
+                            </li>
+                            <li>
+                                <a href="#incrementarMinuto" >incrementarMinuto</a>
+                            </li>
+                            <li>
+                                <a href="#isDiaSeleccionado" >isDiaSeleccionado</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#limpiarFormulario" >limpiarFormulario</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#mostrarSelectorInstructor" >mostrarSelectorInstructor</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#obtenerNombreInstructor" >obtenerNombreInstructor</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDia" >toggleDia</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(formBuilder: FormBuilder, router: Router, alertController: AlertController, loadingController: LoadingController, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, popoverController: PopoverController, http: HttpClient, toastController: ToastController)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:73</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>formBuilder</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>alertController</td>
+                                                  
+                                                        <td>
+                                                                    <code>AlertController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>loadingController</td>
+                                                  
+                                                        <td>
+                                                                    <code>LoadingController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>popoverController</td>
+                                                  
+                                                        <td>
+                                                                    <code>PopoverController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                    <code>HttpClient</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>toastController</td>
+                                                  
+                                                        <td>
+                                                                    <code>ToastController</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="capitalizarPrimeraLetra"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>capitalizarPrimeraLetra</b></span>
+                        <a href="#capitalizarPrimeraLetra"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>capitalizarPrimeraLetra(texto: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="213"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:213</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>texto</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="cargarInstructores"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>cargarInstructores</b></span>
+                        <a href="#cargarInstructores"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>cargarInstructores()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:133</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="decrementarHora"></a>
+                    <span class="name">
+                        <span ><b>decrementarHora</b></span>
+                        <a href="#decrementarHora"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>decrementarHora(campo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:173</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>campo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="decrementarMinuto"></a>
+                    <span class="name">
+                        <span ><b>decrementarMinuto</b></span>
+                        <a href="#decrementarMinuto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>decrementarMinuto(campo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="187"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:187</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>campo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="incrementarHora"></a>
+                    <span class="name">
+                        <span ><b>incrementarHora</b></span>
+                        <a href="#incrementarHora"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>incrementarHora(campo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="166"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:166</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>campo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="incrementarMinuto"></a>
+                    <span class="name">
+                        <span ><b>incrementarMinuto</b></span>
+                        <a href="#incrementarMinuto"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>incrementarMinuto(campo: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:180</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>campo</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isDiaSeleccionado"></a>
+                    <span class="name">
+                        <span ><b>isDiaSeleccionado</b></span>
+                        <a href="#isDiaSeleccionado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isDiaSeleccionado(diaId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="207"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:207</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>diaId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="limpiarFormulario"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>limpiarFormulario</b></span>
+                        <a href="#limpiarFormulario"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>limpiarFormulario()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="319"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:319</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mostrarSelectorInstructor"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>mostrarSelectorInstructor</b></span>
+                        <a href="#mostrarSelectorInstructor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>mostrarSelectorInstructor(ev: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="144"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:144</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>ev</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="120"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:120</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="obtenerNombreInstructor"></a>
+                    <span class="name">
+                        <span ><b>obtenerNombreInstructor</b></span>
+                        <a href="#obtenerNombreInstructor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>obtenerNombreInstructor()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="328"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:328</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="217"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:217</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDia"></a>
+                    <span class="name">
+                        <span ><b>toggleDia</b></span>
+                        <a href="#toggleDia"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDia(diaId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:194</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>diaId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="claseForm"></a>
+                    <span class="name">
+                        <span ><b>claseForm</b></span>
+                        <a href="#claseForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:58</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="diasSemana"></a>
+                    <span class="name">
+                        <span ><b>diasSemana</b></span>
+                        <a href="#diasSemana"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { id: &#x27;Lunes&#x27;, nombre: &#x27;Lunes&#x27; },
+    { id: &#x27;Martes&#x27;, nombre: &#x27;Martes&#x27; },
+    { id: &#x27;Miércoles&#x27;, nombre: &#x27;Miércoles&#x27; },
+    { id: &#x27;Jueves&#x27;, nombre: &#x27;Jueves&#x27; },
+    { id: &#x27;Viernes&#x27;, nombre: &#x27;Viernes&#x27; },
+    { id: &#x27;Sábado&#x27;, nombre: &#x27;Sábado&#x27; },
+    { id: &#x27;Domingo&#x27;, nombre: &#x27;Domingo&#x27; }
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="instructores"></a>
+                    <span class="name">
+                        <span ><b>instructores</b></span>
+                        <a href="#instructores"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >User[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:60</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="instructorSeleccionado"></a>
+                    <span class="name">
+                        <span ><b>instructorSeleccionado</b></span>
+                        <a href="#instructorSeleccionado"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >User | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAdmin"></a>
+                    <span class="name">
+                        <span ><b>isAdmin</b></span>
+                        <a href="#isAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isMaestro"></a>
+                    <span class="name">
+                        <span ><b>isMaestro</b></span>
+                        <a href="#isMaestro"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="minDate"></a>
+                    <span class="name">
+                        <span ><b>minDate</b></span>
+                        <a href="#minDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Date()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="tipoClase"></a>
+                    <span class="name">
+                        <span ><b>tipoClase</b></span>
+                        <a href="#tipoClase"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;fija&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">GiConnect/src/app/pages/crear-clase/crear-clase.page.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { IonicModule, AlertController, LoadingController, PopoverController, ToastController } from &#x27;@ionic/angular&#x27;;
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { AuthService } from &#x27;../../services/auth.service&#x27;;
+import { UserService } from &#x27;../../services/user.service&#x27;;
+import { User } from &#x27;../../interfaces/user.interface&#x27;;
+import { InstructorPopoverComponent } from &#x27;../../components/instructor-popover/instructor-popover.component&#x27;;
+import { addIcons } from &#x27;ionicons&#x27;;
+import { calendarOutline, timeOutline, personOutline, saveOutline } from &#x27;ionicons/icons&#x27;;
+import { MatDatepickerModule } from &#x27;@angular/material/datepicker&#x27;;
+import { MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from &#x27;@angular/material/core&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { firstValueFrom } from &#x27;rxjs&#x27;;
+import { environment } from &#x27;../../../environments/environment&#x27;;
+import localeEs from &#x27;@angular/common/locales/es&#x27;;
+import { registerLocaleData } from &#x27;@angular/common&#x27;;
+
+registerLocaleData(localeEs);
+
+export const DD_MM_YYYY_FORMAT &#x3D; {
+  parse: {
+    dateInput: &#x27;DD/MM/YYYY&#x27;,
+  },
+  display: {
+    dateInput: &#x27;DD/MM/YYYY&#x27;,
+    monthYearLabel: &#x27;MMM YYYY&#x27;,
+    dateA11yLabel: &#x27;LL&#x27;,
+    monthYearA11yLabel: &#x27;MMMM YYYY&#x27;,
+  },
+};
+
+@Component({
+  selector: &#x27;app-crear-clase&#x27;,
+  templateUrl: &#x27;./crear-clase.page.html&#x27;,
+  styleUrls: [&#x27;./crear-clase.page.scss&#x27;],
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    InstructorPopoverComponent
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: &#x27;es-ES&#x27; },
+    { provide: MAT_DATE_FORMATS, useValue: DD_MM_YYYY_FORMAT }
+  ]
+})
+export class CrearClasePage implements OnInit {
+  claseForm: FormGroup;
+  tipoClase: string &#x3D; &#x27;fija&#x27;;
+  instructores: User[] &#x3D; [];
+  isAdmin &#x3D; false;
+  isMaestro &#x3D; false;
+  minDate &#x3D; new Date();
+  diasSemana &#x3D; [
+    { id: &#x27;Lunes&#x27;, nombre: &#x27;Lunes&#x27; },
+    { id: &#x27;Martes&#x27;, nombre: &#x27;Martes&#x27; },
+    { id: &#x27;Miércoles&#x27;, nombre: &#x27;Miércoles&#x27; },
+    { id: &#x27;Jueves&#x27;, nombre: &#x27;Jueves&#x27; },
+    { id: &#x27;Viernes&#x27;, nombre: &#x27;Viernes&#x27; },
+    { id: &#x27;Sábado&#x27;, nombre: &#x27;Sábado&#x27; },
+    { id: &#x27;Domingo&#x27;, nombre: &#x27;Domingo&#x27; }
+  ];
+  instructorSeleccionado: User | null &#x3D; null;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private alertController: AlertController,
+    private loadingController: LoadingController,
+    private authService: AuthService,
+    private userService: UserService,
+    private popoverController: PopoverController,
+    private http: HttpClient,
+    private toastController: ToastController
+  ) {
+    addIcons({ calendarOutline, timeOutline, personOutline, saveOutline });
+    this.claseForm &#x3D; this.formBuilder.group({
+      titulo: [&#x27;&#x27;, [Validators.required]],
+      descripcion: [&#x27;&#x27;],
+      tipoClase: [&#x27;fija&#x27;, [Validators.required]],
+      diasSeleccionados: [[], [Validators.required]],
+      fecha: [&#x27;&#x27;],
+      horaInicio: [&#x27;&#x27;, [
+        Validators.required,
+        Validators.pattern(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)
+      ]],
+      horaFin: [&#x27;&#x27;, [
+        Validators.required,
+        Validators.pattern(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/)
+      ]],
+      maxPlazas: [10, [Validators.required, Validators.min(1)]],
+      instructor: [null, [Validators.required]]
+    });
+
+    // Suscribirse a cambios en el tipo de clase
+    this.claseForm.get(&#x27;tipoClase&#x27;)?.valueChanges.subscribe(tipo &#x3D;&gt; {
+      this.tipoClase &#x3D; tipo;
+      if (tipo &#x3D;&#x3D;&#x3D; &#x27;fija&#x27;) {
+        this.claseForm.get(&#x27;fecha&#x27;)?.clearValidators();
+        this.claseForm.get(&#x27;diasSeleccionados&#x27;)?.setValidators([Validators.required]);
+      } else {
+        this.claseForm.get(&#x27;diasSeleccionados&#x27;)?.clearValidators();
+        this.claseForm.get(&#x27;fecha&#x27;)?.setValidators([Validators.required]);
+      }
+      this.claseForm.get(&#x27;fecha&#x27;)?.updateValueAndValidity();
+      this.claseForm.get(&#x27;diasSeleccionados&#x27;)?.updateValueAndValidity();
+    });
+  }
+
+  async ngOnInit() {
+    const user &#x3D; this.authService.getUser();
+    this.isAdmin &#x3D; user?.role &#x3D;&#x3D;&#x3D; &#x27;admin&#x27;;
+    this.isMaestro &#x3D; user?.role &#x3D;&#x3D;&#x3D; &#x27;maestro&#x27;;
+    if (user?.nombre) {
+      this.claseForm.patchValue({
+        instructor: user.nombre
+      });
+    }
+    this.limpiarFormulario();
+    await this.cargarInstructores();
+  }
+
+  async cargarInstructores() {
+    try {
+      const instructores &#x3D; await firstValueFrom(this.userService.getUsers());
+      this.instructores &#x3D; instructores.filter(user &#x3D;&gt; 
+        user.role &#x3D;&#x3D;&#x3D; &#x27;instructor&#x27; || user.role &#x3D;&#x3D;&#x3D; &#x27;maestro&#x27;
+      );
+    } catch (error) {
+      console.error(&#x27;Error al cargar instructores:&#x27;, error);
+    }
+  }
+
+  async mostrarSelectorInstructor(ev: any) {
+    const popover &#x3D; await this.popoverController.create({
+      component: InstructorPopoverComponent,
+      event: ev,
+      translucent: true,
+      cssClass: &#x27;instructor-popover&#x27;,
+      componentProps: {
+        instructores: this.instructores
+      }
+    });
+
+    await popover.present();
+
+    const { data } &#x3D; await popover.onDidDismiss();
+    if (data) {
+      this.claseForm.patchValue({
+        instructor: data._id
+      });
+      this.instructorSeleccionado &#x3D; data;
+    }
+  }
+
+  incrementarHora(campo: string) {
+    const valorActual &#x3D; this.claseForm.get(campo)?.value || &#x27;00:00&#x27;;
+    const [horas, minutos] &#x3D; valorActual.split(&#x27;:&#x27;).map(Number);
+    const nuevaHora &#x3D; (horas + 1) % 24;
+    this.claseForm.get(campo)?.setValue(&#x60;${nuevaHora.toString().padStart(2, &#x27;0&#x27;)}:${minutos.toString().padStart(2, &#x27;0&#x27;)}&#x60;);
+  }
+
+  decrementarHora(campo: string) {
+    const valorActual &#x3D; this.claseForm.get(campo)?.value || &#x27;00:00&#x27;;
+    const [horas, minutos] &#x3D; valorActual.split(&#x27;:&#x27;).map(Number);
+    const nuevaHora &#x3D; (horas - 1 + 24) % 24;
+    this.claseForm.get(campo)?.setValue(&#x60;${nuevaHora.toString().padStart(2, &#x27;0&#x27;)}:${minutos.toString().padStart(2, &#x27;0&#x27;)}&#x60;);
+  }
+
+  incrementarMinuto(campo: string) {
+    const valorActual &#x3D; this.claseForm.get(campo)?.value || &#x27;00:00&#x27;;
+    const [horas, minutos] &#x3D; valorActual.split(&#x27;:&#x27;).map(Number);
+    const nuevoMinuto &#x3D; (minutos + 1) % 60;
+    this.claseForm.get(campo)?.setValue(&#x60;${horas.toString().padStart(2, &#x27;0&#x27;)}:${nuevoMinuto.toString().padStart(2, &#x27;0&#x27;)}&#x60;);
+  }
+
+  decrementarMinuto(campo: string) {
+    const valorActual &#x3D; this.claseForm.get(campo)?.value || &#x27;00:00&#x27;;
+    const [horas, minutos] &#x3D; valorActual.split(&#x27;:&#x27;).map(Number);
+    const nuevoMinuto &#x3D; (minutos - 1 + 60) % 60;
+    this.claseForm.get(campo)?.setValue(&#x60;${horas.toString().padStart(2, &#x27;0&#x27;)}:${nuevoMinuto.toString().padStart(2, &#x27;0&#x27;)}&#x60;);
+  }
+
+  toggleDia(diaId: string) {
+    const diasSeleccionados &#x3D; this.claseForm.get(&#x27;diasSeleccionados&#x27;)?.value || [];
+    const index &#x3D; diasSeleccionados.indexOf(diaId);
+    
+    if (index &#x3D;&#x3D;&#x3D; -1) {
+      diasSeleccionados.push(diaId);
+    } else {
+      diasSeleccionados.splice(index, 1);
+    }
+    
+    this.claseForm.patchValue({ diasSeleccionados });
+  }
+
+  isDiaSeleccionado(diaId: string): boolean {
+    const diasSeleccionados &#x3D; this.claseForm.get(&#x27;diasSeleccionados&#x27;)?.value || [];
+    return diasSeleccionados.includes(diaId);
+  }
+
+  // Función para capitalizar la primera letra de cada palabra
+  private capitalizarPrimeraLetra(texto: string): string {
+    return texto.charAt(0).toUpperCase() + texto.slice(1).toLowerCase();
+  }
+
+  async onSubmit() {
+    if (this.claseForm.valid) {
+      const loading &#x3D; await this.loadingController.create({
+        message: &#x27;Creando clase...&#x27;
+      });
+      await loading.present();
+
+      try {
+        const formData &#x3D; this.claseForm.value;
+        console.log(&#x27;Datos del formulario:&#x27;, formData);
+        
+        // Validar que tenemos un instructor seleccionado
+        if (!formData.instructor) {
+          throw new Error(&#x27;Debes seleccionar un instructor&#x27;);
+        }
+
+        // Preparar los datos según el tipo de clase
+        const claseData: any &#x3D; {
+          titulo: formData.titulo,
+          descripcion: formData.descripcion || &#x27;&#x27;,
+          horaInicio: formData.horaInicio,
+          horaFin: formData.horaFin,
+          maxPlazas: parseInt(formData.maxPlazas) || 10,
+          instructor: formData.instructor
+        };
+
+        // Añadir diaSemana o fecha según el tipo de clase
+        if (formData.tipoClase &#x3D;&#x3D;&#x3D; &#x27;fija&#x27;) {
+          if (!formData.diasSeleccionados || formData.diasSeleccionados.length &#x3D;&#x3D;&#x3D; 0) {
+            throw new Error(&#x27;Debes seleccionar al menos un día de la semana&#x27;);
+          }
+          // Crear una clase para cada día seleccionado
+          const clasesPromises &#x3D; formData.diasSeleccionados.map((dia: string) &#x3D;&gt; {
+            const clasePorDia &#x3D; {
+              ...claseData,
+              diaSemana: dia
+            };
+            return firstValueFrom(this.http.post(&#x60;${environment.apiUrl}/clases&#x60;, clasePorDia));
+          });
+
+          const responses &#x3D; await Promise.all(clasesPromises);
+          console.log(&#x27;Clases creadas:&#x27;, responses);
+
+          await loading.dismiss();
+          
+          const toast &#x3D; await this.toastController.create({
+            message: &#x60;Se han creado ${responses.length} clases correctamente&#x60;,
+            duration: 2000,
+            position: &#x27;middle&#x27;,
+            color: &#x27;success&#x27;,
+            cssClass: &#x27;toast-top&#x27;,
+            buttons: []
+          });
+          await toast.present();
+          
+          this.limpiarFormulario();
+          this.router.navigate([&#x27;/mestre-portal&#x27;]);
+        } else {
+          // Clase especial
+          if (!formData.fecha) {
+            throw new Error(&#x27;Debes seleccionar una fecha para la clase especial&#x27;);
+          }
+          const claseEspecial &#x3D; {
+            ...claseData,
+            fecha: formData.fecha
+          };
+          const response &#x3D; await firstValueFrom(this.http.post(&#x60;${environment.apiUrl}/clases&#x60;, claseEspecial));
+          console.log(&#x27;Clase especial creada:&#x27;, response);
+
+          await loading.dismiss();
+          
+          const toast &#x3D; await this.toastController.create({
+            message: &#x27;Clase especial creada correctamente&#x27;,
+            duration: 2000,
+            position: &#x27;middle&#x27;,
+            color: &#x27;success&#x27;,
+            cssClass: &#x27;toast-top&#x27;,
+            buttons: []
+          });
+          await toast.present();
+          
+          this.limpiarFormulario();
+          this.router.navigate([&#x27;/mestre-portal&#x27;]);
+        }
+      } catch (error: any) {
+        await loading.dismiss();
+        console.error(&#x27;Error al crear la clase:&#x27;, error);
+        console.error(&#x27;Detalles del error:&#x27;, error.error);
+        
+        const alert &#x3D; await this.alertController.create({
+          header: &#x27;Error&#x27;,
+          message: error.error?.message || error.message || &#x27;No se pudo crear la clase. Por favor, inténtalo de nuevo.&#x27;,
+          buttons: [&#x27;OK&#x27;]
+        });
+        await alert.present();
+      }
+    } else {
+      console.log(&#x27;Formulario inválido:&#x27;, this.claseForm.errors);
+      console.log(&#x27;Estado del formulario:&#x27;, this.claseForm.getRawValue());
+    }
+  }
+
+  private limpiarFormulario() {
+    this.claseForm.reset({
+      tipoClase: &#x27;fija&#x27;,
+      maxPlazas: 10
+    });
+    this.instructorSeleccionado &#x3D; null;
+    this.tipoClase &#x3D; &#x27;fija&#x27;;
+  }
+
+  obtenerNombreInstructor(): string {
+    if (this.instructorSeleccionado) {
+      return &#x60;${this.instructorSeleccionado.nombre} ${this.instructorSeleccionado.apellido1}&#x60;;
+    }
+    return &#x27;Seleccionar Instructor&#x27;;
+  }
+} </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;login-background&quot;&gt;
+    &lt;div class&#x3D;&quot;backdrop-logo&quot;&gt;&lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;ion-padding&quot;&gt;
+        &lt;div class&#x3D;&quot;header-section&quot;&gt;
+            &lt;ion-buttons slot&#x3D;&quot;start&quot;&gt;
+                &lt;ion-back-button defaultHref&#x3D;&quot;/mestre-portal&quot; text&#x3D;&quot;&quot;&gt;&lt;/ion-back-button&gt;
+            &lt;/ion-buttons&gt;
+            &lt;h1 class&#x3D;&quot;welcome-title&quot;&gt;Crear Nueva Clase&lt;/h1&gt;
+        &lt;/div&gt;
+
+        &lt;form [formGroup]&#x3D;&quot;claseForm&quot; (ngSubmit)&#x3D;&quot;onSubmit()&quot; class&#x3D;&quot;create-form&quot;&gt;
+            &lt;ion-list&gt;
+                &lt;!-- Nombre de la clase --&gt;
+                &lt;ion-item&gt;
+                    &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Título de la Clase&lt;/ion-label&gt;
+                    &lt;ion-input formControlName&#x3D;&quot;titulo&quot; type&#x3D;&quot;text&quot; placeholder&#x3D;&quot;Ej: Jiu-Jitsu Básico&quot;&gt;&lt;/ion-input&gt;
+                &lt;/ion-item&gt;
+
+                &lt;!-- Descripción --&gt;
+                &lt;ion-item&gt;
+                    &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Descripción&lt;/ion-label&gt;
+                    &lt;ion-textarea formControlName&#x3D;&quot;descripcion&quot; placeholder&#x3D;&quot;Describe la clase...&quot;&gt;&lt;/ion-textarea&gt;
+                &lt;/ion-item&gt;
+
+                &lt;!-- Tipo de Clase --&gt;
+                &lt;ion-item&gt;
+                    &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Tipo de Clase: &lt;/ion-label&gt;
+                    &lt;ion-segment formControlName&#x3D;&quot;tipoClase&quot; class&#x3D;&quot;tipo-clase-segment&quot;&gt;
+                        &lt;ion-segment-button value&#x3D;&quot;fija&quot;&gt;
+                            &lt;ion-label&gt;Fija&lt;/ion-label&gt;
+                        &lt;/ion-segment-button&gt;
+                        &lt;ion-segment-button value&#x3D;&quot;especial&quot;&gt;
+                            &lt;ion-label&gt;Especial&lt;/ion-label&gt;
+                        &lt;/ion-segment-button&gt;
+                    &lt;/ion-segment&gt;
+                &lt;/ion-item&gt;
+
+                &lt;!-- Sección para clase fija --&gt;
+                &lt;ng-container *ngIf&#x3D;&quot;tipoClase &#x3D;&#x3D;&#x3D; &#x27;fija&#x27;&quot;&gt;
+                    &lt;ion-item&gt;
+                        &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Días de la Semana&lt;/ion-label&gt;
+                        &lt;div class&#x3D;&quot;dias-chips-container&quot;&gt;
+                            &lt;ion-chip *ngFor&#x3D;&quot;let dia of diasSemana&quot;
+                                [color]&#x3D;&quot;isDiaSeleccionado(dia.id) ? &#x27;primary&#x27; : &#x27;medium&#x27;&quot;
+                                (click)&#x3D;&quot;toggleDia(dia.id)&quot; 
+                                [class.selected]&#x3D;&quot;isDiaSeleccionado(dia.id)&quot;&gt;
+                                {{dia.nombre}}
+                            &lt;/ion-chip&gt;
+                        &lt;/div&gt;
+                    &lt;/ion-item&gt;
+                &lt;/ng-container&gt;
+
+                &lt;!-- Sección para clase especial --&gt;
+                &lt;ng-container *ngIf&#x3D;&quot;tipoClase &#x3D;&#x3D;&#x3D; &#x27;especial&#x27;&quot;&gt;
+                    &lt;ion-item&gt;
+                        &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Fecha&lt;/ion-label&gt;
+                        &lt;mat-form-field appearance&#x3D;&quot;fill&quot; class&#x3D;&quot;custom-mat-field&quot;&gt;
+                            &lt;mat-datepicker-toggle matSuffix [for]&#x3D;&quot;picker&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+                            &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt;
+                            &lt;input matInput
+                                [matDatepicker]&#x3D;&quot;picker&quot;
+                                formControlName&#x3D;&quot;fecha&quot;
+                                [min]&#x3D;&quot;minDate&quot;
+                                placeholder&#x3D;&quot;Selecciona una fecha&quot;&gt;
+                        &lt;/mat-form-field&gt;
+                    &lt;/ion-item&gt;
+                &lt;/ng-container&gt;
+
+                &lt;!-- Hora de Inicio --&gt;
+                &lt;ion-item&gt;
+                    &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Hora de Inicio&lt;/ion-label&gt;
+                    &lt;div class&#x3D;&quot;time-control&quot;&gt;
+                        &lt;div class&#x3D;&quot;time-buttons&quot;&gt;
+                            &lt;ion-button fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;incrementarHora(&#x27;horaInicio&#x27;)&quot;&gt;
+                                &lt;ion-icon name&#x3D;&quot;chevron-up-outline&quot;&gt;&lt;/ion-icon&gt;
+                            &lt;/ion-button&gt;
+                            &lt;ion-button fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;decrementarHora(&#x27;horaInicio&#x27;)&quot;&gt;
+                                &lt;ion-icon name&#x3D;&quot;chevron-down-outline&quot;&gt;&lt;/ion-icon&gt;
+                            &lt;/ion-button&gt;
+                        &lt;/div&gt;
+                        &lt;ion-input formControlName&#x3D;&quot;horaInicio&quot; type&#x3D;&quot;text&quot; placeholder&#x3D;&quot;HH:mm&quot;&gt;&lt;/ion-input&gt;
+                        &lt;div class&#x3D;&quot;time-buttons&quot;&gt;
+                            &lt;ion-button fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;incrementarMinuto(&#x27;horaInicio&#x27;)&quot;&gt;
+                                &lt;ion-icon name&#x3D;&quot;chevron-up-outline&quot;&gt;&lt;/ion-icon&gt;
+                            &lt;/ion-button&gt;
+                            &lt;ion-button fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;decrementarMinuto(&#x27;horaInicio&#x27;)&quot;&gt;
+                                &lt;ion-icon name&#x3D;&quot;chevron-down-outline&quot;&gt;&lt;/ion-icon&gt;
+                            &lt;/ion-button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/ion-item&gt;
+                &lt;ion-note color&#x3D;&quot;danger&quot; *ngIf&#x3D;&quot;claseForm.get(&#x27;horaInicio&#x27;)?.errors?.[&#x27;pattern&#x27;]&quot;&gt;
+                    Formato de hora inválido. Use HH:mm (ej: 09:30)
+                &lt;/ion-note&gt;
+
+                &lt;!-- Hora de Fin --&gt;
+                &lt;ion-item&gt;
+                    &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Hora de Fin&lt;/ion-label&gt;
+                    &lt;div class&#x3D;&quot;time-control&quot;&gt;
+                        &lt;div class&#x3D;&quot;time-buttons&quot;&gt;
+                            &lt;ion-button fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;incrementarHora(&#x27;horaFin&#x27;)&quot;&gt;
+                                &lt;ion-icon name&#x3D;&quot;chevron-up-outline&quot;&gt;&lt;/ion-icon&gt;
+                            &lt;/ion-button&gt;
+                            &lt;ion-button fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;decrementarHora(&#x27;horaFin&#x27;)&quot;&gt;
+                                &lt;ion-icon name&#x3D;&quot;chevron-down-outline&quot;&gt;&lt;/ion-icon&gt;
+                            &lt;/ion-button&gt;
+                        &lt;/div&gt;
+                        &lt;ion-input formControlName&#x3D;&quot;horaFin&quot; type&#x3D;&quot;text&quot; placeholder&#x3D;&quot;HH:mm&quot;&gt;&lt;/ion-input&gt;
+                        &lt;div class&#x3D;&quot;time-buttons&quot;&gt;
+                            &lt;ion-button fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;incrementarMinuto(&#x27;horaFin&#x27;)&quot;&gt;
+                                &lt;ion-icon name&#x3D;&quot;chevron-up-outline&quot;&gt;&lt;/ion-icon&gt;
+                            &lt;/ion-button&gt;
+                            &lt;ion-button fill&#x3D;&quot;clear&quot; (click)&#x3D;&quot;decrementarMinuto(&#x27;horaFin&#x27;)&quot;&gt;
+                                &lt;ion-icon name&#x3D;&quot;chevron-down-outline&quot;&gt;&lt;/ion-icon&gt;
+                            &lt;/ion-button&gt;
+                        &lt;/div&gt;
+                    &lt;/div&gt;
+                &lt;/ion-item&gt;
+                &lt;ion-note color&#x3D;&quot;danger&quot; *ngIf&#x3D;&quot;claseForm.get(&#x27;horaFin&#x27;)?.errors?.[&#x27;pattern&#x27;]&quot;&gt;
+                    Formato de hora inválido. Use HH:mm (ej: 09:30)
+                &lt;/ion-note&gt;
+
+                &lt;!-- Instructor --&gt;
+                &lt;ion-item&gt;
+                    &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Instructor&lt;/ion-label&gt;
+                &lt;/ion-item&gt;
+                &lt;ion-button expand&#x3D;&quot;block&quot; fill&#x3D;&quot;outline&quot; (click)&#x3D;&quot;mostrarSelectorInstructor($event)&quot; class&#x3D;&quot;instructor-button&quot;&gt;
+                    {{ obtenerNombreInstructor() }}
+                &lt;/ion-button&gt;
+
+                &lt;!-- Máximo de Plazas --&gt;
+                &lt;ion-item&gt;
+                    &lt;ion-label position&#x3D;&quot;stacked&quot;&gt;Máximo de Plazas&lt;/ion-label&gt;
+                    &lt;ion-input formControlName&#x3D;&quot;maxPlazas&quot; type&#x3D;&quot;number&quot; min&#x3D;&quot;1&quot;&gt;&lt;/ion-input&gt;
+                &lt;/ion-item&gt;
+
+                &lt;!-- Botón de Submit --&gt;
+                &lt;div class&#x3D;&quot;submit-button-container&quot;&gt;
+                    &lt;ion-button expand&#x3D;&quot;block&quot; type&#x3D;&quot;submit&quot; [disabled]&#x3D;&quot;!claseForm.valid&quot; class&#x3D;&quot;submit-button&quot;&gt;
+                        &lt;ion-icon name&#x3D;&quot;save-outline&quot; slot&#x3D;&quot;start&quot;&gt;&lt;/ion-icon&gt;
+                        Crear Clase
+                    &lt;/ion-button&gt;
+                &lt;/div&gt;
+            &lt;/ion-list&gt;
+        &lt;/form&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./crear-clase.page.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.login-background {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    padding-top: 2rem;
+    overflow-y: auto;
+  }
+  
+  .backdrop-logo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(&#x27;/assets/logoCuadradoPNG.png&#x27;);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.15;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+.header-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+
+  ion-back-button {
+    --color: white;
+  }
+
+  .welcome-title {
+    color: white;
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    margin-left: 10px;
+  }
+}
+
+.create-form {
+  padding: 16px;
+  padding-bottom: 120px;
+  max-width: 600px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  ion-item {
+    --background: transparent;
+    --border-color: var(--ion-color-light);
+    --border-radius: 8px;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --inner-padding-end: 16px;
+    margin-bottom: 16px;
+
+    &amp;.item-has-focus {
+      --border-color: var(--ion-color-primary);
+    }
+  }
+
+  ion-button {
+    --border-radius: 8px;
+    margin-top: 20px;
+    height: 48px;
+    font-weight: 500;
+  }
+
+  ion-button.submit-button {
+    margin: 48px 0;
+    width: 90%;
+    max-width: 400px;
+    --border-radius: 8px;
+    height: 48px;
+    font-weight: 500;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+    &amp;:hover {
+      --background: var(--ion-color-primary-shade);
+    }
+  }
+}
+
+.section-container {
+  background: rgba(42, 82, 152, 0.05);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.time-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+
+  .time-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  ion-button {
+    --padding-start: 4px;
+    --padding-end: 4px;
+    height: 24px;
+    margin: 0;
+  }
+
+  ion-input {
+    flex: 1;
+    text-align: center;
+    --padding-start: 8px;
+    --padding-end: 8px;
+  }
+}
+
+.form-actions {
+  margin-top: 20px;
+
+  ion-button {
+    --background: #1e3c72;
+    --background-hover: #2a5298;
+    --background-activated: #2a5298;
+    --border-radius: 10px;
+    font-weight: 600;
+    height: 48px;
+
+    ion-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+ion-segment {
+  --background: rgba(42, 82, 152, 0.1);
+  border-radius: 8px;
+  padding: 4px;
+
+  ion-segment-button {
+    --color: #1e3c72;
+    --color-checked: white;
+    --background-checked: #1e3c72;
+    --indicator-color: transparent;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+}
+
+ion-select {
+  --placeholder-color: #1e3c72;
+  --placeholder-opacity: 0.7;
+}
+
+.tipo-clase-segment {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+
+  ion-segment-button {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+.custom-mat-field {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
+  ::ng-deep {
+    .mat-form-field-wrapper {
+      margin: 0;
+      padding: 0;
+    }
+
+    .mat-form-field-flex {
+      background: transparent;
+      padding: 0;
+    }
+
+    .mat-form-field-underline {
+      display: none;
+    }
+
+    .mat-form-field-infix {
+      padding: 0;
+      border: none;
+    }
+
+    .mat-form-field-suffix {
+      top: 0;
+    }
+
+    .mat-datepicker-toggle {
+      color: #153ae0;
+    }
+  }
+}
+
+.login-background {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  padding-top: 2rem;
+  overflow-y: auto;
+}
+
+.header-section {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 1rem 0 0.5rem 0;
+  margin-bottom: 3rem;
+  position: relative;
+
+  ion-buttons {
+    margin: 0;
+    padding: 0;
+    height: 24px;
+    margin-left: 0.5rem;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+
+    ion-back-button {
+      --background: #153ae0;
+      --color: white;
+      --opacity: 1;
+      --padding-start: 0;
+      --padding-end: 0;
+      --min-width: 24px;
+      --min-height: 24px;
+      --icon-font-size: 24px;
+      --icon-margin-start: 0;
+      --icon-margin-end: 0;
+      --icon-padding-start: 0;
+      --icon-padding-end: 0;
+      border-radius: 4px;
+      --background-hover: #153ae0;
+      --background-activated: #153ae0;
+      --background-focused: #153ae0;
+      --ripple-color: transparent;
+      --border-radius: 4px;
+      --box-shadow: none;
+    }
+
+    ion-back-button::part(native) {
+      background: #153ae0;
+      color: white;
+      border-radius: 4px;
+    }
+  }
+
+  .welcome-title {
+    text-align: center;
+    margin: 0;
+    font-size: 1.5rem;
+    color: #153ae0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: auto;
+  }
+}
+
+.create-form {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  ion-list {
+    background: transparent;
+    padding: 0;
+  }
+
+  ion-item {
+    --background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 1rem;
+
+    ion-label {
+      color: #153ae0;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
+    ion-input, ion-textarea, ion-select, ion-datetime {
+      --padding-start: 0;
+      --padding-end: 0;
+      --color: #333;
+      font-size: 1rem;
+    }
+
+    ion-select {
+      --padding-end: 40px;
+      --padding-start: 16px;
+      --icon-margin-end: 0;
+      --icon-margin-start: 0;
+      --icon-color: #153ae0;
+      --icon-opacity: 1;
+      position: relative;
+      width: 100%;
+
+      &amp;::part(icon) {
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: 0;
+      }
+
+      &amp;::part(placeholder),
+      &amp;::part(text) {
+        color: #333;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+.form-actions {
+  margin-top: 2rem;
+  padding: 0 1rem;
+  padding-bottom: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ion-button {
+    --background: #153ae0;
+    --background-hover: #153ae0;
+    --background-activated: #153ae0;
+    --background-focused: #153ae0;
+    --color: white;
+    --border-radius: 8px;
+    --box-shadow: none;
+    margin: 0;
+    height: 48px;
+    font-weight: 500;
+    width: 100%;
+    max-width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3rem;
+
+    &amp;[disabled] {
+      --background: #ccc;
+      --color: #666;
+    }
+
+    ion-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
+.dias-checkbox-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 8px 0;
+
+  ion-checkbox {
+    --size: 20px;
+    --checkbox-background-checked: var(--ion-color-primary);
+    --border-color: var(--ion-color-medium);
+    --border-color-checked: var(--ion-color-primary);
+    --checkmark-color: transparent;
+    margin-right: 8px;
+  }
+}
+
+.dias-chips-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  padding: 8px 0;
+
+  ion-chip {
+    --background: var(--ion-color-light);
+    --color: var(--ion-color-medium);
+    font-size: 14px;
+    height: 32px;
+    margin: 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+    border: 2px solid var(--ion-color-light);
+    padding-top: 3px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    justify-content: center;
+
+    &amp;:hover {
+      opacity: 0.8;
+    }
+
+    &amp;.selected {
+      --background: var(--ion-color-primary);
+      --color: white;
+      border-color: var(--ion-color-primary);
+      font-weight: 500;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
+ion-content {
+  --padding-top: 16px;
+  --padding-bottom: 32px;
+  --overflow: auto;
+}
+
+ion-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+::ng-deep {
+  .instructor-popover {
+    --width: 90%;
+    --max-width: 400px;
+    --background: white;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0;
+    padding: 1rem;
+    background: white;
+    overflow: hidden;
+    border-radius: 12px;
+
+    ion-list {
+      padding: 0;
+      margin: 0;
+    }
+
+    ion-item {
+      --min-height: 48px;
+      --background: transparent;
+      --background-hover: var(--ion-color-light);
+      --color: var(--ion-color-dark);
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0.5rem;
+
+      &amp;:hover {
+        --background: var(--ion-color-light);
+      }
+    }
+  }
+}
+
+.instructor-button {
+  margin: 0 16px 16px;
+  --border-color: var(--ion-color-medium);
+  --color: var(--ion-color-medium);
+  font-weight: 500;
+  height: 48px;
+  
+  &amp;:hover {
+    --border-color: var(--ion-color-primary);
+    --color: var(--ion-color-primary);
+  }
+}
+
+.toast-top {
+  --top: 120px !important;
+  --min-width: 90%;
+  --max-width: 90%;
+  --border-radius: 8px;
+  --box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.submit-button-container {
+  margin-top: -20px;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  padding-bottom: 3rem;
+
+  .submit-button {
+    width: 90%;
+    max-width: 400px;
+    --border-radius: 8px;
+    height: 48px;
+    font-weight: 500;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding-bottom: 2rem;
+    
+    &amp;:hover {
+      --background: var(--ion-color-primary-shade);
+    }
+  }
+} </code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="login-background">    <div class="backdrop-logo"></div>    <div class="ion-padding">        <div class="header-section">            <ion-buttons slot="start">                <ion-back-button defaultHref="/mestre-portal" text=""></ion-back-button>            </ion-buttons>            <h1 class="welcome-title">Crear Nueva Clase</h1>        </div>        <form [formGroup]="claseForm" (ngSubmit)="onSubmit()" class="create-form">            <ion-list>                <!-- Nombre de la clase -->                <ion-item>                    <ion-label position="stacked">Título de la Clase</ion-label>                    <ion-input formControlName="titulo" type="text" placeholder="Ej: Jiu-Jitsu Básico"></ion-input>                </ion-item>                <!-- Descripción -->                <ion-item>                    <ion-label position="stacked">Descripción</ion-label>                    <ion-textarea formControlName="descripcion" placeholder="Describe la clase..."></ion-textarea>                </ion-item>                <!-- Tipo de Clase -->                <ion-item>                    <ion-label position="stacked">Tipo de Clase: </ion-label>                    <ion-segment formControlName="tipoClase" class="tipo-clase-segment">                        <ion-segment-button value="fija">                            <ion-label>Fija</ion-label>                        </ion-segment-button>                        <ion-segment-button value="especial">                            <ion-label>Especial</ion-label>                        </ion-segment-button>                    </ion-segment>                </ion-item>                <!-- Sección para clase fija -->                <ng-container *ngIf="tipoClase === \'fija\'">                    <ion-item>                        <ion-label position="stacked">Días de la Semana</ion-label>                        <div class="dias-chips-container">                            <ion-chip *ngFor="let dia of diasSemana"                                [color]="isDiaSeleccionado(dia.id) ? \'primary\' : \'medium\'"                                (click)="toggleDia(dia.id)"                                 [class.selected]="isDiaSeleccionado(dia.id)">                                {{dia.nombre}}                            </ion-chip>                        </div>                    </ion-item>                </ng-container>                <!-- Sección para clase especial -->                <ng-container *ngIf="tipoClase === \'especial\'">                    <ion-item>                        <ion-label position="stacked">Fecha</ion-label>                        <mat-form-field appearance="fill" class="custom-mat-field">                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>                            <mat-datepicker #picker></mat-datepicker>                            <input matInput                                [matDatepicker]="picker"                                formControlName="fecha"                                [min]="minDate"                                placeholder="Selecciona una fecha">                        </mat-form-field>                    </ion-item>                </ng-container>                <!-- Hora de Inicio -->                <ion-item>                    <ion-label position="stacked">Hora de Inicio</ion-label>                    <div class="time-control">                        <div class="time-buttons">                            <ion-button fill="clear" (click)="incrementarHora(\'horaInicio\')">                                <ion-icon name="chevron-up-outline"></ion-icon>                            </ion-button>                            <ion-button fill="clear" (click)="decrementarHora(\'horaInicio\')">                                <ion-icon name="chevron-down-outline"></ion-icon>                            </ion-button>                        </div>                        <ion-input formControlName="horaInicio" type="text" placeholder="HH:mm"></ion-input>                        <div class="time-buttons">                            <ion-button fill="clear" (click)="incrementarMinuto(\'horaInicio\')">                                <ion-icon name="chevron-up-outline"></ion-icon>                            </ion-button>                            <ion-button fill="clear" (click)="decrementarMinuto(\'horaInicio\')">                                <ion-icon name="chevron-down-outline"></ion-icon>                            </ion-button>                        </div>                    </div>                </ion-item>                <ion-note color="danger" *ngIf="claseForm.get(\'horaInicio\')?.errors?.[\'pattern\']">                    Formato de hora inválido. Use HH:mm (ej: 09:30)                </ion-note>                <!-- Hora de Fin -->                <ion-item>                    <ion-label position="stacked">Hora de Fin</ion-label>                    <div class="time-control">                        <div class="time-buttons">                            <ion-button fill="clear" (click)="incrementarHora(\'horaFin\')">                                <ion-icon name="chevron-up-outline"></ion-icon>                            </ion-button>                            <ion-button fill="clear" (click)="decrementarHora(\'horaFin\')">                                <ion-icon name="chevron-down-outline"></ion-icon>                            </ion-button>                        </div>                        <ion-input formControlName="horaFin" type="text" placeholder="HH:mm"></ion-input>                        <div class="time-buttons">                            <ion-button fill="clear" (click)="incrementarMinuto(\'horaFin\')">                                <ion-icon name="chevron-up-outline"></ion-icon>                            </ion-button>                            <ion-button fill="clear" (click)="decrementarMinuto(\'horaFin\')">                                <ion-icon name="chevron-down-outline"></ion-icon>                            </ion-button>                        </div>                    </div>                </ion-item>                <ion-note color="danger" *ngIf="claseForm.get(\'horaFin\')?.errors?.[\'pattern\']">                    Formato de hora inválido. Use HH:mm (ej: 09:30)                </ion-note>                <!-- Instructor -->                <ion-item>                    <ion-label position="stacked">Instructor</ion-label>                </ion-item>                <ion-button expand="block" fill="outline" (click)="mostrarSelectorInstructor($event)" class="instructor-button">                    {{ obtenerNombreInstructor() }}                </ion-button>                <!-- Máximo de Plazas -->                <ion-item>                    <ion-label position="stacked">Máximo de Plazas</ion-label>                    <ion-input formControlName="maxPlazas" type="number" min="1"></ion-input>                </ion-item>                <!-- Botón de Submit -->                <div class="submit-button-container">                    <ion-button expand="block" type="submit" [disabled]="!claseForm.valid" class="submit-button">                        <ion-icon name="save-outline" slot="start"></ion-icon>                        Crear Clase                    </ion-button>                </div>            </ion-list>        </form>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ChatPage', 'selector': 'app-chat'},{'name': 'CrearClasePage', 'selector': 'app-crear-clase'},{'name': 'EditarUsuarioPage', 'selector': 'app-editar-usuario'},{'name': 'ForgotPasswordPage', 'selector': 'app-forgot-password'},{'name': 'HomePage', 'selector': 'app-home'},{'name': 'InstructorPopoverComponent', 'selector': 'app-instructor-popover'},{'name': 'LoginPage', 'selector': 'app-login'},{'name': 'MestrePortalPage', 'selector': 'app-mestre-portal'},{'name': 'ModificarUsuarioPage', 'selector': 'app-modificar-usuario'},{'name': 'PasarListaPage', 'selector': 'app-pasar-lista'},{'name': 'PerfilPage', 'selector': 'app-perfil'},{'name': 'PruebaPage', 'selector': 'app-prueba'},{'name': 'RegisterPage', 'selector': 'app-register'},{'name': 'ReservasPage', 'selector': 'app-reservas'},{'name': 'ResetPasswordPage', 'selector': 'app-reset-password'},{'name': 'SuscripcionesPage', 'selector': 'app-suscripciones'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CrearClasePage'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CrearClasePage.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
