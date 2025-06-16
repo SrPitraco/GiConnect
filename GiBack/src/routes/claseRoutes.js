@@ -341,4 +341,72 @@ router.post('/generar-semana', [authJwt.verifyToken, authJwt.isMaestroOrAdmin], 
  */
 router.get('/para-pasar-lista', verificarToken, esMaestro, claseController.getClasesParaPasarLista);
 
+/**
+ * @swagger
+ * /api/clases/especiales:
+ *   get:
+ *     summary: Obtiene las clases especiales hasta una fecha específica
+ *     tags: [Clases]
+ *     parameters:
+ *       - in: query
+ *         name: fecha
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: Fecha límite para buscar clases especiales
+ *     responses:
+ *       200:
+ *         description: Lista de clases especiales obtenida exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                   titulo:
+ *                     type: string
+ *                   fecha:
+ *                     type: string
+ *                     format: date-time
+ *                   horaInicio:
+ *                     type: string
+ *                   horaFin:
+ *                     type: string
+ *                   maxPlazas:
+ *                     type: integer
+ *                   instructor:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       nombre:
+ *                         type: string
+ *                       foto:
+ *                         type: string
+ *                   reservas:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         _id:
+ *                           type: string
+ *                         atleta:
+ *                           type: object
+ *                           properties:
+ *                             _id:
+ *                               type: string
+ *                             nombre:
+ *                               type: string
+ *                             foto:
+ *                               type: string
+ *                         status:
+ *                           type: string
+ *                           enum: [pendiente, confirmada, cancelada]
+ */
+router.get('/especiales', claseController.getClasesEspeciales);
+
 module.exports = router; 

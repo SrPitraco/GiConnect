@@ -444,3 +444,41 @@ exports.confirmarAsistencia = async (req, res) => {
     res.status(500).json({ message: 'Error al confirmar asistencia' });
   }
 };
+
+// Obtener clases especiales hasta una fecha específica
+exports.getClasesEspeciales = async (req, res) => {
+  try {
+    const { fecha } = req.query;
+    
+    if (!fecha) {
+      return res.status(400).json({ message: 'La fecha es requerida' });
+    }
+
+    const fechaLimite = new Date(fecha);
+    
+    // Buscar clases especiales (sin diaSemana) hasta la fecha límite
+    const clasesEspeciales = await Clase.find({
+      diaSemana: { $exists: false },
+      fecha: { $lte: fechaLimite }
+    })
+    .populate('instructor', 'nombre foto')
+    .populate({
+      path: 'reservas',
+      match: { status: { $in: ['pendiente', 'confirmada'] } },
+      populate: {
+        path: 'atleta',
+        select: 'nombre foto'
+      }
+    })
+    .sort({ fecha: 1 }); // Ordenar por fecha ascendente
+
+    console.log('=== BACKEND DEBUG === Clases especiales encontradas:', clasesEspeciales.length);
+    
+    res.json(clasesEspeciales);
+  } catch (error) {
+    console.error('Error al obtener clases especiales:', error);
+    res.status(500).json({ message: 'Error al obtener clases especiales' });
+  }
+};
+
+module.exports = exports;

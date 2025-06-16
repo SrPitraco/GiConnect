@@ -30,8 +30,8 @@ interface Clase {
     foto?: string;
   };
   reservas: Reserva[];
-  diaSemana?: string;  // Cambiado de diasSemana[] a diaSemana
-  fecha?: string;      // Cambiado de fechaEspecial a fecha
+  diaSemana?: string;
+  fecha: Date;
 }
 
 interface Reserva {
@@ -118,7 +118,15 @@ export class ReservasPage implements OnInit, OnDestroy {
   obtenerFechaLunes(): string {
     const hoy = new Date();
     const dia = hoy.getDay();
-    const diff = hoy.getDate() - dia + (dia === 0 ? -6 : 1); // Ajustar cuando es domingo
+    // Si es domingo después de las 15:00, mostrar la semana siguiente
+    if (dia === 0 && hoy.getHours() >= 15) {
+      const lunes = new Date(hoy);
+      lunes.setDate(hoy.getDate() + 1); // Lunes de la semana siguiente
+      lunes.setHours(0, 0, 0, 0);
+      return lunes.toISOString();
+    }
+    // Si no, mostrar la semana actual
+    const diff = hoy.getDate() - dia + (dia === 0 ? -6 : 1);
     const lunes = new Date(hoy.setDate(diff));
     lunes.setHours(0, 0, 0, 0);
     return lunes.toISOString();
@@ -152,7 +160,7 @@ export class ReservasPage implements OnInit, OnDestroy {
       // Generar la semana actual
       this.generarSemanaActual();
 
-      // Primero intentamos generar las clases de la semana
+      // Intentamos generar las clases de la semana
       try {
         const responseGeneracion = await this.http.post(
           `${this.apiUrl}/clases/generar-semana?fecha=${fechaLunes}`,
@@ -162,13 +170,13 @@ export class ReservasPage implements OnInit, OnDestroy {
         console.log('=== FRONTEND DEBUG === Clases generadas:', responseGeneracion);
       } catch (error: any) {
         console.error('Error al generar clases:', error);
-        // Si no es un error de permisos, lo ignoramos y continuamos
-        if (error.status !== 403) {
-          console.log('Continuando sin generar clases...');
+        // Si es un error 404, probablemente la ruta no está disponible en producción
+        if (error.status === 404) {
+          console.log('La ruta de generación de clases no está disponible');
         }
       }
 
-      // Luego obtenemos las clases de la semana
+      // Obtenemos las clases de la semana actual
       const response: any = await this.http.get(
         `${this.apiUrl}/clases/semana?fecha=${fechaLunes}`,
         { headers: this.getHeaders() }
@@ -177,7 +185,11 @@ export class ReservasPage implements OnInit, OnDestroy {
       console.log('=== FRONTEND DEBUG === Respuesta del servidor:', response);
 
       if (response && response.clases) {
-        this.procesarClases(response.clases);
+        // Procesamos las clases de la semana actual
+        this.procesarClases(response.clases, []);
+
+        // Obtenemos las clases especiales (posteriores a la semana actual)
+        await this.cargarClasesEspeciales(fechaLunes);
       } else {
         console.error('Formato de respuesta inválido:', response);
         this.presentToast('Error al cargar las clases');
@@ -186,6 +198,72 @@ export class ReservasPage implements OnInit, OnDestroy {
       console.error('Error al cargar clases:', error);
       this.presentToast('Error al cargar las clases');
     }
+  }
+
+  async cargarClasesEspeciales(fechaLunes: string) {
+    try {
+      // Calculamos la fecha del fin de la semana actual
+      const fechaFinSemana = new Date(fechaLunes);
+      fechaFinSemana.setDate(fechaFinSemana.getDate() + 6);
+      fechaFinSemana.setHours(23, 59, 59, 999);
+
+      // Obtenemos las clases especiales (posteriores a la semana actual)
+      const response: any = await this.http.get(
+        `${this.apiUrl}/clases/especiales?fecha=${fechaFinSemana.toISOString()}`,
+        { headers: this.getHeaders() }
+      ).toPromise();
+
+      console.log('=== FRONTEND DEBUG === Clases especiales recibidas:', response);
+
+      if (response && response.clases) {
+        // Procesamos las clases especiales
+        this.procesarClasesEspeciales(response.clases);
+      }
+    } catch (error) {
+      console.error('Error al cargar clases especiales:', error);
+    }
+  }
+
+  procesarClasesEspeciales(clases: Clase[]) {
+    if (!clases || clases.length === 0) {
+      this.clasesEspeciales = [];
+      return;
+    }
+
+    // Agrupar las clases especiales por fecha
+    const clasesPorFecha = new Map<string, Clase[]>();
+    
+    clases.forEach(clase => {
+      const fecha = clase.fecha instanceof Date ? clase.fecha : new Date(clase.fecha);
+      const fechaStr = fecha.toISOString().split('T')[0];
+      
+      if (!clasesPorFecha.has(fechaStr)) {
+        clasesPorFecha.set(fechaStr, []);
+      }
+      clasesPorFecha.get(fechaStr)?.push(clase);
+    });
+
+    // Convertir el Map a un array de objetos con nombre y clases
+    this.clasesEspeciales = Array.from(clasesPorFecha.entries()).map(([fechaStr, clases]) => {
+      const fecha = new Date(fechaStr);
+      const diaSemana = this.obtenerDiaSemana(fecha);
+      const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+      const nombre = `${diaSemana} ${fecha.getDate()} ${meses[fecha.getMonth()]}`;
+      
+      // Ordenar las clases por hora de inicio
+      clases.sort((a, b) => a.horaInicio.localeCompare(b.horaInicio));
+      
+      return { nombre, clases };
+    });
+
+    // Ordenar las fechas
+    this.clasesEspeciales.sort((a, b) => {
+      const fechaA = new Date(a.nombre.split(' ')[1] + ' ' + a.nombre.split(' ')[2] + ' ' + new Date().getFullYear());
+      const fechaB = new Date(b.nombre.split(' ')[1] + ' ' + b.nombre.split(' ')[2] + ' ' + new Date().getFullYear());
+      return fechaA.getTime() - fechaB.getTime();
+    });
+
+    console.log('=== FRONTEND DEBUG === Clases especiales procesadas:', this.clasesEspeciales);
   }
 
   generarSemanaActual() {
@@ -212,7 +290,7 @@ export class ReservasPage implements OnInit, OnDestroy {
     }
   }
 
-  procesarClases(clases: any[]) {
+  procesarClases(clases: Clase[], clasesEspeciales: Clase[]) {
     // Inicializar el objeto de clases por día
     this.clasesPorDia = {
       'Lunes': [], 'Martes': [], 'Miércoles': [], 'Jueves': [],
@@ -223,55 +301,21 @@ export class ReservasPage implements OnInit, OnDestroy {
     this.clasesEspeciales = [];
 
     console.log('=== FRONTEND DEBUG === Procesando clases:', clases.length);
+    console.log('=== FRONTEND DEBUG === Procesando clases especiales:', clasesEspeciales?.length || 0);
 
-    // Obtener el fin de la semana actual
-    const hoy = new Date();
-    const diaSemana = hoy.getDay();
-    const ajuste = diaSemana === 0 ? -6 : 1 - diaSemana;
-    const fechaLunes = new Date(hoy);
-    fechaLunes.setDate(hoy.getDate() + ajuste);
+    // Obtener la fecha del lunes de la semana actual
+    const fechaLunes = new Date(this.obtenerFechaLunes());
     const fechaFinSemana = new Date(fechaLunes);
     fechaFinSemana.setDate(fechaLunes.getDate() + 6);
     fechaFinSemana.setHours(23, 59, 59, 999);
 
-    console.log('=== FRONTEND DEBUG === Fechas de referencia:', {
-      hoy: hoy.toISOString(),
-      fechaLunes: fechaLunes.toISOString(),
-      fechaFinSemana: fechaFinSemana.toISOString()
-    });
-
-    // Procesar cada clase
+    // Procesar clases de la semana actual
     clases.forEach(clase => {
-      const fecha = new Date(clase.fecha);
+      // Asegurarnos de que fecha es un objeto Date
+      const fecha = clase.fecha instanceof Date ? clase.fecha : new Date(clase.fecha);
       
-      console.log('=== FRONTEND DEBUG === Procesando clase:', {
-        titulo: clase.titulo,
-        fecha: fecha.toISOString(),
-        esEspecial: !clase.diaSemana,
-        fechaFinSemana: fechaFinSemana.toISOString(),
-        esPosterior: fecha > fechaFinSemana
-      });
-
-      // Si es una clase especial (sin diaSemana) y su fecha es posterior al fin de la semana actual
-      if (!clase.diaSemana && fecha > fechaFinSemana) {
-        const diaSemana = this.obtenerDiaSemana(fecha);
-        const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        const nombreDia = `${diaSemana} ${fecha.getDate()} ${meses[fecha.getMonth()]}`;
-        
-        console.log('=== FRONTEND DEBUG === Agregando clase especial:', {
-          nombreDia,
-          titulo: clase.titulo,
-          fecha: fecha.toISOString()
-        });
-
-        // Buscar si ya existe un día con esta fecha
-        let diaExistente = this.clasesEspeciales.find(d => d.nombre === nombreDia);
-        if (!diaExistente) {
-          diaExistente = { nombre: nombreDia, clases: [] };
-          this.clasesEspeciales.push(diaExistente);
-        }
-        diaExistente.clases.push(clase);
-      } else {
+      // Si la fecha está dentro de la semana actual
+      if (fecha >= fechaLunes && fecha <= fechaFinSemana) {
         const diaSemana = this.obtenerDiaSemana(fecha);
         if (this.clasesPorDia[diaSemana]) {
           this.clasesPorDia[diaSemana].push(clase);
@@ -279,24 +323,50 @@ export class ReservasPage implements OnInit, OnDestroy {
       }
     });
 
-    console.log('=== FRONTEND DEBUG === Clases especiales encontradas:', this.clasesEspeciales);
+    // Procesar clases especiales futuras
+    if (clasesEspeciales && clasesEspeciales.length > 0) {
+      // Agrupar las clases especiales por fecha
+      const clasesPorFecha = new Map<string, Clase[]>();
+      
+      clasesEspeciales.forEach(clase => {
+        // Asegurarnos de que fecha es un objeto Date
+        const fecha = clase.fecha instanceof Date ? clase.fecha : new Date(clase.fecha);
+        
+        // Solo incluir clases futuras (después del fin de la semana actual)
+        if (fecha > fechaFinSemana) {
+          const fechaStr = fecha.toISOString().split('T')[0];
+          
+          if (!clasesPorFecha.has(fechaStr)) {
+            clasesPorFecha.set(fechaStr, []);
+          }
+          clasesPorFecha.get(fechaStr)?.push(clase);
+        }
+      });
+
+      // Convertir el Map a un array de objetos con nombre y clases
+      this.clasesEspeciales = Array.from(clasesPorFecha.entries()).map(([fechaStr, clases]) => {
+        const fecha = new Date(fechaStr);
+        const diaSemana = this.obtenerDiaSemana(fecha);
+        const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        const nombre = `${diaSemana} ${fecha.getDate()} ${meses[fecha.getMonth()]}`;
+        
+        // Ordenar las clases por hora de inicio
+        clases.sort((a, b) => a.horaInicio.localeCompare(b.horaInicio));
+        
+        return { nombre, clases };
+      });
+
+      // Ordenar las fechas
+      this.clasesEspeciales.sort((a, b) => {
+        const fechaA = new Date(a.nombre.split(' ')[1] + ' ' + a.nombre.split(' ')[2] + ' ' + new Date().getFullYear());
+        const fechaB = new Date(b.nombre.split(' ')[1] + ' ' + b.nombre.split(' ')[2] + ' ' + new Date().getFullYear());
+        return fechaA.getTime() - fechaB.getTime();
+      });
+    }
 
     // Ordenar las clases por hora de inicio en cada día
     Object.keys(this.clasesPorDia).forEach(dia => {
       this.clasesPorDia[dia].sort((a, b) => {
-        return a.horaInicio.localeCompare(b.horaInicio);
-      });
-    });
-
-    // Ordenar las clases especiales por fecha y hora
-    this.clasesEspeciales.sort((a, b) => {
-      const fechaA = new Date(a.nombre.split(' ')[1] + ' ' + a.nombre.split(' ')[2] + ' ' + new Date().getFullYear());
-      const fechaB = new Date(b.nombre.split(' ')[1] + ' ' + b.nombre.split(' ')[2] + ' ' + new Date().getFullYear());
-      return fechaA.getTime() - fechaB.getTime();
-    });
-
-    this.clasesEspeciales.forEach(dia => {
-      dia.clases.sort((a, b) => {
         return a.horaInicio.localeCompare(b.horaInicio);
       });
     });
