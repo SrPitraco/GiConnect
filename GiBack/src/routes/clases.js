@@ -36,11 +36,221 @@ const ctrl         = require('../controllers/claseController');
  *                     type: string
  *                   maxPlazas:
  *                     type: integer
+ *                   instructor:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       nombre:
+ *                         type: string
+ *                       foto:
+ *                         type: string
  *       401:
  *         description: No autorizado
  */
 router.get('/',           authJwt, ctrl.list);
+
+/**
+ * @swagger
+ * /api/clases/semana:
+ *   get:
+ *     summary: Obtiene las clases de la semana actual
+ *     tags: [Clases]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Clases de la semana obtenidas exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 clases:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       titulo:
+ *                         type: string
+ *                       fecha:
+ *                         type: string
+ *                         format: date-time
+ *                       horaInicio:
+ *                         type: string
+ *                       horaFin:
+ *                         type: string
+ *                       maxPlazas:
+ *                         type: integer
+ *                       instructor:
+ *                         type: object
+ *                         properties:
+ *                           _id:
+ *                             type: string
+ *                           nombre:
+ *                             type: string
+ *                           foto:
+ *                             type: string
+ *                       reservas:
+ *                         type: array
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             _id:
+ *                               type: string
+ *                             atleta:
+ *                               type: object
+ *                               properties:
+ *                                 _id:
+ *                                   type: string
+ *                                 nombre:
+ *                                   type: string
+ *                                 foto:
+ *                                   type: string
+ *                             status:
+ *                               type: string
+ *                               enum: [pendiente, confirmada, cancelada]
+ */
 router.get('/semana',     authJwt, ctrl.listSemana);
+
+/**
+ * @swagger
+ * /api/clases/especiales:
+ *   get:
+ *     summary: Obtiene las clases especiales hasta una fecha específica
+ *     tags: [Clases]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: fecha
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: date-time
+ *         description: Fecha límite para buscar clases especiales
+ *     responses:
+ *       200:
+ *         description: Lista de clases especiales obtenida exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                   titulo:
+ *                     type: string
+ *                   fecha:
+ *                     type: string
+ *                     format: date-time
+ *                   horaInicio:
+ *                     type: string
+ *                   horaFin:
+ *                     type: string
+ *                   maxPlazas:
+ *                     type: integer
+ *                   instructor:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       nombre:
+ *                         type: string
+ *                       foto:
+ *                         type: string
+ *                   reservas:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         _id:
+ *                           type: string
+ *                         atleta:
+ *                           type: object
+ *                           properties:
+ *                             _id:
+ *                               type: string
+ *                             nombre:
+ *                               type: string
+ *                             foto:
+ *                               type: string
+ *                         status:
+ *                           type: string
+ *                           enum: [pendiente, confirmada, cancelada]
+ */
+router.get('/especiales', authJwt, ctrl.getClasesEspeciales);
+
+/**
+ * @swagger
+ * /api/clases/para-pasar-lista:
+ *   get:
+ *     summary: Obtiene las clases disponibles para pasar lista (solo para maestros)
+ *     tags: [Clases]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Clases obtenidas exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   _id:
+ *                     type: string
+ *                   titulo:
+ *                     type: string
+ *                   fecha:
+ *                     type: string
+ *                     format: date-time
+ *                   horaInicio:
+ *                     type: string
+ *                   horaFin:
+ *                     type: string
+ *                   instructor:
+ *                     type: object
+ *                     properties:
+ *                       _id:
+ *                         type: string
+ *                       nombre:
+ *                         type: string
+ *                       foto:
+ *                         type: string
+ *                   reservas:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       properties:
+ *                         _id:
+ *                           type: string
+ *                         atleta:
+ *                           type: object
+ *                           properties:
+ *                             _id:
+ *                               type: string
+ *                             nombre:
+ *                               type: string
+ *                             apellidos:
+ *                               type: string
+ *                             foto:
+ *                               type: string
+ *                         status:
+ *                           type: string
+ *                           enum: [pendiente, confirmada, cancelada]
+ *                         asistenciaConfirmada:
+ *                           type: boolean
+ *       401:
+ *         description: No autorizado
+ *       403:
+ *         description: No tiene permisos suficientes
+ */
 router.get('/para-pasar-lista', authJwt, verifyRole(['maestro', 'admin']), ctrl.getClasesParaPasarLista);
 
 /**
@@ -231,6 +441,43 @@ router.put(
  *         description: Clase no encontrada
  */
 router.delete('/:id', authJwt, verifyRole(['maestro', 'admin']), ctrl.remove);
+
+/**
+ * @swagger
+ * /api/clases/generar-semana:
+ *   post:
+ *     summary: Genera las clases para la semana actual (solo para maestros y admin)
+ *     tags: [Clases]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               fecha:
+ *                 type: string
+ *                 format: date-time
+ *                 description: Fecha de inicio de la semana (lunes)
+ *     responses:
+ *       200:
+ *         description: Clases generadas exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 clasesGeneradas:
+ *                   type: integer
+ *                   description: Número de clases generadas
+ *       401:
+ *         description: No autorizado
+ *       403:
+ *         description: No tiene permisos suficientes
+ */
+router.post('/generar-semana', authJwt, verifyRole(['maestro', 'admin']), ctrl.generarClasesSemana);
 
 /**
  * @swagger
