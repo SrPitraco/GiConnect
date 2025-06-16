@@ -211,6 +211,7 @@ app.use(cors({
   origin: function(origin, callback) {
     console.log('🌐 Origen de la petición:', origin);
     const allowedOrigins = [
+      'https://giconnect-app-2025.web.app',
       'http://localhost:8100',
       'http://localhost:4200',
       'http://localhost:8080',
@@ -244,6 +245,7 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
 
+app.options('*', cors());
 // Middlewares
 app.use(express.json());
 
